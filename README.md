@@ -26,6 +26,8 @@ An open-source, native Apple TV screensaver player for a calmer living room and 
 
 维护者的 TestFlight 内部构建为 **1.0.0（2）**。收到邀请的 Apple ID 可在 Apple TV 安装 TestFlight，再接受邀请并安装；目前采用内部测试，不提供公开兑换链接。真机安装、音乐和长时间播放验收尚待执行，详见回归记录。
 
+[Apple 当前 TestFlight 安装指南](https://beta.itunes.apple.com/)要求 Apple TV 运行 tvOS 18 或以上（应用自身最低 tvOS 17）。邮件邀请需在手机或电脑打开取得兑换码，再到电视上的 TestFlight → Redeem 输入代码；详细安装和配对步骤见[回归文档](docs/回归测试.md#testflight-真机验收)。
+
 | 遥控器 | 操作 |
 |---|---|
 | 确认 / Select | 播放时显示控制层 |
