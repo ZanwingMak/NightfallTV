@@ -1,0 +1,18 @@
+{
+  "checkedAtUTC": "2026-10-11T20:39:14.047122+00:00",
+  "source": "Apple App Store Connect API",
+  "app": "Nightfall TV",
+  "appStoreConnectAppID": "6821692076",
+  "version": "1.0.1",
+  "build": "3",
+  "processingState": "VALID",
+  "internalBuildState": "IN_BETA_TESTING",
+  "testGroup": "Nightfall Internal",
+  "groupContainsBuild": true,
+  "whatsNewSaved": true,
+  "hardwareAcceptance": "Pending: no paired Apple TV; simulator and distribution status do not prove hardware installation or music compatibility.",
+  "sourceCommit": "bf7a50f1e3b97f6b08758c6a97b7e6f18609827f",
+  "regression": "https://github.com/ZanwingMak/NightfallTV/actions/runs/38172124599",
+  "passedTests": 23,
+  "failedTests": 0
+}
