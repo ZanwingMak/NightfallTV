@@ -1,0 +1,61 @@
+name: NightfallTV
+options:
+  deploymentTarget:
+    tvOS: "17.0"
+  createIntermediateGroups: true
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    MARKETING_VERSION: "1.0.0"
+    CURRENT_PROJECT_VERSION: "2"
+    DEVELOPMENT_TEAM: 2Q2LMV7BR6
+    CODE_SIGN_STYLE: Automatic
+targets:
+  NightfallTV:
+    type: application
+    platform: tvOS
+    sources:
+      - path: NightfallTV
+        excludes: [Resources/Info.plist]
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.zanwingmak.nightfalltv
+        PRODUCT_NAME: NightfallTV
+        ASSETCATALOG_COMPILER_APPICON_NAME: App Icon & Top Shelf Image
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        TARGETED_DEVICE_FAMILY: "3"
+    info:
+      path: NightfallTV/Resources/Info.plist
+      properties:
+        CFBundleDisplayName: Nightfall TV
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        ITSAppUsesNonExemptEncryption: false
+        UILaunchScreen:
+          UIColorName: LaunchBlack
+        TVTopShelfImage:
+          TVTopShelfPrimaryImage: Top Shelf Image
+          TVTopShelfPrimaryImageWide: Top Shelf Image Wide
+    scheme:
+      testTargets: [NightfallTVTests, NightfallTVUITests]
+      gatherCoverageData: true
+  NightfallTVTests:
+    type: bundle.unit-test
+    platform: tvOS
+    sources: [Tests]
+    dependencies:
+      - target: NightfallTV
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        PRODUCT_BUNDLE_IDENTIFIER: com.zanwingmak.nightfalltv.tests
+  NightfallTVUITests:
+    type: bundle.ui-testing
+    platform: tvOS
+    sources: [UITests]
+    dependencies:
+      - target: NightfallTV
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        PRODUCT_BUNDLE_IDENTIFIER: com.zanwingmak.nightfalltv.uitests

@@ -1,0 +1,108 @@
+import SwiftUI
+
+struct PlayerView: View {
+    @EnvironmentObject private var settings: SettingsStore
+    @EnvironmentObject private var playback: PlaybackController
+    @EnvironmentObject private var sound: SoundPlayer
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @FocusState private var screenFocused: Bool
+    @FocusState private var controlFocused: Bool
+
+    var body: some View {
+        ZStack {
+            screen
+                .focusable(!playback.controlsVisible).focusEffectDisabled().focused($screenFocused)
+                .onTapGesture { playback.showControls() }
+                .onMoveCommand { direction in
+                    playback.interaction()
+                    guard !playback.controlsVisible, playback.effectiveScene != .black else { return }
+                    switch direction {
+                    case .left: playback.step(forward: false)
+                    case .right: playback.step(forward: true)
+                    default: playback.showControls()
+                    }
+                }
+                .accessibilityIdentifier(playback.effectiveScene == .black ? "black-screen" : "playing-\(playback.effectiveScene.rawValue)")
+                .accessibilityLabel(settings.l("屏保。按确认键打开控制。", "Screensaver. Press Select for controls."))
+            if playback.controlsVisible { controls }
+        }
+        .background(.black).ignoresSafeArea()
+        .onPlayPauseCommand { playback.togglePause() }
+        .onExitCommand { playback.back() }
+        .onAppear { screenFocused = true }
+        .onChange(of: playback.controlsVisible) { _, visible in screenFocused = !visible; controlFocused = visible }
+    }
+
+    @ViewBuilder private var screen: some View {
+        if playback.effectiveScene == .black {
+            Color.black
+        } else {
+            ZStack {
+                if playback.effectiveScene == .gallery {
+                    GalleryArtwork(address: currentPhoto)
+                } else {
+                    TimelineView(.animation(minimumInterval: 1 / 30, paused: playback.paused || reduceMotion)) { timeline in
+                        SceneArtwork(kind: playback.effectiveScene,
+                                     time: reduceMotion ? 32 : playback.timeline.elapsed(at: timeline.date) * settings.value.speed)
+                            .id(playback.effectiveScene).transition(.opacity)
+                    }
+                    .animation(.easeInOut(duration: reduceMotion ? 0 : 1.5), value: playback.effectiveScene)
+                }
+                if playback.effectiveScene == .clock || settings.value.showClock {
+                    FloatingClock(date: playback.now, english: settings.value.english, format24: settings.value.clock24Hour, large: playback.effectiveScene == .clock)
+                }
+                Color.black.opacity(1 - settings.value.brightness).allowsHitTesting(false)
+            }
+        }
+    }
+
+    private var currentPhoto: String? {
+        let photos = settings.value.photos
+        guard !photos.isEmpty else { return nil }
+        let index = Int(playback.visualElapsed / Double(settings.value.photoSeconds)) % photos.count
+        return photos[index]
+    }
+
+    private var controls: some View {
+        VStack {
+            Spacer()
+            VStack(alignment: .leading, spacing: 24) {
+                HStack {
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text(playback.effectiveScene.title(settings.value.english)).font(.title2)
+                        Text(statusText).font(.caption).foregroundStyle(Palette.muted)
+                    }
+                    Spacer()
+                    Text(settings.l("10 秒后隐藏", "Hides after 10 seconds")).font(.caption).foregroundStyle(Palette.muted)
+                }
+                HStack(spacing: 20) {
+                    QuietButton(title: settings.l("上一幕", "Previous"), symbol: "backward.end.fill", id: "player-previous") { playback.step(forward: false) }.focused($controlFocused)
+                    QuietButton(title: playback.paused ? settings.l("继续", "Resume") : settings.l("暂停画面", "Pause visuals"), symbol: playback.paused ? "play.fill" : "pause.fill", id: "player-pause") { playback.togglePause() }
+                    QuietButton(title: settings.l("下一幕", "Next"), symbol: "forward.end.fill", id: "player-next") { playback.step(forward: true) }
+                    QuietButton(title: settings.l("纯黑", "Blackout"), symbol: "moon.zzz.fill", id: "player-black") { playback.blackNow() }
+                    QuietButton(title: settings.l("隐藏", "Hide"), symbol: "chevron.down", id: "hide-controls") { playback.controlsVisible = false }
+                    QuietButton(title: settings.l("退出", "Exit"), symbol: "xmark", id: "exit-player") { playback.stop() }
+                }
+                HStack(spacing: 24) {
+                    ChoicePicker(title: settings.l("睡眠定时", "Sleep timer"), selection: Binding(get: { settings.value.sleepMinutes }, set: { playback.setSleep($0) }),
+                                 options: [(0, settings.l("关闭", "Off"))] + [15, 30, 60, 90, 120].map { ($0, settings.l("\($0) 分钟", "\($0) min")) })
+                        .frame(width: 480).accessibilityIdentifier("player-timer")
+                    QuietButton(title: settings.value.favorites.contains(playback.scene) ? settings.l("移除收藏", "Unsave") : settings.l("收藏", "Save"), symbol: "heart", id: "player-favorite") { settings.toggleFavorite(playback.scene); playback.interaction() }
+                    if sound.selected != nil {
+                        QuietButton(title: settings.l("停止声景", "Stop sound"), symbol: "speaker.slash", id: "player-stop-sound") { sound.stop(); playback.interaction() }
+                    }
+                }
+            }.padding(40).background(Color(red: 0.035, green: 0.035, blue: 0.05), in: RoundedRectangle(cornerRadius: 24))
+                .overlay(RoundedRectangle(cornerRadius: 24).strokeBorder(.white.opacity(0.06)))
+                .padding(64)
+        }
+        .focusSection()
+    }
+
+    private var statusText: String {
+        if playback.timeline.expired(at: playback.now) { return settings.l("睡眠定时已结束 · 保持纯黑", "Sleep timer ended · staying dark") }
+        if settings.value.isNight(at: playback.now) { return settings.l("夜间规则生效 · 保持纯黑", "Night schedule active · staying dark") }
+        if let seconds = playback.secondsRemaining { return settings.l("睡眠定时剩余 \(seconds / 60) 分 \(seconds % 60) 秒", "Sleep timer: \(seconds / 60)m \(seconds % 60)s") }
+        return settings.l("音乐由原播放器控制 · 返回键先隐藏控制", "Your music stays with its player · Back hides controls first")
+    }
+}

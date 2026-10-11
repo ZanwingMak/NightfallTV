@@ -1,0 +1,30 @@
+name: tvOS regression
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  regression:
+    runs-on: macos-15
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Choose an Apple TV simulator
+        run: |
+          TASK_SIM_ID=$(xcrun simctl list devices available -j | python3 -c 'import json,sys; d=json.load(sys.stdin); print(next(x["udid"] for k,v in d["devices"].items() if "tvOS" in k for x in v if x["isAvailable"]))')
+          echo "TASK_SIM_ID=$TASK_SIM_ID" >> "$GITHUB_ENV"
+      - name: Build and test
+        run: |
+          xcodebuild -project NightfallTV.xcodeproj -scheme NightfallTV \
+            -destination "platform=tvOS Simulator,id=$TASK_SIM_ID" \
+            -resultBundlePath TestResults.xcresult CODE_SIGNING_ALLOWED=NO test
+      - name: Save regression results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tvos-regression
+          path: TestResults.xcresult
+          retention-days: 7

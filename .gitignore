@@ -1,0 +1,11 @@
+.DS_Store
+build/
+artifacts/
+*.xcuserstate
+xcuserdata/
+*.p8
+*.p12
+*.mobileprovision
+.env*
+.venv/
+__pycache__/
