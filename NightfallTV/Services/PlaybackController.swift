@@ -103,7 +103,7 @@ final class PlaybackController: ObservableObject {
         active = value
         UIApplication.shared.isIdleTimerDisabled = value && isPlaying
         if value { tick(Date()); homeInteraction = Date() }
-        else { sound.stop(); controlsVisible = false }
+        else { sound.stop(); controlsVisible = false; choosingOptions = false }
     }
 
     /// 检查库内闲置启动，仅由支持自动播放的浏览页面调用。

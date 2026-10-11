@@ -160,6 +160,5 @@ struct ChoicePicker<Value: Equatable>: View {
                 playback.choosingOptions = showing
                 playback.interaction()
             }
-            .onDisappear { if showingOptions { playback.choosingOptions = false } }
     }
 }
