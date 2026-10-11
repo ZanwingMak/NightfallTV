@@ -7,6 +7,7 @@ final class PlaybackController: ObservableObject {
     @Published private(set) var scene: SceneKind = .aurora
     @Published private(set) var paused = false
     @Published var controlsVisible = false
+    var choosingOptions = false
     @Published private(set) var now = Date()
     @Published private(set) var timeline = PlaybackTimeline(now: Date())
     @Published private(set) var playlist: [SceneKind] = []
@@ -43,6 +44,7 @@ final class PlaybackController: ObservableObject {
         finishedSleep = false
         lastRotation = 0
         controlsVisible = false
+        choosingOptions = false
         isPlaying = true
         UIApplication.shared.isIdleTimerDisabled = active
     }
@@ -51,6 +53,7 @@ final class PlaybackController: ObservableObject {
     func stop() {
         isPlaying = false
         controlsVisible = false
+        choosingOptions = false
         timeline.setSleep(minutes: 0, now: Date())
         sound.setVolume(settings.value.soundVolume)
         UIApplication.shared.isIdleTimerDisabled = false
@@ -116,7 +119,7 @@ final class PlaybackController: ObservableObject {
         now = date
         guard active, isPlaying else { return }
         sound.setVolume(settings.value.soundVolume, gain: timeline.audioGain(at: date))
-        if controlsVisible && date.timeIntervalSince(lastInteraction) >= 10 { controlsVisible = false }
+        if controlsVisible && !choosingOptions && date.timeIntervalSince(lastInteraction) >= 10 { controlsVisible = false }
         if timeline.expired(at: date) {
             if !finishedSleep {
                 sound.stop()

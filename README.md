@@ -1,18 +1,21 @@
 # Nightfall TV · 夜幕
 
-An open-source, native Apple TV screensaver player for a calmer living room and a darker bedroom. Built with SwiftUI, Canvas and AVFoundation. Free, offline-first, no account, no ads.
+An open-source, native Apple TV screensaver player for a calmer living room and a darker bedroom. Built with SwiftUI and AVFoundation. Free, offline-first, no account, no ads.
 
-原生 Apple TV 屏保播放器：10 种原创场景、完全黑屏、个人照片画廊、收藏轮播、6 种离线声景、睡眠定时与夜间自动黑屏。免费开源，没有广告或订阅。
+原生 Apple TV 屏保播放器：10 种屏保模式，包含 7 个真实拍摄场景、完全黑屏、个人照片画廊、收藏轮播、6 种离线声景、睡眠定时与夜间自动黑屏。免费开源，没有广告或订阅。
 
 ![Nightfall TV 实际首页](docs/screens/library.png)
 
-| 极光 | 沙丘 |
+实拍视频与预览的作者、来源及许可见[完整素材署名](MEDIA_LICENSES.md)。
+
+| 实拍极光 | 实拍沙漠落日 |
 |---|---|
-| ![极光](docs/screens/aurora.png) | ![沙丘](docs/screens/dunes.png) |
+| ![极光](docs/screens/aurora.png) | ![沙漠落日](docs/screens/dunes.png) |
 
 ## 功能
 
-- **10 种场景**：纯黑、极光、星河、海浪、炉火、沙丘、流光、雨窗、漂移时钟、照片画廊。
+- **10 种场景**：纯黑、实拍极光、夜空、海浪、炉火、沙漠落日、树林、雨窗、漂移时钟、照片画廊。
+- **真实景色**：7 个有免费再分发许可的摄影视频，离线静音循环；预览为真实视频帧，最高 1080p，部分为 720p。
 - **为卧室设计的全黑**：屏幕输出 RGB 0/0/0，无提示、时钟或焦点边框；启动即黑屏可选。
 - **私人收藏**：顺序 / 随机轮播、切换间隔、场景收藏。
 - **柔和声景**：雨、海浪、溪流、炉火、粉噪音、棕噪音；本地合成，无缝循环，主动选择后才发声。
@@ -54,13 +57,13 @@ xcodebuild -project NightfallTV.xcodeproj -scheme NightfallTV \
   CODE_SIGNING_ALLOWED=NO test
 ```
 
-[GitHub 完整回归](https://github.com/ZanwingMak/NightfallTV/actions/runs/38166099652)：13 个单元测试 + 5 个 UI 测试全部通过（2026-10-12）。其中照片网络专项访问本仓库的公开截图，离线执行可追加 `-skip-testing:NightfallTVTests/PersistenceTests/testRemotePhotosAndCache`。
+实拍版 1.0.1（3）已在 tvOS 26.5 的 Apple TV 4K 模拟器完成 **14 个单元测试 + 9 个 UI 测试，23/23 全部通过**（2026-10-12）；保存实际 3840×2160 截图并人工检查主要界面。云端回归状态见 [GitHub Actions](https://github.com/ZanwingMak/NightfallTV/actions)。其中照片网络专项访问本仓库的公开截图，离线执行可追加 `-skip-testing:NightfallTVTests/PersistenceTests/testRemotePhotosAndCache`。
 
-如需修改工程配置，安装 XcodeGen 后执行 `xcodegen generate`。声景与图标可用 `python3 scripts/generate_audio.py`、`swift scripts/generate_assets.swift` 重新生成。安装到自己的真机或发布时，请在 Xcode Signing 中替换为自己的 Team 和 Bundle ID；`ExportOptions.plist` 是本项目维护者的发布配置示例，其他开发者需替换对应值。
+如需修改工程配置，安装 XcodeGen 后执行 `xcodegen generate`。实拍视频可用 `python3 scripts/import_media.py` 重新导入（需 FFmpeg，遵守来源网站限流）。声景与图标可用 `python3 scripts/generate_audio.py`、`swift scripts/generate_assets.swift` 重新生成。安装到自己的真机或发布时，请在 Xcode Signing 中替换为自己的 Team 和 Bundle ID；`ExportOptions.plist` 是本项目维护者的发布配置示例，其他开发者需替换对应值。
 
 ## 平台边界
 
-这是需手动启动的独立应用，不能成为 tvOS 的系统屏保插件，不能在其他应用上盖黑屏，也不能控制电视背光、关电视或停止外部音乐。LCD 即使输出全黑仍可能有背光；系统音量、Siri 等覆盖层不受应用控制。内置动态场景为原创生成艺术，不是摄影视频。
+这是需手动启动的独立应用，不能成为 tvOS 的系统屏保插件，不能在其他应用上盖黑屏，也不能控制电视背光、关电视或停止外部音乐。LCD 即使输出全黑仍可能有背光；系统音量、Siri 等覆盖层不受应用控制。内置自然景色均为实拍视频；时钟使用暗色背景，私人画廊显示用户照片。
 
 ## 文档与开源
 
@@ -69,4 +72,4 @@ xcodebuild -project NightfallTV.xcodeproj -scheme NightfallTV \
 - [隐私说明](PRIVACY.md)
 - [问题与建议](https://github.com/ZanwingMak/NightfallTV/issues)
 
-MIT License. 场景、图标及声音由本项目原创生成，生成代码包含在仓库内。
+代码、原创图标和合成声景使用 MIT。实拍视频与原帧预览保留原许可，详见[素材来源与许可](MEDIA_LICENSES.md)及应用「设置 → 实拍素材来源与授权」。

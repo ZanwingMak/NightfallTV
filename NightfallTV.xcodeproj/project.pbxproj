@@ -8,21 +8,38 @@
 
 /* Begin PBXBuildFile section */
 		0212A206292BD980D51DF790 /* PlaybackTimeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = C22B7AB48387C440840C8061 /* PlaybackTimeline.swift */; };
+		02F0142649DF7CBF1B1EBBBD /* ocean-poster.png in Resources */ = {isa = PBXBuildFile; fileRef = 7407397426C9285D184CCE81 /* ocean-poster.png */; };
 		04F9D8291AEC97D7D905316F /* PhotoLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB6ECB984626CFBF2DC4F3B /* PhotoLoader.swift */; };
+		0C19306C8484C9E2A43DEBED /* dunes.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 5B722BA6AE2A80EB091EBB3F /* dunes.mp4 */; };
+		0D64FB82E320CCA25C8A4033 /* ocean.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = DB599F17FFF15EFCBD0D9097 /* ocean.mp4 */; };
 		0DD0BA6D1C32FE24E69AAEDD /* pink.wav in Resources */ = {isa = PBXBuildFile; fileRef = 808EABB5534B5C1994F1B218 /* pink.wav */; };
 		10860D17681DBFFF450624BF /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 38D83115CFF05A9653C98ABC /* PrivacyInfo.xcprivacy */; };
+		112F771F20D6B548B6281A75 /* aurora-poster.png in Resources */ = {isa = PBXBuildFile; fileRef = 360A9637B961A709E5AB1925 /* aurora-poster.png */; };
 		17C4BF3D7744D29244128969 /* Catalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F0EE9B2B8D0C56E4EF1FCE /* Catalog.swift */; };
 		24F32E8764AC074507A1891B /* stream.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0E2B9B292A5C5D0DCEDE55CC /* stream.wav */; };
 		25C1835009B5266EDBC4BFDD /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D82A555A6F78C08B3D12FC2 /* SettingsView.swift */; };
 		2D735F313FD191EBA539059A /* PlaybackController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565281572865C6AC55F2C4F2 /* PlaybackController.swift */; };
 		340D1F1348EF53C1316CACF9 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB6EA9EBC418E0B5B03FD1F0 /* Preferences.swift */; };
 		4048AC7658E483DA51876036 /* rain.wav in Resources */ = {isa = PBXBuildFile; fileRef = CE24F0DCF8D73A3B6FDE6789 /* rain.wav */; };
+		46045DA8942AE736207ACA43 /* stars.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 4A89A37F4C1F73BB5812EF4E /* stars.mp4 */; };
+		51B5331D098ABF4F6B80A3A8 /* VideoCredit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6FA8DC48B998C7D9EB01B43 /* VideoCredit.swift */; };
+		5A3AE39D499ACEAF65E35FA3 /* MediaCreditsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9978FA54C59433C492650BFA /* MediaCreditsView.swift */; };
 		5EE2A166F0B39A287F4813D5 /* ocean.wav in Resources */ = {isa = PBXBuildFile; fileRef = B1DD7E8A94CC1A8C012BA067 /* ocean.wav */; };
 		67BAB87955FDED1E1DD40757 /* RulesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165EBB97B44368FFDDD61A85 /* RulesTests.swift */; };
 		694C769F118122BD315DBE06 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4EA7D3B7AF89860BFA8D1647 /* Assets.xcassets */; };
+		6D2C08C11ACFABA087AD1EE5 /* prism-poster.png in Resources */ = {isa = PBXBuildFile; fileRef = D59283210094FE4950CD164C /* prism-poster.png */; };
+		6D5CA1C9AC621CC1C86386B4 /* MediaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF72B201B7120740E628885B /* MediaTests.swift */; };
 		738C1433DA0C28A998B142A4 /* fire.wav in Resources */ = {isa = PBXBuildFile; fileRef = 1CCBF7A304D6C3921C3E748B /* fire.wav */; };
 		8118DAE58B9D17EFAB31EEF3 /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE68E63C3A9645AFC5C5438 /* Components.swift */; };
+		89BFE1A8618009859A5FAC39 /* credits.json in Resources */ = {isa = PBXBuildFile; fileRef = B3CE1B409A2997335808AB7A /* credits.json */; };
+		95EDD6F9F13F3ECF33EEB8EE /* prism.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 7C21EAB3DFD6BD74A2DF3158 /* prism.mp4 */; };
+		976EF18A3C67EC9225DE4006 /* ember-poster.png in Resources */ = {isa = PBXBuildFile; fileRef = EF1F72426F0D54802D643BB6 /* ember-poster.png */; };
+		985119130AEA9534A3FF9491 /* dunes-poster.png in Resources */ = {isa = PBXBuildFile; fileRef = 981FEB23BAFE9530902C90E0 /* dunes-poster.png */; };
+		A5AF550EEF991751BC27CF25 /* rain-poster.png in Resources */ = {isa = PBXBuildFile; fileRef = 234CB69FD797ED67249EEA04 /* rain-poster.png */; };
+		B58C8F1E175690D05C239058 /* ember.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = ACF5690E5D1259036A04E010 /* ember.mp4 */; };
+		BE69EDB27FE15AC65BC2799E /* VideoScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877966B641C28475AB28FDF5 /* VideoScene.swift */; };
 		C11663EB301F7EFCF2002891 /* SceneArtwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECDF5BD64ADBB86FE15075C5 /* SceneArtwork.swift */; };
+		C5028682EE3DA64AF1F4B5F1 /* rain.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = F64F35F30C8A8599E17E4152 /* rain.mp4 */; };
 		C747485F80D018592025E9D2 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C83D74D4D8F6D03C996DB5ED /* RootView.swift */; };
 		C7CFECD30FE7F287DB10DEB1 /* NightfallTVApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348B3C0AFB53A4A3A1AAE2A3 /* NightfallTVApp.swift */; };
 		D338F8CA912F538DBA29E1D3 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21366E54F0DE12130F20697C /* PlayerView.swift */; };
@@ -30,6 +47,8 @@
 		E21AA0C2279AD7A52B6590BE /* SoundPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD1D032D0317E9C9D8A94FD /* SoundPlayer.swift */; };
 		E245C850DDE43A7B57C86F0F /* SoundsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0E8FDDC1A58933DC3FBF18 /* SoundsView.swift */; };
 		E55E754AE2386F07F84A4258 /* brown.wav in Resources */ = {isa = PBXBuildFile; fileRef = 7A9725C4CB63DCF5934E8BC5 /* brown.wav */; };
+		F214A1CF57438CA828C0C75D /* aurora.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 6712338DFCB250EAD5906089 /* aurora.mp4 */; };
+		F42B78977CF13C9DED3A090D /* stars-poster.png in Resources */ = {isa = PBXBuildFile; fileRef = 648C579E62D62564E1B90D13 /* stars-poster.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,25 +76,44 @@
 		16F87B4EA91D401BF9448842 /* NightfallTVUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = NightfallTVUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CCBF7A304D6C3921C3E748B /* fire.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = fire.wav; sourceTree = "<group>"; };
 		21366E54F0DE12130F20697C /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
+		234CB69FD797ED67249EEA04 /* rain-poster.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rain-poster.png"; sourceTree = "<group>"; };
 		348B3C0AFB53A4A3A1AAE2A3 /* NightfallTVApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NightfallTVApp.swift; sourceTree = "<group>"; };
+		360A9637B961A709E5AB1925 /* aurora-poster.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "aurora-poster.png"; sourceTree = "<group>"; };
 		38D83115CFF05A9653C98ABC /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		4A89A37F4C1F73BB5812EF4E /* stars.mp4 */ = {isa = PBXFileReference; path = stars.mp4; sourceTree = "<group>"; };
 		4EA7D3B7AF89860BFA8D1647 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		565281572865C6AC55F2C4F2 /* PlaybackController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackController.swift; sourceTree = "<group>"; };
+		5B722BA6AE2A80EB091EBB3F /* dunes.mp4 */ = {isa = PBXFileReference; path = dunes.mp4; sourceTree = "<group>"; };
 		5FE68E63C3A9645AFC5C5438 /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
+		648C579E62D62564E1B90D13 /* stars-poster.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stars-poster.png"; sourceTree = "<group>"; };
+		6712338DFCB250EAD5906089 /* aurora.mp4 */ = {isa = PBXFileReference; path = aurora.mp4; sourceTree = "<group>"; };
 		70108AF46D4D3E2F66994F61 /* NightfallTV.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = NightfallTV.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7407397426C9285D184CCE81 /* ocean-poster.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ocean-poster.png"; sourceTree = "<group>"; };
 		7A9725C4CB63DCF5934E8BC5 /* brown.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = brown.wav; sourceTree = "<group>"; };
+		7C21EAB3DFD6BD74A2DF3158 /* prism.mp4 */ = {isa = PBXFileReference; path = prism.mp4; sourceTree = "<group>"; };
 		808EABB5534B5C1994F1B218 /* pink.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pink.wav; sourceTree = "<group>"; };
+		877966B641C28475AB28FDF5 /* VideoScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoScene.swift; sourceTree = "<group>"; };
+		981FEB23BAFE9530902C90E0 /* dunes-poster.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dunes-poster.png"; sourceTree = "<group>"; };
+		9978FA54C59433C492650BFA /* MediaCreditsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaCreditsView.swift; sourceTree = "<group>"; };
 		ABD1D032D0317E9C9D8A94FD /* SoundPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundPlayer.swift; sourceTree = "<group>"; };
+		ACF5690E5D1259036A04E010 /* ember.mp4 */ = {isa = PBXFileReference; path = ember.mp4; sourceTree = "<group>"; };
 		B1DD7E8A94CC1A8C012BA067 /* ocean.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = ocean.wav; sourceTree = "<group>"; };
+		B3CE1B409A2997335808AB7A /* credits.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = credits.json; sourceTree = "<group>"; };
 		BB5AA613A3B8837D2A957D51 /* NightfallTVTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = NightfallTVTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB6EA9EBC418E0B5B03FD1F0 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		C22B7AB48387C440840C8061 /* PlaybackTimeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackTimeline.swift; sourceTree = "<group>"; };
 		C5F0EE9B2B8D0C56E4EF1FCE /* Catalog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Catalog.swift; sourceTree = "<group>"; };
 		C83D74D4D8F6D03C996DB5ED /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		CE24F0DCF8D73A3B6FDE6789 /* rain.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = rain.wav; sourceTree = "<group>"; };
+		CF72B201B7120740E628885B /* MediaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaTests.swift; sourceTree = "<group>"; };
 		D23AA86138CC42571110123F /* ScreenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenTests.swift; sourceTree = "<group>"; };
+		D59283210094FE4950CD164C /* prism-poster.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "prism-poster.png"; sourceTree = "<group>"; };
+		DB599F17FFF15EFCBD0D9097 /* ocean.mp4 */ = {isa = PBXFileReference; path = ocean.mp4; sourceTree = "<group>"; };
+		E6FA8DC48B998C7D9EB01B43 /* VideoCredit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCredit.swift; sourceTree = "<group>"; };
 		ECB6ECB984626CFBF2DC4F3B /* PhotoLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoLoader.swift; sourceTree = "<group>"; };
 		ECDF5BD64ADBB86FE15075C5 /* SceneArtwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneArtwork.swift; sourceTree = "<group>"; };
+		EF1F72426F0D54802D643BB6 /* ember-poster.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ember-poster.png"; sourceTree = "<group>"; };
+		F64F35F30C8A8599E17E4152 /* rain.mp4 */ = {isa = PBXFileReference; path = rain.mp4; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -95,6 +133,7 @@
 				C5F0EE9B2B8D0C56E4EF1FCE /* Catalog.swift */,
 				C22B7AB48387C440840C8061 /* PlaybackTimeline.swift */,
 				BB6EA9EBC418E0B5B03FD1F0 /* Preferences.swift */,
+				E6FA8DC48B998C7D9EB01B43 /* VideoCredit.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -105,6 +144,7 @@
 				4EA7D3B7AF89860BFA8D1647 /* Assets.xcassets */,
 				38D83115CFF05A9653C98ABC /* PrivacyInfo.xcprivacy */,
 				8976FA4F90BFE7D47ABD0F32 /* Audio */,
+				A240C4F66C1F168EC81D5253 /* Media */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -162,9 +202,32 @@
 			path = UITests;
 			sourceTree = "<group>";
 		};
+		A240C4F66C1F168EC81D5253 /* Media */ = {
+			isa = PBXGroup;
+			children = (
+				360A9637B961A709E5AB1925 /* aurora-poster.png */,
+				6712338DFCB250EAD5906089 /* aurora.mp4 */,
+				B3CE1B409A2997335808AB7A /* credits.json */,
+				981FEB23BAFE9530902C90E0 /* dunes-poster.png */,
+				5B722BA6AE2A80EB091EBB3F /* dunes.mp4 */,
+				EF1F72426F0D54802D643BB6 /* ember-poster.png */,
+				ACF5690E5D1259036A04E010 /* ember.mp4 */,
+				7407397426C9285D184CCE81 /* ocean-poster.png */,
+				DB599F17FFF15EFCBD0D9097 /* ocean.mp4 */,
+				D59283210094FE4950CD164C /* prism-poster.png */,
+				7C21EAB3DFD6BD74A2DF3158 /* prism.mp4 */,
+				234CB69FD797ED67249EEA04 /* rain-poster.png */,
+				F64F35F30C8A8599E17E4152 /* rain.mp4 */,
+				648C579E62D62564E1B90D13 /* stars-poster.png */,
+				4A89A37F4C1F73BB5812EF4E /* stars.mp4 */,
+			);
+			path = Media;
+			sourceTree = "<group>";
+		};
 		D563CBD4E831E6CCDA3C38BC /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				CF72B201B7120740E628885B /* MediaTests.swift */,
 				165EBB97B44368FFDDD61A85 /* RulesTests.swift */,
 			);
 			path = Tests;
@@ -174,11 +237,13 @@
 			isa = PBXGroup;
 			children = (
 				5FE68E63C3A9645AFC5C5438 /* Components.swift */,
+				9978FA54C59433C492650BFA /* MediaCreditsView.swift */,
 				21366E54F0DE12130F20697C /* PlayerView.swift */,
 				C83D74D4D8F6D03C996DB5ED /* RootView.swift */,
 				ECDF5BD64ADBB86FE15075C5 /* SceneArtwork.swift */,
 				0D82A555A6F78C08B3D12FC2 /* SettingsView.swift */,
 				0D0E8FDDC1A58933DC3FBF18 /* SoundsView.swift */,
+				877966B641C28475AB28FDF5 /* VideoScene.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -292,11 +357,26 @@
 			files = (
 				694C769F118122BD315DBE06 /* Assets.xcassets in Resources */,
 				10860D17681DBFFF450624BF /* PrivacyInfo.xcprivacy in Resources */,
+				112F771F20D6B548B6281A75 /* aurora-poster.png in Resources */,
+				F214A1CF57438CA828C0C75D /* aurora.mp4 in Resources */,
 				E55E754AE2386F07F84A4258 /* brown.wav in Resources */,
+				89BFE1A8618009859A5FAC39 /* credits.json in Resources */,
+				985119130AEA9534A3FF9491 /* dunes-poster.png in Resources */,
+				0C19306C8484C9E2A43DEBED /* dunes.mp4 in Resources */,
+				976EF18A3C67EC9225DE4006 /* ember-poster.png in Resources */,
+				B58C8F1E175690D05C239058 /* ember.mp4 in Resources */,
 				738C1433DA0C28A998B142A4 /* fire.wav in Resources */,
+				02F0142649DF7CBF1B1EBBBD /* ocean-poster.png in Resources */,
+				0D64FB82E320CCA25C8A4033 /* ocean.mp4 in Resources */,
 				5EE2A166F0B39A287F4813D5 /* ocean.wav in Resources */,
 				0DD0BA6D1C32FE24E69AAEDD /* pink.wav in Resources */,
+				6D2C08C11ACFABA087AD1EE5 /* prism-poster.png in Resources */,
+				95EDD6F9F13F3ECF33EEB8EE /* prism.mp4 in Resources */,
+				A5AF550EEF991751BC27CF25 /* rain-poster.png in Resources */,
+				C5028682EE3DA64AF1F4B5F1 /* rain.mp4 in Resources */,
 				4048AC7658E483DA51876036 /* rain.wav in Resources */,
+				F42B78977CF13C9DED3A090D /* stars-poster.png in Resources */,
+				46045DA8942AE736207ACA43 /* stars.mp4 in Resources */,
 				24F32E8764AC074507A1891B /* stream.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -316,6 +396,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D5CA1C9AC621CC1C86386B4 /* MediaTests.swift in Sources */,
 				67BAB87955FDED1E1DD40757 /* RulesTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -326,6 +407,7 @@
 			files = (
 				17C4BF3D7744D29244128969 /* Catalog.swift in Sources */,
 				8118DAE58B9D17EFAB31EEF3 /* Components.swift in Sources */,
+				5A3AE39D499ACEAF65E35FA3 /* MediaCreditsView.swift in Sources */,
 				C7CFECD30FE7F287DB10DEB1 /* NightfallTVApp.swift in Sources */,
 				04F9D8291AEC97D7D905316F /* PhotoLoader.swift in Sources */,
 				2D735F313FD191EBA539059A /* PlaybackController.swift in Sources */,
@@ -337,6 +419,8 @@
 				25C1835009B5266EDBC4BFDD /* SettingsView.swift in Sources */,
 				E21AA0C2279AD7A52B6590BE /* SoundPlayer.swift in Sources */,
 				E245C850DDE43A7B57C86F0F /* SoundsView.swift in Sources */,
+				51B5331D098ABF4F6B80A3A8 /* VideoCredit.swift in Sources */,
+				BE69EDB27FE15AC65BC2799E /* VideoScene.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -425,7 +509,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 2Q2LMV7BR6;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -444,7 +528,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -527,7 +611,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 2Q2LMV7BR6;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -540,7 +624,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -71,15 +71,18 @@ struct QuietButton: View {
 }
 
 struct NightButtonStyle: ButtonStyle {
+    var isSelected = false
     @Environment(\.isFocused) private var focused
     @EnvironmentObject private var playback: PlaybackController
     /// 显式设置焦点与非焦点颜色，避免 tvOS 着色导致按钮文字不可见。
     func makeBody(configuration: Configuration) -> some View {
-        configuration.label
+        let fill: Color = focused ? .white : (isSelected ? Palette.accent.opacity(0.24) : Color.white.opacity(0.085))
+        let border: Color = focused ? .white : (isSelected ? Palette.accent.opacity(0.75) : Color.white.opacity(0.08))
+        return configuration.label
             .foregroundStyle(focused ? Color.black : Color.white.opacity(0.88))
             .padding(.horizontal, 16).padding(.vertical, 12)
-            .background(focused ? Color.white : Color.white.opacity(0.085), in: RoundedRectangle(cornerRadius: 16))
-            .overlay(RoundedRectangle(cornerRadius: 16).strokeBorder(focused ? Color.white : Color.white.opacity(0.08)))
+            .background(fill, in: RoundedRectangle(cornerRadius: 16))
+            .overlay(RoundedRectangle(cornerRadius: 16).strokeBorder(border))
             .scaleEffect(focused ? 1.04 : 1)
             .opacity(configuration.isPressed ? 0.7 : 1)
             .onChange(of: focused) { _, _ in playback.interaction() }
@@ -100,6 +103,7 @@ struct EmptyPanel: View {
 }
 
 struct ChoicePicker<Value: Equatable>: View {
+    @EnvironmentObject private var playback: PlaybackController
     let title: String
     @Binding var selection: Value
     let options: [(Value, String)]
@@ -115,12 +119,15 @@ struct ChoicePicker<Value: Equatable>: View {
             }.font(.callout).padding(.horizontal, 12)
         }.buttonStyle(NightButtonStyle())
             .accessibilityLabel(title + ", " + (options.first(where: { $0.0 == selection })?.1 ?? ""))
-            .sheet(isPresented: $showingOptions) {
+            .sheet(isPresented: $showingOptions, onDismiss: {
+                playback.choosingOptions = false
+                playback.interaction()
+            }) {
                 VStack(spacing: 32) {
                     HStack {
                         Text(title).font(.title2)
                         Spacer()
-                        Button { showingOptions = false } label: { Image(systemName: "xmark") }.buttonStyle(NightButtonStyle()).accessibilityLabel("关闭 / Close")
+                        Button { showingOptions = false } label: { Image(systemName: "xmark") }.buttonStyle(NightButtonStyle()).accessibilityLabel("关闭 / Close").accessibilityIdentifier("close-options")
                     }
                     ScrollView {
                         VStack(spacing: 16) {
@@ -138,5 +145,10 @@ struct ChoicePicker<Value: Equatable>: View {
                 }.frame(width: 680).padding(56).background(Palette.background)
                     .onExitCommand { showingOptions = false }
             }
+            .onChange(of: showingOptions) { _, showing in
+                playback.choosingOptions = showing
+                playback.interaction()
+            }
+            .onDisappear { if showingOptions { playback.choosingOptions = false } }
     }
 }

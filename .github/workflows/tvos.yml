@@ -2,7 +2,9 @@ name: tvOS regression
 on:
   push:
     branches: [main]
+    paths-ignore: ["docs/**", "README.md", "PRIVACY.md", "LICENSE"]
   pull_request:
+    paths-ignore: ["docs/**", "README.md", "PRIVACY.md", "LICENSE"]
   workflow_dispatch:
 permissions:
   contents: read

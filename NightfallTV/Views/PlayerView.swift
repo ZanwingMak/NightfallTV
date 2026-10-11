@@ -5,6 +5,7 @@ struct PlayerView: View {
     @EnvironmentObject private var playback: PlaybackController
     @EnvironmentObject private var sound: SoundPlayer
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.scenePhase) private var scenePhase
     @FocusState private var screenFocused: Bool
     @FocusState private var controlFocused: Bool
 
@@ -41,11 +42,14 @@ struct PlayerView: View {
                 if playback.effectiveScene == .gallery {
                     GalleryArtwork(address: currentPhoto)
                 } else {
-                    TimelineView(.animation(minimumInterval: 1 / 30, paused: playback.paused || reduceMotion)) { timeline in
-                        SceneArtwork(kind: playback.effectiveScene,
-                                     time: reduceMotion ? 32 : playback.timeline.elapsed(at: timeline.date) * settings.value.speed)
-                            .id(playback.effectiveScene).transition(.opacity)
+                    ZStack {
+                        SceneArtwork(kind: playback.effectiveScene)
+                        if playback.effectiveScene != .clock && !reduceMotion {
+                            VideoScene(kind: playback.effectiveScene, paused: playback.paused || scenePhase != .active, speed: settings.value.speed)
+                                .allowsHitTesting(false).accessibilityHidden(true)
+                        }
                     }
+                    .id(playback.effectiveScene).transition(.opacity)
                     .animation(.easeInOut(duration: reduceMotion ? 0 : 1.5), value: playback.effectiveScene)
                 }
                 if playback.effectiveScene == .clock || settings.value.showClock {

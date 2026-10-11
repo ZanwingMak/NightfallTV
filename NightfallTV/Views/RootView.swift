@@ -16,6 +16,7 @@ struct RootView: View {
     @Environment(\.scenePhase) private var scenePhase
     @State private var page: AppPage = .explore
     @State private var detail: SceneKind?
+    @State private var category = SceneCategory.all
     @State private var launched = false
 
     var body: some View {
@@ -30,7 +31,7 @@ struct RootView: View {
                     navigation.padding(.horizontal, 72).padding(.top, 40).focusSection()
                     Group {
                         switch page {
-                        case .explore: LibraryView { detail = $0; playback.interaction() }
+                        case .explore: LibraryView(category: $category) { detail = $0; playback.interaction() }
                         case .collection: CollectionView { detail = $0; playback.interaction() }
                         case .sounds: SoundsView()
                         case .night: NightView()
@@ -72,7 +73,7 @@ struct RootView: View {
                     Text(item.title(settings.value.english)).font(.callout.weight(page == item ? .semibold : .regular))
                         .padding(.horizontal, 16).padding(.vertical, 8)
                 }
-                .buttonStyle(NightButtonStyle()).tint(page == item ? Palette.accent : .white.opacity(0.12))
+                .buttonStyle(NightButtonStyle(isSelected: page == item)).accessibilityAddTraits(page == item ? .isSelected : [])
                 .accessibilityIdentifier("nav-\(item.rawValue)")
             }
         }
@@ -82,7 +83,7 @@ struct RootView: View {
 struct LibraryView: View {
     @EnvironmentObject private var settings: SettingsStore
     @EnvironmentObject private var playback: PlaybackController
-    @State private var category = SceneCategory.all
+    @Binding var category: SceneCategory
     let open: (SceneKind) -> Void
 
     var body: some View {
@@ -93,7 +94,7 @@ struct LibraryView: View {
                     ForEach(SceneCategory.allCases) { item in
                         Button { category = item; playback.interaction() } label: {
                             Text(item.title(settings.value.english)).font(.callout).padding(.horizontal, 16)
-                        }.buttonStyle(NightButtonStyle()).tint(category == item ? Palette.accent : .white.opacity(0.1))
+                        }.buttonStyle(NightButtonStyle(isSelected: category == item)).accessibilityAddTraits(category == item ? .isSelected : [])
                             .accessibilityIdentifier("category-\(item.rawValue)")
                     }
                     Spacer()
@@ -111,7 +112,7 @@ struct LibraryView: View {
 
     private var hero: some View {
         ZStack(alignment: .leading) {
-            SceneArtwork(kind: .aurora, time: 45)
+            SceneArtwork(kind: .aurora)
             LinearGradient(colors: [.black.opacity(0.86), .black.opacity(0.5), .clear], startPoint: .leading, endPoint: .trailing)
             VStack(alignment: .leading, spacing: 20) {
                 Text("A LITTLE LESS LIGHT. A LITTLE MORE PEACE.").font(.caption.weight(.medium)).tracking(3).foregroundStyle(Palette.accent)

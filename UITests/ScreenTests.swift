@@ -41,7 +41,7 @@ final class ScreenTests: XCTestCase {
     }
 
     /// 逐像素确认纯黑画面，不允许任何可见 RGB 分量。
-    private func assertBlack(file: StaticString = #filePath, line: UInt = #line) throws {
+    private func litPixelCount(file: StaticString = #filePath, line: UInt = #line) throws -> Int {
         let cgImage = try XCTUnwrap(XCUIScreen.main.screenshot().image.cgImage, file: file, line: line)
         let width = cgImage.width, height = cgImage.height
         var pixels = [UInt8](repeating: 0, count: width * height * 4)
@@ -52,7 +52,12 @@ final class ScreenTests: XCTestCase {
         for index in stride(from: 0, to: pixels.count, by: 4) {
             if pixels[index] != 0 || pixels[index + 1] != 0 || pixels[index + 2] != 0 { lit += 1 }
         }
-        XCTAssertEqual(lit, 0, "\(lit) pixels are not absolute black", file: file, line: line)
+        return lit
+    }
+
+    /// 验证画面完全没有亮像素，避免只依赖可能滞后的可访问性快照。
+    private func assertBlack(file: StaticString = #filePath, line: UInt = #line) throws {
+        XCTAssertEqual(try litPixelCount(file: file, line: line), 0, "Pixels must be absolute black", file: file, line: line)
     }
 
     /// 完整通过首屏按钮进入黑屏，验证控制层显示、隐藏与返回。
@@ -68,7 +73,8 @@ final class ScreenTests: XCTestCase {
         XCTAssertTrue(app.buttons["exit-player"].waitForExistence(timeout: 5))
         capture("03-player-controls")
         XCUIRemote.shared.press(.menu)
-        XCTAssertFalse(app.buttons["exit-player"].exists)
+        let hidden = XCTNSPredicateExpectation(predicate: NSPredicate(format: "exists == false"), object: app.buttons["exit-player"])
+        XCTAssertEqual(XCTWaiter.wait(for: [hidden], timeout: 5), .completed)
         try assertBlack()
         XCUIRemote.shared.press(.menu)
         XCTAssertTrue(app.buttons["quick-black"].waitForExistence(timeout: 5))
@@ -90,6 +96,7 @@ final class ScreenTests: XCTestCase {
         for scene in ["aurora", "stars", "ocean", "ember", "dunes", "prism", "rain", "clock", "gallery"] {
             let app = launch(["--scene=\(scene)"])
             XCTAssertTrue(app.descendants(matching: .any)["playing-\(scene)"].waitForExistence(timeout: 10), scene)
+            settle(3)
             capture("scene-\(scene)")
             XCUIRemote.shared.press(.select)
             XCTAssertTrue(app.buttons["exit-player"].waitForExistence(timeout: 5), scene)
@@ -131,4 +138,102 @@ final class ScreenTests: XCTestCase {
         activate("20%", in: app)
         XCTAssertTrue(app.buttons["brightness"].firstMatch.label.contains("20%"))
     }
+    /// 确认真实视频持续运动、遥控器暂停确实冻结像素，且纯黑不会被方向键误亮。
+    func testVideoPauseAndRemoteSwitching() throws {
+        let app = launch(["--scene=ocean"])
+        XCTAssertTrue(app.descendants(matching: .any)["playing-ocean"].waitForExistence(timeout: 10))
+        settle(3)
+        let moving = XCUIScreen.main.screenshot().pngRepresentation
+        settle(2)
+        XCTAssertNotEqual(moving, XCUIScreen.main.screenshot().pngRepresentation)
+        XCUIRemote.shared.press(.playPause)
+        settle(2)
+        let frozen = XCUIScreen.main.screenshot().pngRepresentation
+        settle(2)
+        XCTAssertEqual(frozen, XCUIScreen.main.screenshot().pngRepresentation)
+        capture("08-real-video-paused")
+        XCUIRemote.shared.press(.select)
+        XCTAssertTrue(app.buttons["player-pause"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons["player-pause"].label.contains("继续"))
+        XCUIRemote.shared.press(.menu)
+        XCUIRemote.shared.press(.playPause)
+        settle(2)
+        XCTAssertNotEqual(frozen, XCUIScreen.main.screenshot().pngRepresentation)
+        XCUIRemote.shared.press(.right)
+        XCTAssertTrue(app.descendants(matching: .any)["playing-ember"].waitForExistence(timeout: 5))
+        XCUIRemote.shared.press(.left)
+        XCTAssertTrue(app.descendants(matching: .any)["playing-ocean"].waitForExistence(timeout: 5))
+        XCUIRemote.shared.press(.select)
+        activate("player-black", in: app)
+        for direction in [XCUIRemote.Button.left, .right, .up, .down, .playPause] { XCUIRemote.shared.press(direction) }
+        try assertBlack()
+    }
+
+    /// 选择框允许慢慢操作，取消保持原值，结束操作后控制层才开始自动隐藏。
+    func testTimerPickerAndControlAutoHide() throws {
+        let app = launch(["--launch-black"])
+        XCUIRemote.shared.press(.select)
+        XCTAssertTrue(app.buttons["player-timer"].waitForExistence(timeout: 5))
+        activate("player-timer", in: app)
+        XCTAssertTrue(app.buttons["15 分钟"].waitForExistence(timeout: 5))
+        settle(12)
+        XCTAssertTrue(app.buttons["15 分钟"].exists, "Picker must remain available while choosing")
+        capture("09-sleep-options")
+        activate("15 分钟", in: app)
+        let ready = XCTNSPredicateExpectation(predicate: NSPredicate(format: "isHittable == true"), object: app.buttons["player-timer"])
+        XCTAssertEqual(XCTWaiter.wait(for: [ready], timeout: 5), .completed)
+        XCTAssertTrue(app.buttons["player-timer"].label.contains("15 分钟"))
+        activate("player-timer", in: app)
+        XCTAssertTrue(app.buttons["close-options"].waitForExistence(timeout: 5))
+        settle(1)
+        XCUIRemote.shared.press(.menu)
+        XCTAssertTrue(app.buttons["player-timer"].label.contains("15 分钟"))
+        settle(1)
+        XCTAssertGreaterThan(try litPixelCount(), 0, "Back from picker should keep the controls visible")
+        settle(12)
+        try assertBlack()
+        XCUIRemote.shared.press(.select)
+        XCTAssertTrue(app.buttons["exit-player"].waitForExistence(timeout: 5))
+    }
+
+    /// 等待播放器实际提交视频帧或定时器推进；不模拟应用内部状态。
+    private func settle(_ seconds: TimeInterval) {
+        let elapsed = expectation(description: "Rendering interval")
+        DispatchQueue.main.asyncAfter(deadline: .now() + seconds) { elapsed.fulfill() }
+        wait(for: [elapsed], timeout: seconds + 3)
+    }
+
+    /// 分类在详情返回后保留，语言选择可取消，授权页可由遥控器关闭。
+    func testCategoryReturnLanguageAndCredits() {
+        let app = launch()
+        activate("category-night", in: app)
+        activate("scene-clock", in: app)
+        XCTAssertTrue(app.buttons["close-detail"].waitForExistence(timeout: 5))
+        activate("close-detail", in: app)
+        XCTAssertFalse(app.buttons["scene-aurora"].exists, "Returning should preserve the chosen filter")
+        capture("10-night-category")
+        activate("nav-settings", in: app)
+        activate("language", in: app)
+        activate("English", in: app)
+        XCTAssertTrue(app.buttons["language"].label.contains("English"))
+        settle(1)
+        capture("11-english-settings")
+        activate("media-credits", in: app)
+        XCTAssertTrue(app.buttons["close-credits"].waitForExistence(timeout: 5))
+        capture("12-footage-credits")
+        XCUIRemote.shared.press(.menu)
+        XCTAssertTrue(app.buttons["media-credits"].waitForExistence(timeout: 5))
+    }
+
+    /// 超过炉火片段完整时长后继续检查帧变化，验证实际循环没有停在末帧。
+    func testRealVideoLoopsBeyondItsDuration() {
+        let app = launch(["--scene=ember"])
+        XCTAssertTrue(app.descendants(matching: .any)["playing-ember"].waitForExistence(timeout: 10))
+        settle(24)
+        let frame = XCUIScreen.main.screenshot().pngRepresentation
+        settle(2)
+        XCTAssertNotEqual(frame, XCUIScreen.main.screenshot().pngRepresentation)
+        capture("13-real-fire-loop")
+    }
+
 }
