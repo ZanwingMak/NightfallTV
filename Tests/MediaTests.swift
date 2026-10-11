@@ -27,5 +27,10 @@ final class MediaTests: XCTestCase {
             XCTAssertGreaterThanOrEqual(size.height, 720)
             XCTAssertLessThanOrEqual(size.width, 1920)
         }
+        let coordinator = VideoScene.Coordinator()
+        XCTAssertEqual(AVAudioSession.sharedInstance().category, .ambient)
+        XCTAssertTrue(AVAudioSession.sharedInstance().categoryOptions.contains(.mixWithOthers))
+        XCTAssertTrue(coordinator.player.isMuted)
+        coordinator.stop()
     }
 }

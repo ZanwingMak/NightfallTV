@@ -39,8 +39,9 @@ struct VideoScene: UIViewRepresentable {
         private var looper: AVPlayerLooper?
         private var scene: SceneKind?
 
-        /// 视频原文件已无音轨，额外静音并禁止外部视频接管。
+        /// 预设可混音类别但不主动激活，避免原生播放器的自动会话激活打断外部音乐。
         init() {
+            try? AVAudioSession.sharedInstance().setCategory(.ambient, mode: .default)
             player.isMuted = true
             player.allowsExternalPlayback = false
         }
