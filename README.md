@@ -24,6 +24,8 @@ An open-source, native Apple TV screensaver player for a calmer living room and 
 
 在音乐应用里开始播放 → 返回桌面 → 启动 Nightfall TV → 选择屏保，或「一键黑屏」。主动选择声景会与其他应用音频混音，默认没有声音。不同播放器的后台音乐兼容性需要在真实 Apple TV 验证。
 
+维护者的 TestFlight 内部构建为 **1.0.0（2）**。收到邀请的 Apple ID 可在 Apple TV 安装 TestFlight，再接受邀请并安装；目前采用内部测试，不提供公开兑换链接。真机安装、音乐和长时间播放验收尚待执行，详见回归记录。
+
 | 遥控器 | 操作 |
 |---|---|
 | 确认 / Select | 播放时显示控制层 |
@@ -49,6 +51,8 @@ xcodebuild -project NightfallTV.xcodeproj -scheme NightfallTV \
   -destination 'platform=tvOS Simulator,id=YOUR_SIMULATOR_ID' \
   CODE_SIGNING_ALLOWED=NO test
 ```
+
+[GitHub 完整回归](https://github.com/ZanwingMak/NightfallTV/actions/runs/38166099652)：13 个单元测试 + 5 个 UI 测试全部通过（2026-10-12）。其中照片网络专项访问本仓库的公开截图，离线执行可追加 `-skip-testing:NightfallTVTests/PersistenceTests/testRemotePhotosAndCache`。
 
 如需修改工程配置，安装 XcodeGen 后执行 `xcodegen generate`。声景与图标可用 `python3 scripts/generate_audio.py`、`swift scripts/generate_assets.swift` 重新生成。安装到自己的真机或发布时，请在 Xcode Signing 中替换为自己的 Team 和 Bundle ID；`ExportOptions.plist` 是本项目维护者的发布配置示例，其他开发者需替换对应值。
 
