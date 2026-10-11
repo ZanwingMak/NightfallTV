@@ -163,4 +163,21 @@ final class PersistenceTests: XCTestCase {
             XCTAssertGreaterThan(player.duration, 5)
         }
     }
+
+    /// 对公开的项目截图执行真实 HTTPS 下载，验证解码、缓存及非图片响应拒绝。
+    func testRemotePhotosAndCache() async throws {
+        let root = "https://raw.githubusercontent.com/ZanwingMak/NightfallTV/main/"
+        let address = root + "docs/screens/dunes.png"
+        let image = try await PhotoLoader.shared.load(address)
+        XCTAssertGreaterThan(image.size.width, 0)
+        XCTAssertLessThanOrEqual(max(image.size.width, image.size.height), 3840)
+        let cached = try await PhotoLoader.shared.load(address)
+        XCTAssertTrue(image === cached)
+        do {
+            _ = try await PhotoLoader.shared.load(root + "README.md")
+            XCTFail("Non-image response must be rejected")
+        } catch let error as URLError {
+            XCTAssertEqual(error.code, .badServerResponse)
+        }
+    }
 }
