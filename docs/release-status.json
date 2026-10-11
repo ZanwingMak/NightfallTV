@@ -1,6 +1,6 @@
 {
   "checkedAtUTC": "2026-10-11T20:39:14.047122+00:00",
-  "source": "Apple App Store Connect API",
+  "source": "Apple App Store Connect API; installation additionally verified in App Store Connect TestFlight UI on 2026-10-12",
   "app": "Nightfall TV",
   "appStoreConnectAppID": "6821692076",
   "version": "1.0.1",
@@ -10,7 +10,8 @@
   "testGroup": "Nightfall Internal",
   "groupContainsBuild": true,
   "whatsNewSaved": true,
-  "hardwareAcceptance": "Pending: no paired Apple TV; simulator and distribution status do not prove hardware installation or music compatibility.",
+  "hardwareInstallation": "Installed: 1.0.1 (3), Apple TV 4K (3rd generation), tvOS 26.6; reported by TestFlight UI.",
+  "hardwareAcceptance": "Pending: external music, remote controls, physical black-screen appearance and 30-minute playback require actual results; no Apple TV paired with this Mac.",
   "sourceCommit": "bf7a50f1e3b97f6b08758c6a97b7e6f18609827f",
   "regression": "https://github.com/ZanwingMak/NightfallTV/actions/runs/38172124599",
   "passedTests": 23,
