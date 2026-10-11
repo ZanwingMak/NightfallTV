@@ -37,7 +37,7 @@ struct SoundsView: View {
                                     Text(settings.l("离线 · 无缝循环", "Offline · seamless loop")).font(.caption).foregroundStyle(Palette.muted)
                                 }.padding(32)
                             }.clipShape(RoundedRectangle(cornerRadius: 20))
-                        }.buttonStyle(.card).accessibilityIdentifier("sound-\(kind.rawValue)")
+                        }.buttonStyle(ArtworkButtonStyle()).accessibilityIdentifier("sound-\(kind.rawValue)")
                     }
                 }
                 QuietButton(title: settings.l("带着声景进入黑屏", "Keep sound, go dark"), symbol: "moon.zzz.fill", id: "sound-black") { playback.start(.black) }
@@ -45,7 +45,7 @@ struct SoundsView: View {
         }.onChange(of: settings.value.soundVolume) { _, volume in sound.setVolume(volume) }
     }
 
-    /// 为声景分配不同的原创视觉预览。
+    /// 为声景分配静态实拍预览；预览不启动视频解码或音频。
     private func artwork(for sound: SoundKind) -> SceneKind {
         switch sound {
         case .rain: return .rain

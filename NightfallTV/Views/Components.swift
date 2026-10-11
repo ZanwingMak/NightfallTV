@@ -11,7 +11,6 @@ struct SceneCard: View {
     @EnvironmentObject private var settings: SettingsStore
     @EnvironmentObject private var playback: PlaybackController
     let action: () -> Void
-    @FocusState private var focused: Bool
     var body: some View {
         Button(action: action) {
             VStack(alignment: .leading, spacing: 0) {
@@ -35,14 +34,26 @@ struct SceneCard: View {
                     .background(Color.white.opacity(0.045))
             }
             .clipShape(RoundedRectangle(cornerRadius: 20))
-            .overlay(RoundedRectangle(cornerRadius: 20).strokeBorder(focused ? Palette.accent : .white.opacity(0.07), lineWidth: focused ? 3 : 1))
-            .scaleEffect(focused ? 1.025 : 1)
-            .shadow(color: Palette.accent.opacity(focused ? 0.2 : 0), radius: 24)
+            .overlay(RoundedRectangle(cornerRadius: 20).strokeBorder(.white.opacity(0.07)))
         }
-        .buttonStyle(.plain).focused($focused)
+        .buttonStyle(ArtworkButtonStyle())
         .accessibilityIdentifier("scene-\(scene.rawValue)")
         .accessibilityLabel(scene.title(settings.value.english))
-        .onChange(of: focused) { _, _ in playback.interaction() }
+    }
+}
+
+struct ArtworkButtonStyle: ButtonStyle {
+    @Environment(\.isFocused) private var focused
+    @EnvironmentObject private var playback: PlaybackController
+
+    /// 保留深色卡片正文，以边框和轻微放大表现焦点，避免系统白底覆盖白色标题。
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .overlay(RoundedRectangle(cornerRadius: 20).strokeBorder(focused ? Palette.accent : .clear, lineWidth: 3))
+            .scaleEffect(focused ? 1.025 : 1)
+            .shadow(color: Palette.accent.opacity(focused ? 0.2 : 0), radius: 24)
+            .opacity(configuration.isPressed ? 0.8 : 1)
+            .onChange(of: focused) { _, _ in playback.interaction() }
     }
 }
 
