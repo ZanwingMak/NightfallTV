@@ -3,16 +3,16 @@ import AVFoundation
 @testable import NightfallTV
 
 final class AudioTests: XCTestCase {
-    /// 检查全部声景的真实解码规格、低响度、削波和循环边界，防止仅文件存在却声音不可用。
+    /// 检查全部内置声景的解码规格、低响度、削波和循环；可选录音由下载用例另验。
     func testAudioLevelsStereoAndLoopBoundary() throws {
-        XCTAssertEqual(Set(AudioCredit.all.map(\.sound)), Set(SoundKind.allCases.filter(\.isRecording)))
+        XCTAssertEqual(Set(AudioCredit.all.map(\.sound)), Set(SoundKind.allCases.filter { $0.isRecording && !$0.isDownload }))
         for credit in AudioCredit.all {
             XCTAssertTrue(credit.sourceURL.hasPrefix("https://"))
             XCTAssertTrue(credit.licenseURL.hasPrefix("https://"))
             XCTAssertFalse(credit.creator.isEmpty)
             XCTAssertFalse(credit.changes.isEmpty)
         }
-        for sound in SoundKind.allCases {
+        for sound in SoundKind.allCases where !sound.isDownload {
             let url = try XCTUnwrap(Bundle.main.url(forResource: sound.rawValue, withExtension: "m4a"))
             let file = try AVAudioFile(forReading: url)
             XCTAssertEqual(file.processingFormat.channelCount, 2)
