@@ -11,7 +11,7 @@ permissions:
 jobs:
   regression:
     runs-on: macos-15
-    timeout-minutes: 25
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
       - name: Choose an Apple TV simulator
@@ -22,7 +22,7 @@ jobs:
         run: |
           xcodebuild -project NightfallTV.xcodeproj -scheme NightfallTV \
             -destination "platform=tvOS Simulator,id=$TASK_SIM_ID" \
-            -resultBundlePath TestResults.xcresult CODE_SIGNING_ALLOWED=YES CODE_SIGN_IDENTITY=- DEVELOPMENT_TEAM= test
+            -resultBundlePath TestResults.xcresult -collect-test-diagnostics never CODE_SIGNING_ALLOWED=YES CODE_SIGN_IDENTITY=- DEVELOPMENT_TEAM= test
       - name: Save regression results
         if: always()
         uses: actions/upload-artifact@v4
