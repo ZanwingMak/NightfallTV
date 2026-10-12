@@ -1,5 +1,5 @@
 {
-  "checkedAtUTC": "2026-10-12T04:58:22.697126+00:00",
+  "checkedAtUTC": "2026-10-12T05:10:12.448426+00:00",
   "source": "Apple App Store Connect API and TestFlight UI",
   "app": "Nightfall TV",
   "appStoreConnectAppID": "6821692076",
@@ -19,7 +19,15 @@
   "failedTests": 0,
   "skippedTests": 0,
   "ipaSHA256": "683aff5bfb51451d89fe53d55bf1ad88595ab6825ff20f85410acb86b8eb98c1",
-  "feedbackEvidence": "No feedback check for build 5 yet; no subjective or hardware acceptance claimed.",
+  "feedbackEvidence": "Official screenshot-feedback and crash-feedback APIs returned zero submissions at this check; empty feedback is not acceptance evidence.",
   "buildID": "3900fe59-b0ca-42cc-8235-bd21d4d91139",
-  "betaDescriptionStatus": "Previous 1.0.2 description still saved. Browser session expired; needs user sign-in to save expanded description."
+  "betaDescriptionStatus": "Existing API key returned 403 FORBIDDEN_ERROR for updating the expanded description. Browser remains on sign-in; no permissions changed. User sign-in is required.",
+  "buildUsageMetrics": {
+    "installCount": 0,
+    "crashCount": 0,
+    "sessionCount": 0,
+    "inviteCount": 3,
+    "feedbackCount": 0,
+    "note": "Official metrics currently report zero installs/sessions for build 5; reporting delay is possible. This is not evidence of hardware acceptance."
+  }
 }
