@@ -2,7 +2,7 @@
 
 An open-source, native Apple TV screensaver player for a calmer living room and a darker bedroom. Built with SwiftUI and AVFoundation. Free, offline-first, no account, no ads.
 
-原生 Apple TV 屏保播放器：13 种屏保模式，包含 10 个真实拍摄场景、完全黑屏、个人照片画廊、收藏轮播、10 种离线声景、睡眠定时与夜间自动黑屏。免费开源，没有广告或订阅。
+原生 Apple TV 屏保播放器：13 种屏保模式，包含 10 个真实拍摄场景、完全黑屏、个人照片画廊、收藏轮播、10 种离线声景、三层混音、个人睡前方案与独立自动黑屏。免费开源，没有广告或订阅。
 
 ![Nightfall TV 实际首页](docs/screens/library.png)
 
@@ -20,6 +20,9 @@ An open-source, native Apple TV screensaver player for a calmer living room and 
 - **私人收藏**：顺序 / 随机轮播、切换间隔、场景收藏。
 - **柔和声景**：雨、海浪、溪流、炉火、林间鸟鸣、夏夜虫鸣、风过树叶、瀑布、粉噪音、棕噪音；八种自然声为实录、两种有色噪音为合成，立体声离线循环，主动选择后才发声。
 - **有声屏保与画面开关**：场景详情可带推荐录音启动；声景页可自由搭配画面或纯黑；播放中可换声景、调音量、关画面和恢复，保留睡眠计时。默认不自动发声。
+- **三层声景混音**：最多同时搭配三种声音，调整每层相对音量；共有录音持续播放，不因增减声层而重新开始。主音量限制整体增益，睡眠淡出作用于全部声层。
+- **个人睡前方案**：最多十二个命名方案，保存画面、纯黑状态、声层、音量、亮度和两种定时；在「夜间 → 我的睡前方案」播放、纯黑听或移除，本地保存，重启后仍在。
+- **先看风景，再关画面**：1／5／10／15／30 分钟后自动黑屏，最后十秒渐暗；声音和睡眠计时继续。画面暂停不延长亮屏时间，手动恢复取消本次画面计时。
 - **睡前快捷方案**：30 分钟细雨、60 分钟棕噪音，一键纯黑入眠。
 - **睡眠与夜间**：15–120 分钟定时，结束保持黑屏；画面和本应用声音最后 30 秒一起淡出；自定义跨午夜规则。
 - **你的照片**：最多 30 张 HTTPS 图片直链；内存缓存、下载与解码限制；加载失败保持暗色。
@@ -29,11 +32,15 @@ An open-source, native Apple TV screensaver player for a calmer living room and 
 |---|---|
 | ![声景控制](docs/screens/sound-controls.png) | ![新声景](docs/screens/new-soundscapes.png) |
 
+| 三层声景混音 | 自动黑屏后恢复原画面 |
+|---|---|
+| ![混音](docs/screens/sound-mixer.png) | ![独立画面计时](docs/screens/picture-timer.png) |
+
 ## 使用
 
 在音乐应用里开始播放 → 返回桌面 → 启动 Nightfall TV → 选择屏保，或「一键黑屏」。主动选择声景会与其他应用音频混音，默认没有声音。不同播放器的后台音乐兼容性需要在真实 Apple TV 验证。
 
-维护者的 TestFlight 内部构建为 **1.1.0（5）**，已完成 Apple 处理并加入 Nightfall Internal。收到邀请的 Apple ID 可在 Apple TV 安装 TestFlight，再接受邀请并安装；目前采用内部测试，不提供公开兑换链接。旧1.0.2（4）已有 Apple TV 4K（第三代，tvOS26.6）安装记录；新版真机安装、听感、音乐兼容和长时间播放由用户自行验收；开发交付以模拟器回归通过为准，详见回归记录。
+维护者的 TestFlight 内部构建为 **1.2.0（6）**，已完成 Apple 处理并加入 Nightfall Internal。收到邀请的 Apple ID 可在 Apple TV 安装 TestFlight，再接受邀请并安装；目前采用内部测试，不提供公开兑换链接。旧1.0.2（4）已有 Apple TV 4K（第三代，tvOS26.6）安装记录；新版真机安装、听感、音乐兼容和长时间播放由用户自行验收；开发交付以模拟器回归通过为准，详见回归记录。
 
 [Apple 当前 TestFlight 安装指南](https://beta.itunes.apple.com/)要求 Apple TV 运行 tvOS 18 或以上（应用自身最低 tvOS 17）。邮件邀请需在手机或电脑打开取得兑换码，再到电视上的 TestFlight → Redeem 输入代码；详细安装和配对步骤见[回归文档](docs/回归测试.md#testflight-真机验收)。
 
@@ -63,7 +70,7 @@ xcodebuild -project NightfallTV.xcodeproj -scheme NightfallTV \
   CODE_SIGNING_ALLOWED=NO test
 ```
 
-1.1.0（5）已在 tvOS26.5 的 Apple TV4K 模拟器完成 **18个单元测试＋14个遥控器UI测试，32/32全部通过，0失败、0跳过**（2026-10-12）。[最终应用源码的云端完整回归](https://github.com/ZanwingMak/NightfallTV/actions/runs/38204028253)也已 **32/32通过**（Xcode16.4、tvOS26.1）。测试覆盖自选声景画面、纯黑与恢复、计时不重置、有声屏保、睡前方案及单次方向键跳转，并保存实际界面截图供人工检查。其中照片网络专项访问本仓库的公开截图，离线执行可追加 `-skip-testing:NightfallTVTests/PersistenceTests/testRemotePhotosAndCache`。
+1.2.0（6）已在 tvOS26.5 的 Apple TV4K 模拟器完成 **24个单元测试＋16个遥控器UI测试，40/40全部通过，0失败、0跳过**（2026-10-12）。[最终应用源码的云端完整回归](https://github.com/ZanwingMak/NightfallTV/actions/runs/38255699835)也已 **40/40通过**。测试覆盖三层混音持续播放、旧偏好迁移、方案保存与重启恢复／删除、真实等待一分钟的自动黑屏、画面恢复及原有遥控器方向导航。已保存实际界面截图并检查中英文显示和焦点样式。其中照片网络专项访问本仓库的公开截图，离线执行可追加 `-skip-testing:NightfallTVTests/PersistenceTests/testRemotePhotosAndCache`。
 
 如需修改工程配置，安装 XcodeGen 后执行 `xcodegen generate`。实拍视频可用 `python3 scripts/import_media.py` 重新导入（需 FFmpeg，遵守来源网站限流）。自然录音可用 `python3 scripts/import_audio.py` 重新导入，有色噪音可用 `python3 scripts/generate_audio.py` 生成（两者需要 FFmpeg，以及 `python3 -m pip install -r scripts/requirements-audio.txt` 安装的 NumPy）；图标用 `swift scripts/generate_assets.swift` 生成。安装到自己的真机或发布时，请在 Xcode Signing 中替换为自己的 Team 和 Bundle ID；`ExportOptions.plist` 是本项目维护者的发布配置示例，其他开发者需替换对应值。
 
