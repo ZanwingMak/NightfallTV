@@ -89,7 +89,7 @@ final class RoutineTests: XCTestCase {
         XCTAssertNotNil(settings.addRoutine(routine))
         defaults.set(Data("broken".utf8), forKey: "nightfall.routines.v1")
         XCTAssertTrue(SettingsStore(defaults: defaults).routines.isEmpty)
-        XCTAssertEqual(SettingsStore(defaults: defaults).value, Preferences())
+        XCTAssertEqual(SettingsStore(defaults: defaults).value, settings.value)
     }
 
     /// 保存不会停止或重启混音；播放个人方案恢复参数，并保持夜间安全边界。
