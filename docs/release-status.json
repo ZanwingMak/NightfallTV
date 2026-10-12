@@ -21,5 +21,7 @@
   "hardwareAcceptanceOwner": "user",
   "hardwareAcceptance": "Delegated to the user: physical sound quality, external music compatibility, TV backlight and long playback are not claimed as passed.",
   "agentAcceptance": "Local tvOS 26.5 and GitHub tvOS 26.1 each passed all 40 tests. Actual UI screenshots reviewed. Extra manual Simulator window checks paused by macOS lock; automated remote operations completed.",
-  "betaDescriptionStatus": "Updated 1.2.0 description and routine privacy saved in UI and persisted text verified through official API."
+  "betaDescriptionStatus": "Updated 1.2.0 description and routine privacy saved in UI and persisted text verified through official API.",
+  "githubRelease": "https://github.com/ZanwingMak/NightfallTV/releases/tag/v1.2.0",
+  "hardwareInstallation": "App Store Connect tester UI reports installed 1.2.0 (6), Apple TV 4K (3rd generation), tvOS 26.6. Installation is not behavioral acceptance."
 }
