@@ -99,7 +99,7 @@ struct LibraryView: View {
                     }
                     Spacer()
                     Text(settings.l("10 个场景 · 无限安静", "10 scenes · endless calm")).font(.caption).foregroundStyle(Palette.muted)
-                }
+                }.focusSection()
                 LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 32), count: 3), spacing: 32) {
                     ForEach(SceneKind.allCases.filter { category == .all || $0.category == category }) { scene in
                         SceneCard(scene: scene) { open(scene) }
@@ -121,7 +121,7 @@ struct LibraryView: View {
                 HStack(spacing: 24) {
                     QuietButton(title: settings.l("探索极光", "Explore aurora"), symbol: "play.fill", id: "hero-aurora") { open(.aurora) }
                     QuietButton(title: settings.l("一键黑屏", "Go dark"), symbol: "moon.zzz.fill", id: "quick-black") { playback.start(.black) }
-                }.padding(.top, 16)
+                }.frame(maxWidth: .infinity, alignment: .leading).padding(.top, 16).focusSection()
             }.padding(48)
         }.frame(height: 560).clipShape(RoundedRectangle(cornerRadius: 28))
             .overlay(RoundedRectangle(cornerRadius: 28).strokeBorder(.white.opacity(0.08)))

@@ -4,12 +4,17 @@ import UIKit
 final class ScreenTests: XCTestCase {
     /// 用真实遥控器方向键移动焦点后选择目标，tvOS 不使用鼠标点击。
     private func activate(_ identifier: String, in app: XCUIApplication, file: StaticString = #filePath, line: UInt = #line) {
+        focus(identifier, in: app, file: file, line: line)
+        XCUIRemote.shared.press(.select)
+    }
+
+    /// 只移动遥控器焦点，供方向导航回归检查，避免选择操作掩盖焦点死角。
+    private func focus(_ identifier: String, in app: XCUIApplication, file: StaticString = #filePath, line: UInt = #line) {
         let matchingCells = app.cells.containing(.button, identifier: identifier)
         let target = matchingCells.firstMatch.exists ? matchingCells.firstMatch : app.buttons[identifier].firstMatch
         guard target.waitForExistence(timeout: 10) else { XCTFail("Missing \(identifier)", file: file, line: line); return }
         for _ in 0..<30 {
             if target.hasFocus || target.descendants(matching: .any).matching(NSPredicate(format: "hasFocus == true")).firstMatch.exists {
-                XCUIRemote.shared.press(.select)
                 return
             }
             let focused = app.descendants(matching: .any).matching(NSPredicate(format: "hasFocus == true")).firstMatch
@@ -22,6 +27,49 @@ final class ScreenTests: XCTestCase {
             XCUIRemote.shared.press(direction)
         }
         XCTFail("Unable to focus \(identifier): \(app.debugDescription)", file: file, line: line)
+    }
+
+    /// 首排三个卡片都能直接向上进入分类，再向上进入精选按钮和顶部导航。
+    func testFirstRowMovesUpToCategories() {
+        let app = launch()
+        for scene in ["black", "aurora", "stars"] {
+            focus("scene-\(scene)", in: app)
+            XCTAssertTrue(app.buttons["scene-\(scene)"].hasFocus)
+            XCUIRemote.shared.press(.up)
+            let categories = app.buttons.matching(NSPredicate(format: "identifier BEGINSWITH 'category-' AND hasFocus == true"))
+            XCTAssertTrue(categories.firstMatch.waitForExistence(timeout: 3), "Up from \(scene) must reach a category")
+        }
+        XCUIRemote.shared.press(.up)
+        let hero = app.buttons.matching(NSPredicate(format: "(identifier == 'hero-aurora' OR identifier == 'quick-black') AND hasFocus == true"))
+        XCTAssertTrue(hero.firstMatch.waitForExistence(timeout: 3))
+        XCUIRemote.shared.press(.up)
+        XCTAssertTrue(app.buttons.matching(NSPredicate(format: "identifier BEGINSWITH 'nav-' AND hasFocus == true")).firstMatch.waitForExistence(timeout: 3))
+        capture("14-first-row-up-navigation")
+    }
+
+    /// 六项声景都能切换、停止，首排任意卡片可直接向上调整音量或停止播放。
+    func testAllSoundSelectionsAndUpNavigation() throws {
+        let app = launch()
+        activate("nav-sounds", in: app)
+        let names = [("rain", "细雨"), ("ocean", "潮汐"), ("stream", "溪流"), ("fire", "炉火"), ("pink", "粉噪音"), ("brown", "棕噪音")]
+        for (id, name) in names {
+            activate("sound-\(id)", in: app)
+            XCTAssertTrue(app.staticTexts["sound-status"].label.contains(name))
+        }
+        for id in ["rain", "ocean", "stream"] {
+            focus("sound-\(id)", in: app)
+            XCUIRemote.shared.press(.up)
+            XCTAssertTrue(app.buttons.matching(NSPredicate(format: "(identifier == 'stop-sound' OR identifier == 'sound-volume') AND hasFocus == true")).firstMatch.waitForExistence(timeout: 3))
+        }
+        capture("15-sound-controls-up-navigation")
+        activate("sound-black", in: app)
+        XCTAssertTrue(app.descendants(matching: .any)["black-screen"].waitForExistence(timeout: 5))
+        try assertBlack()
+        XCUIRemote.shared.press(.menu)
+        XCTAssertTrue(app.staticTexts["sound-status"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.staticTexts["sound-status"].label.contains("棕噪音"))
+        activate("stop-sound", in: app)
+        XCTAssertTrue(app.staticTexts["sound-status"].label.contains("静音"))
     }
 
     /// 建立可重复的独立启动状态，避免测试读取用户偏好。

@@ -90,7 +90,7 @@ struct SettingsView: View {
                 Section(settings.l("语言与隐私", "Language & privacy")) {
                     ChoicePicker(title: "语言 / Language", selection: $settings.value.english, options: [(false, "简体中文"), (true, "English")]).accessibilityIdentifier("language")
                     Text(settings.l("没有统计、追踪或广告 SDK。不向开发者服务器上传数据。个人照片由你指定的地址提供，对方可能记录正常的网络访问。", "No analytics, tracking or advertising SDKs. Nothing is uploaded to developer servers. Photo hosts you choose may log normal network requests.")).font(.callout).foregroundStyle(Palette.muted)
-                    Button(settings.l("实拍素材来源与授权", "Footage sources & licenses")) { showingCredits = true }.accessibilityIdentifier("media-credits")
+                    Button(settings.l("视听素材来源与授权", "Media sources & licenses")) { showingCredits = true }.accessibilityIdentifier("media-credits")
                     Text("Nightfall TV 1.0.1 · Code: MIT · github.com/ZanwingMak/NightfallTV").font(.caption).foregroundStyle(Palette.muted)
                     Button(settings.l("重置全部设置与照片", "Reset preferences and photos"), role: .destructive) { confirmReset = true }.accessibilityIdentifier("reset-settings")
                 }

@@ -1,56 +1,49 @@
 #!/usr/bin/env python3
-"""生成原创离线循环声景；只依赖 Python 标准库。"""
-from array import array
-import math
+"""生成有色噪音；自然声景由 import_audio.py 导入。需要 NumPy 和 FFmpeg。"""
 from pathlib import Path
-import random
-import wave
+import subprocess
+import numpy as np
 
-ROOT = Path(__file__).resolve().parents[1] / "NightfallTV/Resources/Audio"
-
-
-def generate(kind: str) -> None:
-    """合成自然声纹理或有色噪音，用重叠交叉淡化消除循环接缝。"""
-    rate, length, overlap = 22050, 12 * 22050, 2 * 22050
-    rng = random.Random(417 + sum(map(ord, kind)))
-    values = []
-    low, brown, b0, b1, b2 = 0.0, 0.0, 0.0, 0.0, 0.0
-    for index in range(length + overlap):
-        t = index / rate
-        white = rng.uniform(-1, 1)
-        low = 0.985 * low + 0.015 * white
-        brown = (brown + 0.018 * white) / 1.018
-        b0 = 0.99765 * b0 + white * 0.099046
-        b1 = 0.963 * b1 + white * 0.2965164
-        b2 = 0.57 * b2 + white * 1.0526913
-        pink = (b0 + b1 + b2 + white * 0.1848) * 0.08
-        if kind == "pink":
-            sample = pink
-        elif kind == "brown":
-            sample = brown * 3.8
-        elif kind == "rain":
-            sample = pink * 0.65 + white * 0.065 + low * 0.6
-        elif kind == "ocean":
-            swell = 0.4 + 0.6 * (0.5 + 0.5 * math.sin(t * 0.65)) ** 2
-            sample = (pink * 0.7 + brown * 3.2) * swell
-        elif kind == "stream":
-            sample = pink * 0.4 + low * 1.3 + math.sin(t * 1700 + math.sin(t * 22) * 18) * 0.005
-        else:
-            crackle = white * (0.12 if rng.random() > 0.999 else 0.008)
-            sample = brown * 1.7 + pink * 0.15 + crackle
-        values.append(sample)
-    for index in range(overlap):
-        alpha = index / overlap
-        values[index] = values[length + index] * (1 - alpha) + values[index] * alpha
-    peak = max(abs(value) for value in values[:length]) or 1
-    samples = array("h", (int(value / peak * 18000) for value in values[:length]))
-    ROOT.mkdir(parents=True, exist_ok=True)
-    with wave.open(str(ROOT / f"{kind}.wav"), "wb") as output:
-        output.setparams((1, 2, rate, length, "NONE", "not compressed"))
-        output.writeframes(samples.tobytes())
-    print(f"Generated {kind}: 12 seconds, mono PCM")
+ROOT = Path(__file__).resolve().parents[1]
+RATE = 44100
 
 
-if __name__ == "__main__":
-    for name in ["rain", "ocean", "stream", "fire", "pink", "brown"]:
+def write_audio(kind: str, samples: np.ndarray) -> dict:
+    """移除直流、匹配低响度并限制峰值，以 ALAC 保存完整 PCM 循环。"""
+    samples = samples - samples.mean(axis=0)
+    target = 10 ** (-25 / 20)
+    ceiling = 10 ** (-8 / 20)
+    for _ in range(4):
+        samples *= target / float(np.sqrt(np.mean(samples ** 2)))
+        samples = ceiling * np.tanh(samples / ceiling)
+    rms = float(np.sqrt(np.mean(samples ** 2)))
+    peak = float(np.max(np.abs(samples)))
+    output = ROOT / 'NightfallTV/Resources/Audio' / f'{kind}.m4a'
+    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-f', 'f32le', '-ar', str(RATE), '-ac', '2',
+                    '-i', 'pipe:0', '-c:a', 'alac', '-sample_fmt', 's16p', str(output)],
+                   input=samples.astype('<f4').tobytes(), check=True)
+    stats = {'duration': len(samples) / RATE, 'rmsDBFS': round(float(20 * np.log10(rms)), 2),
+             'peakDBFS': round(float(20 * np.log10(peak)), 2), 'sampleRate': RATE, 'channels': 2}
+    print(kind, stats)
+    return stats
+
+
+def generate(kind: str) -> dict:
+    """用周期频谱生成 60 秒立体声粉/棕噪音，保留频谱斜率并避免短周期听感。"""
+    count = RATE * 60
+    rng = np.random.default_rng(417 if kind == 'pink' else 418)
+    frequencies = np.fft.rfftfreq(count, 1 / RATE)
+    safe = np.maximum(frequencies, 20)
+    magnitude = safe ** (-0.5 if kind == 'pink' else -1)
+    magnitude[frequencies < 20] *= (frequencies[frequencies < 20] / 20) ** 2
+    magnitude *= 1 / np.sqrt(1 + (frequencies / 12000) ** 8)
+    spectrum = (rng.normal(size=(len(frequencies), 2)) + 1j * rng.normal(size=(len(frequencies), 2))) * magnitude[:, None]
+    spectrum[0] = 0
+    samples = np.fft.irfft(spectrum, n=count, axis=0)
+    # 周期信号无需首尾淡入淡出，不会每次循环都出现静音凹陷。
+    return write_audio(kind, samples)
+
+
+if __name__ == '__main__':
+    for name in ['pink', 'brown']:
         generate(name)

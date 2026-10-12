@@ -27,7 +27,7 @@ final class SoundPlayer: ObservableObject {
         stop()
         error = nil
         do {
-            guard let url = Bundle.main.url(forResource: sound.rawValue, withExtension: "wav") else {
+            guard let url = Bundle.main.url(forResource: sound.rawValue, withExtension: "m4a") else {
                 throw CocoaError(.fileNoSuchFile)
             }
             let session = AVAudioSession.sharedInstance()

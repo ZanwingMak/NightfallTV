@@ -6,7 +6,7 @@ An open-source, native Apple TV screensaver player for a calmer living room and 
 
 ![Nightfall TV 实际首页](docs/screens/library.png)
 
-实拍视频与预览的作者、来源及许可见[完整素材署名](MEDIA_LICENSES.md)。
+实拍视频、预览与自然录音的作者、来源及许可见[完整素材署名](MEDIA_LICENSES.md)。
 
 | 实拍极光 | 实拍沙漠落日 |
 |---|---|
@@ -18,7 +18,7 @@ An open-source, native Apple TV screensaver player for a calmer living room and 
 - **真实景色**：7 个有免费再分发许可的摄影视频，离线静音循环；预览为真实视频帧，最高 1080p，部分为 720p。
 - **为卧室设计的全黑**：屏幕输出 RGB 0/0/0，无提示、时钟或焦点边框；启动即黑屏可选。
 - **私人收藏**：顺序 / 随机轮播、切换间隔、场景收藏。
-- **柔和声景**：雨、海浪、溪流、炉火、粉噪音、棕噪音；本地合成，无缝循环，主动选择后才发声。
+- **柔和声景**：雨、海浪、溪流、炉火、粉噪音、棕噪音；四种自然声为实录、两种有色噪音为合成，立体声离线循环，主动选择后才发声。
 - **睡眠与夜间**：15–120 分钟定时，结束保持黑屏；本应用声音最后 30 秒淡出；自定义跨午夜规则。
 - **你的照片**：最多 30 张 HTTPS 图片直链；内存缓存、下载与解码限制；加载失败保持暗色。
 - **显示偏好**：亮度、速度、漂移时钟、24 小时制、减少动态效果、中文 / English。
@@ -59,7 +59,7 @@ xcodebuild -project NightfallTV.xcodeproj -scheme NightfallTV \
 
 实拍版 1.0.1（3）已在 tvOS 26.5 的 Apple TV 4K 模拟器完成 **14 个单元测试 + 9 个 UI 测试，23/23 全部通过**（2026-10-12）；保存实际 3840×2160 截图并人工检查主要界面。[最终提交的云端完整回归](https://github.com/ZanwingMak/NightfallTV/actions/runs/38172124599)也已 **23/23 通过，零失败**（tvOS 26.1）。其中照片网络专项访问本仓库的公开截图，离线执行可追加 `-skip-testing:NightfallTVTests/PersistenceTests/testRemotePhotosAndCache`。
 
-如需修改工程配置，安装 XcodeGen 后执行 `xcodegen generate`。实拍视频可用 `python3 scripts/import_media.py` 重新导入（需 FFmpeg，遵守来源网站限流）。声景与图标可用 `python3 scripts/generate_audio.py`、`swift scripts/generate_assets.swift` 重新生成。安装到自己的真机或发布时，请在 Xcode Signing 中替换为自己的 Team 和 Bundle ID；`ExportOptions.plist` 是本项目维护者的发布配置示例，其他开发者需替换对应值。
+如需修改工程配置，安装 XcodeGen 后执行 `xcodegen generate`。实拍视频可用 `python3 scripts/import_media.py` 重新导入（需 FFmpeg，遵守来源网站限流）。自然录音可用 `python3 scripts/import_audio.py` 重新导入，有色噪音可用 `python3 scripts/generate_audio.py` 生成（两者需要 NumPy 与 FFmpeg）；图标用 `swift scripts/generate_assets.swift` 生成。安装到自己的真机或发布时，请在 Xcode Signing 中替换为自己的 Team 和 Bundle ID；`ExportOptions.plist` 是本项目维护者的发布配置示例，其他开发者需替换对应值。
 
 ## 平台边界
 
@@ -72,4 +72,4 @@ xcodebuild -project NightfallTV.xcodeproj -scheme NightfallTV \
 - [隐私说明](PRIVACY.md)
 - [问题与建议](https://github.com/ZanwingMak/NightfallTV/issues)
 
-代码、原创图标和合成声景使用 MIT。实拍视频与原帧预览保留原许可，详见[素材来源与许可](MEDIA_LICENSES.md)及应用「设置 → 实拍素材来源与授权」。
+代码、原创图标和有色噪音使用 MIT。实拍视频、原帧预览与自然录音保留原许可，详见[素材来源与许可](MEDIA_LICENSES.md)及应用「设置 → 视听素材来源与授权」。

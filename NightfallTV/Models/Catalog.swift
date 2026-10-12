@@ -80,4 +80,11 @@ enum SoundKind: String, CaseIterable, Codable, Identifiable {
     var symbol: String {
         ["cloud.rain.fill", "water.waves", "drop.fill", "flame.fill", "waveform", "waveform.path"][Self.allCases.firstIndex(of: self)!]
     }
+    var isRecording: Bool { self != .pink && self != .brown }
+
+    /// 明确区分真实自然录音与有色噪音，不把合成噪音描述为实录。
+    func subtitle(_ english: Bool) -> String {
+        if isRecording { return english ? "Field recording · stereo loop" : "真实录音 · 立体声循环" }
+        return english ? "Colored noise · smooth loop" : "有色噪音 · 平滑循环"
+    }
 }

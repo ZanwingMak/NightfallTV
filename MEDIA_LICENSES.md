@@ -2,7 +2,7 @@
 
 内置自然场景来自真实拍摄，来源与许可于 2026-10-12 核实。没有 AI 生成景色或程序绘制的自然画面。视频去除原声、剪辑并转为 H.264，预览图为视频实际帧。内置片段最高 1080p（部分原素材为 720p）；4K 电视可显示，不能称为原生 4K 摄影。
 
-代码、原创图标和本地合成声景使用 MIT；以下视频、提取预览及展示这些视频的应用截图保留对应素材许可，不属于 MIT 授权。CC BY-SA 炉火视频及预览以 CC BY-SA 4.0 分享；GitHub 提供未加密的独立素材文件，不额外限制下载和再利用。作者不代表为本应用背书。
+代码、原创图标和合成有色噪音使用 MIT；以下视频、自然录音、提取预览及展示这些视频的应用截图保留对应素材许可，不属于 MIT 授权。CC BY-SA 炉火视频及预览以 CC BY-SA 4.0 分享；GitHub 提供未加密的独立素材文件，不额外限制下载和再利用。作者不代表为本应用背书。
 
 ## aurora · Aurora borealis timelapse.webm
 
@@ -119,3 +119,18 @@
 ## 重新导入
 
 资源已随仓库内置，无需联网下载才能运行。维护者可安装 FFmpeg 后执行 `python3 scripts/import_media.py`，按 `credits.json` 的原始地址、选段与编码参数重新导入。脚本核对文件大小并保存 SHA-256，顺序处理并遵守 Wikimedia 的 Retry-After 限流等待；不使用代理绕过限制。原始文件仅暂存于被 Git 忽略的 `artifacts/media-source`。
+
+## 自然声景录音（1.0.2）
+
+四种自然声改为真实录音，保留来源的立体声，不再用短噪音模拟雨、海浪、溪流和炉火。两种有色噪音为原创频谱合成（MIT）。录音资源保留以下许可，不属于代码的 MIT 授权。来源许可于 2026-10-12 核对。
+
+| 声景 | 原作与作者 | 原许可 | 使用的源文件 |
+|---|---|---|---|
+| 细雨 | [Rain on leaves · Gravity Sound](https://commons.wikimedia.org/wiki/File:Rain_on_leaves_(Gravity_Sound).wav) | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) | Commons 原 WAV |
+| 潮汐 | [Oceanwavescrushing · Luftrum](https://commons.wikimedia.org/wiki/File:Oceanwavescrushing.ogg) | [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/) | Commons 原 Ogg Vorbis；Kalundborg Fjord 岸边实录 |
+| 溪流 | [Water Stream.wav · metaepitome](https://freesound.org/people/metaepitome/sounds/181320/) | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/) | Freesound 官方公开 HQ MP3 预听版本；Zoom H4N 实录 |
+| 炉火 | [fireplace · martats](https://freesound.org/people/martats/sounds/138018/) | [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/) | Freesound 官方公开 HQ MP3 预听版本 |
+
+处理：裁切、30 Hz 高通、三秒交叉淡化循环接缝、移除直流、匹配 RMS 响度并柔和限制瞬时峰值，以 44.1 kHz 立体声 ALAC 打包。ALAC 保存处理结果不会再次有损压缩；以 MP3 或 Vorbis 为来源的素材仍属于有损来源，不宣称原始无损录音。没有额外音乐或 AI 生成自然音。
+
+[录音与完整署名数据](NightfallTV/Resources/Audio)包含每个源地址、裁切参数、修改说明、源文件及打包文件 SHA-256；应用「设置 → 视听素材来源与授权」也展示作者、许可和修改说明。

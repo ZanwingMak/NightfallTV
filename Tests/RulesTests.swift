@@ -158,9 +158,10 @@ final class PersistenceTests: XCTestCase {
     /// 音频资源实际存在且能被播放器解码，保证离线声景不是空入口。
     func testBundledAudioDecodes() throws {
         for sound in SoundKind.allCases {
-            let url = try XCTUnwrap(Bundle.main.url(forResource: sound.rawValue, withExtension: "wav"))
+            let url = try XCTUnwrap(Bundle.main.url(forResource: sound.rawValue, withExtension: "m4a"))
             let player = try AVAudioPlayer(contentsOf: url)
-            XCTAssertGreaterThan(player.duration, 5)
+            XCTAssertGreaterThan(player.duration, 25)
+            XCTAssertEqual(player.numberOfChannels, 2)
         }
     }
 
