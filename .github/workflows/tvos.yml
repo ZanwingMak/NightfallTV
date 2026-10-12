@@ -2,9 +2,9 @@ name: tvOS regression
 on:
   push:
     branches: [main]
-    paths-ignore: ["docs/**", "README.md", "PRIVACY.md", "LICENSE"]
+    paths-ignore: ["docs/**", "README.md", "PRIVACY.md", "LICENSE", "site/**", ".github/workflows/pages.yml"]
   pull_request:
-    paths-ignore: ["docs/**", "README.md", "PRIVACY.md", "LICENSE"]
+    paths-ignore: ["docs/**", "README.md", "PRIVACY.md", "LICENSE", "site/**", ".github/workflows/pages.yml"]
   workflow_dispatch:
 permissions:
   contents: read
@@ -22,7 +22,7 @@ jobs:
         run: |
           xcodebuild -project NightfallTV.xcodeproj -scheme NightfallTV \
             -destination "platform=tvOS Simulator,id=$TASK_SIM_ID" \
-            -resultBundlePath TestResults.xcresult CODE_SIGNING_ALLOWED=NO test
+            -resultBundlePath TestResults.xcresult CODE_SIGNING_ALLOWED=YES CODE_SIGN_IDENTITY=- DEVELOPMENT_TEAM= test
       - name: Save regression results
         if: always()
         uses: actions/upload-artifact@v4
