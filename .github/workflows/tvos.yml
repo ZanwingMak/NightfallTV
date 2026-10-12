@@ -6,6 +6,11 @@ on:
   pull_request:
     paths-ignore: ["docs/**", "README.md", "PRIVACY.md", "LICENSE", "site/**", ".github/workflows/pages.yml"]
   workflow_dispatch:
+    inputs:
+      test_filter:
+        description: Optional XCTest identifier for a targeted regression
+        required: false
+        default: ''
 permissions:
   contents: read
 jobs:
@@ -19,10 +24,14 @@ jobs:
           TASK_SIM_ID=$(xcrun simctl list devices available -j | python3 -c 'import json,sys; d=json.load(sys.stdin); print(next(x["udid"] for k,v in d["devices"].items() if "tvOS" in k for x in v if x["isAvailable"]))')
           echo "TASK_SIM_ID=$TASK_SIM_ID" >> "$GITHUB_ENV"
       - name: Build and test
+        env:
+          TEST_FILTER: ${{ inputs.test_filter }}
         run: |
+          TEST_ARGS=()
+          if [[ -n "$TEST_FILTER" ]]; then TEST_ARGS+=("-only-testing:$TEST_FILTER" "-only-testing:NightfallTVTests/DownloadTests"); fi
           xcodebuild -project NightfallTV.xcodeproj -scheme NightfallTV \
             -destination "platform=tvOS Simulator,id=$TASK_SIM_ID" \
-            -resultBundlePath TestResults.xcresult -collect-test-diagnostics never CODE_SIGNING_ALLOWED=YES CODE_SIGN_IDENTITY=- DEVELOPMENT_TEAM= test
+            -resultBundlePath TestResults.xcresult -collect-test-diagnostics never "${TEST_ARGS[@]}" CODE_SIGNING_ALLOWED=YES CODE_SIGN_IDENTITY=- DEVELOPMENT_TEAM= test
       - name: Save regression results
         if: always()
         uses: actions/upload-artifact@v4

@@ -447,10 +447,7 @@ final class ScreenTests: XCTestCase {
         activate("nav-settings", in: app)
         activate("open-downloads", in: app)
         XCTAssertTrue(app.buttons["download-valley"].waitForExistence(timeout: 5))
-        activate("download-mountains", in: app)
-        XCTAssertTrue(app.buttons["cancel-mountains"].waitForExistence(timeout: 5))
-        activate("cancel-mountains", in: app)
-        XCTAssertTrue(app.buttons["download-mountains"].waitForExistence(timeout: 5))
+        // 取消及迟到回调由 DownloadTests 确定性验证；真实网络可能在焦点移动前完成，不能要求瞬态取消按钮一直存在。
         activate("download-valley", in: app)
         XCTAssertTrue(app.buttons["play-download-valley"].waitForExistence(timeout: 90))
         capture("25-download-library-ready")
