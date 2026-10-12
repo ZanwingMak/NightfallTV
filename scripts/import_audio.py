@@ -43,7 +43,7 @@ def import_recording(credit: dict) -> None:
 
 
 def main() -> None:
-    """顺序导入清单中的四项实录，保存可复核的文件散列和音频规格。"""
+    """顺序导入清单中的实录，保存可复核的文件散列和音频规格。"""
     credits = json.loads(MANIFEST.read_text())
     for credit in credits:
         import_recording(credit)

@@ -11,7 +11,7 @@ struct MediaCreditsView: View {
                 Spacer()
                 QuietButton(title: settings.l("关闭", "Close"), symbol: "xmark", id: "close-credits") { dismiss() }
             }
-            Text(settings.l("视频为真实拍摄，四种自然声景为真实录音。素材保留各自许可，代码与有色噪音使用 MIT。向下浏览作者、来源及修改说明。", "Videos are filmed; four nature sounds are field recordings. Media retain their licenses; code and colored noise are MIT. Scroll for creators, sources and edits.")).font(.callout).foregroundStyle(Palette.muted)
+            Text(settings.l("视频为真实拍摄，自然声景为真实录音。画面与声音为独立素材，可自由搭配。素材保留各自许可，代码与有色噪音使用 MIT。", "Videos are filmed; nature sounds are recordings. Picture and sound are separate assets you can pair freely. Media retain their licenses; code and colored noise are MIT.")).font(.callout).foregroundStyle(Palette.muted)
             ScrollView {
                 VStack(spacing: 24) {
                     ForEach(VideoCredit.all) { credit in

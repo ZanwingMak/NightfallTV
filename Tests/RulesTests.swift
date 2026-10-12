@@ -5,10 +5,10 @@ import AVFoundation
 final class RulesTests: XCTestCase {
     private let now = Date(timeIntervalSince1970: 100_000)
 
-    /// 验证 10 种模式和全部离线声音都有独立的标识与文案。
+    /// 验证所有屏保和全部离线声音都有独立的标识与文案。
     func testCatalogIsComplete() {
-        XCTAssertEqual(SceneKind.allCases.count, 10)
-        XCTAssertEqual(SoundKind.allCases.count, 6)
+        XCTAssertEqual(SceneKind.allCases.count, 13)
+        XCTAssertEqual(SoundKind.allCases.count, 10)
         for scene in SceneKind.allCases {
             XCTAssertFalse(scene.title(false).isEmpty)
             XCTAssertFalse(scene.title(true).isEmpty)

@@ -7,6 +7,7 @@ final class SoundPlayer: ObservableObject {
     @Published private(set) var error: String?
     private var player: AVAudioPlayer?
     private var interruptionObserver: NSObjectProtocol?
+    var isPlaying: Bool { player?.isPlaying == true }
 
     /// 监听音频中断；中断后不自动发声，避免睡眠时意外恢复。
     init() {
@@ -35,11 +36,12 @@ final class SoundPlayer: ObservableObject {
             try session.setActive(true)
             let next = try AVAudioPlayer(contentsOf: url)
             next.numberOfLoops = -1
-            next.volume = Float(volume)
+            next.volume = 0
             next.prepareToPlay()
             guard next.play() else { throw CocoaError(.fileReadUnknown) }
             player = next
             selected = sound
+            next.setVolume(Float(volume), fadeDuration: 0.8)
         } catch {
             self.error = "声音暂时无法播放 / Sound unavailable"
             stop()

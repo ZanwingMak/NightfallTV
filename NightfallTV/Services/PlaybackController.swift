@@ -6,6 +6,7 @@ final class PlaybackController: ObservableObject {
     @Published private(set) var isPlaying = false
     @Published private(set) var scene: SceneKind = .aurora
     @Published private(set) var paused = false
+    @Published private(set) var visualsHidden = false
     @Published var controlsVisible = false
     var choosingOptions = false
     @Published private(set) var now = Date()
@@ -21,7 +22,7 @@ final class PlaybackController: ObservableObject {
     let sound: SoundPlayer
 
     var effectiveScene: SceneKind {
-        timeline.expired(at: now) || settings.value.isNight(at: now) ? .black : scene
+        visualsHidden || timeline.expired(at: now) || settings.value.isNight(at: now) ? .black : scene
     }
     var visualElapsed: Double { timeline.elapsed(at: now) }
     var secondsRemaining: Int? { timeline.deadline.map { max(0, Int(ceil($0.timeIntervalSince(now)))) } }
@@ -41,12 +42,39 @@ final class PlaybackController: ObservableObject {
         self.playlist = playlist
         timeline = PlaybackTimeline(now: now, sleepMinutes: settings.value.sleepMinutes)
         paused = false
+        visualsHidden = false
         finishedSleep = false
         lastRotation = 0
         controlsVisible = false
         choosingOptions = false
         isPlaying = true
         UIApplication.shared.isIdleTimerDisabled = active
+    }
+
+    /// 用户明确选择有声播放时，启动画面并搭配独立录音；普通启动仍保持现有声音状态。
+    func startWithSound(_ selected: SceneKind, sound selectedSound: SoundKind) {
+        start(selected)
+        selectSound(selectedSound)
+    }
+
+    /// 在当前会话更换或停止声景，不重置画面、暂停状态和睡眠截止时间。
+    func selectSound(_ selected: SoundKind?) {
+        interaction()
+        guard let selected else { sound.stop(); return }
+        guard !timeline.expired(at: Date()) else { return }
+        sound.play(selected, volume: settings.value.soundVolume * timeline.audioGain(at: Date()))
+    }
+
+    /// 保留当前画面和倒计时，仅切换画面可见性；直接黑屏启动可从所选声景恢复对应画面。
+    func toggleVisuals() {
+        guard !timeline.expired(at: Date()), !settings.value.isNight(at: Date()) else { return }
+        if scene == .black {
+            scene = sound.selected?.visualScene ?? .aurora
+            visualsHidden = false
+        } else { visualsHidden.toggle() }
+        lastRotation = timeline.elapsed(at: Date())
+        controlsVisible = false
+        interaction()
     }
 
     /// 回到浏览界面并恢复系统闲置行为，结束当前睡眠会话。
@@ -79,13 +107,14 @@ final class PlaybackController: ObservableObject {
         let scenes = playlist.isEmpty ? SceneKind.allCases : playlist
         guard let index = scenes.firstIndex(of: scene), !scenes.isEmpty else { return }
         scene = scenes[(index + (forward ? 1 : scenes.count - 1)) % scenes.count]
+        visualsHidden = false
         settings.value.lastScene = scene
         lastRotation = timeline.elapsed(at: Date())
         interaction()
     }
 
-    /// 将当前会话立即转入纯黑，并结束轮播。
-    func blackNow() { scene = .black; playlist = []; controlsVisible = false; interaction() }
+    /// 立即隐藏画面，保留声音、倒计时及原场景，稍后可恢复。
+    func blackNow() { visualsHidden = true; controlsVisible = false; interaction() }
 
     /// 重设或取消当前睡眠计时，同时保存下次默认值。
     func setSleep(_ minutes: Int) {
@@ -129,7 +158,7 @@ final class PlaybackController: ObservableObject {
             return
         }
         let elapsed = timeline.elapsed(at: date)
-        if !paused && !settings.value.isNight(at: date) && !playlist.isEmpty && elapsed - lastRotation >= Double(settings.value.rotationSeconds) {
+        if !paused && !visualsHidden && !settings.value.isNight(at: date) && !playlist.isEmpty && elapsed - lastRotation >= Double(settings.value.rotationSeconds) {
             if let next = PlaybackTimeline.next(in: playlist, current: scene, shuffle: settings.value.shuffle) { scene = next }
             lastRotation = elapsed
         }

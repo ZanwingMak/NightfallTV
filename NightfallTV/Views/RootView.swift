@@ -98,7 +98,7 @@ struct LibraryView: View {
                             .accessibilityIdentifier("category-\(item.rawValue)")
                     }
                     Spacer()
-                    Text(settings.l("10 个场景 · 无限安静", "10 scenes · endless calm")).font(.caption).foregroundStyle(Palette.muted)
+                    Text(settings.l("\(SceneKind.allCases.count) 个场景 · 无限安静", "\(SceneKind.allCases.count) scenes · endless calm")).font(.caption).foregroundStyle(Palette.muted)
                 }.focusSection()
                 LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 32), count: 3), spacing: 32) {
                     ForEach(SceneKind.allCases.filter { category == .all || $0.category == category }) { scene in
@@ -176,9 +176,15 @@ struct SceneDetailView: View {
                 }
                 HStack(spacing: 24) {
                     QuietButton(title: settings.l("开始屏保", "Start screensaver"), symbol: "play.fill", id: "start-scene") { playback.start(scene) }
+                    if let suggested = scene.suggestedSound {
+                        QuietButton(title: settings.l("有声 · ", "With ") + suggested.title(settings.value.english), symbol: "speaker.wave.2.fill", id: "start-scene-sound") { playback.startWithSound(scene, sound: suggested) }
+                    }
                     QuietButton(title: settings.value.favorites.contains(scene) ? settings.l("已收藏", "Saved") : settings.l("收藏场景", "Save scene"), symbol: settings.value.favorites.contains(scene) ? "heart.fill" : "heart", id: "favorite-scene") { settings.toggleFavorite(scene) }
                     QuietButton(title: settings.l("返回", "Back"), symbol: "arrow.left", id: "close-detail", action: close)
                 }.padding(.top, 16)
+                if scene.suggestedSound != nil {
+                    Text(settings.l("声音为独立自然录音。播放中可换声景、关画面或恢复画面。", "Sound is a separate field recording. Change it or turn the picture off and on while playing.")).font(.caption).foregroundStyle(Palette.muted)
+                }
             }.padding(88)
         }.onExitCommand(perform: close)
     }

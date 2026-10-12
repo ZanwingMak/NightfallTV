@@ -32,6 +32,7 @@ struct PlayerView: View {
         .onExitCommand { playback.back() }
         .onAppear { screenFocused = true }
         .onChange(of: playback.controlsVisible) { _, visible in screenFocused = !visible; controlFocused = visible }
+        .onChange(of: settings.value.soundVolume) { _, volume in sound.setVolume(volume, gain: playback.timeline.audioGain(at: playback.now)) }
     }
 
     @ViewBuilder private var screen: some View {
@@ -55,7 +56,7 @@ struct PlayerView: View {
                 if playback.effectiveScene == .clock || settings.value.showClock {
                     FloatingClock(date: playback.now, english: settings.value.english, format24: settings.value.clock24Hour, large: playback.effectiveScene == .clock)
                 }
-                Color.black.opacity(1 - settings.value.brightness).allowsHitTesting(false)
+                Color.black.opacity(1 - settings.value.brightness * playback.timeline.audioGain(at: playback.now)).allowsHitTesting(false)
             }
         }
     }
@@ -83,10 +84,26 @@ struct PlayerView: View {
                     QuietButton(title: settings.l("上一幕", "Previous"), symbol: "backward.end.fill", id: "player-previous") { playback.step(forward: false) }.focused($controlFocused)
                     QuietButton(title: playback.paused ? settings.l("继续", "Resume") : settings.l("暂停画面", "Pause visuals"), symbol: playback.paused ? "play.fill" : "pause.fill", id: "player-pause") { playback.togglePause() }
                     QuietButton(title: settings.l("下一幕", "Next"), symbol: "forward.end.fill", id: "player-next") { playback.step(forward: true) }
-                    QuietButton(title: settings.l("纯黑", "Blackout"), symbol: "moon.zzz.fill", id: "player-black") { playback.blackNow() }
+                    QuietButton(title: playback.effectiveScene == .black ? settings.l("打开画面", "Picture on") : settings.l("关闭画面", "Picture off"), symbol: playback.effectiveScene == .black ? "tv" : "moon.zzz.fill", id: "player-black") { playback.toggleVisuals() }
+                        .disabled(playback.timeline.expired(at: playback.now) || settings.value.isNight(at: playback.now))
                     QuietButton(title: settings.l("隐藏", "Hide"), symbol: "chevron.down", id: "hide-controls") { playback.controlsVisible = false }
                     QuietButton(title: settings.l("退出", "Exit"), symbol: "xmark", id: "exit-player") { playback.stop() }
                 }
+                HStack(spacing: 24) {
+                    ChoicePicker(title: settings.l("搭配声景", "Soundscape"), selection: Binding(get: { sound.selected }, set: { playback.selectSound($0) }),
+                                 options: [(nil, settings.l("静音", "Silent"))] + SoundKind.allCases.map { (Optional($0), $0.title(settings.value.english)) })
+                        .frame(width: 600).accessibilityIdentifier("player-sound")
+                        .disabled(playback.timeline.expired(at: playback.now))
+                    ChoicePicker(title: settings.l("声景音量", "Sound volume"), selection: $settings.value.soundVolume,
+                                 options: [0.1, 0.25, 0.5, 0.75, 1].map { ($0, "\(Int($0 * 100))%") })
+                        .frame(width: 440).accessibilityIdentifier("player-volume")
+                    if let selected = sound.selected {
+                        Label(selected.title(settings.value.english), systemImage: selected.symbol).font(.caption).foregroundStyle(Palette.accent)
+                            .accessibilityIdentifier("player-sound-status")
+                    }
+                    Spacer()
+                }.focusSection()
+                if let error = sound.error { Text(error).font(.caption).foregroundStyle(.orange) }
                 HStack(spacing: 24) {
                     ChoicePicker(title: settings.l("睡眠定时", "Sleep timer"), selection: Binding(get: { settings.value.sleepMinutes }, set: { playback.setSleep($0) }),
                                  options: [(0, settings.l("关闭", "Off"))] + [15, 30, 60, 90, 120].map { ($0, settings.l("\($0) 分钟", "\($0) min")) })

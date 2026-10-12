@@ -1,7 +1,7 @@
 import Foundation
 
 enum SceneKind: String, Codable, CaseIterable, Identifiable {
-    case black, aurora, stars, ocean, ember, dunes, prism, rain, clock, gallery
+    case black, aurora, stars, ocean, ember, dunes, prism, rain, clock, gallery, waterfall, snow, clouds
     var id: String { rawValue }
 
     /// 返回场景的中英文名称。
@@ -11,7 +11,9 @@ enum SceneKind: String, Codable, CaseIterable, Identifiable {
             .stars: ("漫游星河", "Stellar drift"), .ocean: ("静海潮汐", "Ocean tides"),
             .ember: ("余烬炉火", "Quiet embers"), .dunes: ("沙漠落日", "Desert sunset"),
             .prism: ("林间树影", "Forest light"), .rain: ("雨落窗前", "Rain on glass"),
-            .clock: ("时间缓行", "Slow hours"), .gallery: ("私人画廊", "Personal gallery")
+            .clock: ("时间缓行", "Slow hours"), .gallery: ("私人画廊", "Personal gallery"),
+            .waterfall: ("庭园飞瀑", "Garden waterfall"), .snow: ("雪落无声", "Soft snowfall"),
+            .clouds: ("云海漫行", "Cloud wander")
         ]
         return english ? names[self]!.1 : names[self]!.0
     }
@@ -28,7 +30,10 @@ enum SceneKind: String, Codable, CaseIterable, Identifiable {
             .prism: ("实拍林间光影，随风轻动", "Filmed sunlight moving through trees."),
             .rain: ("拉斯帕尔马斯，真实雨夜", "A rainy night filmed in Las Palmas."),
             .clock: ("低亮时钟，随时间缓慢漂移", "A dim clock that gently changes position."),
-            .gallery: ("把你喜欢的照片，留在大屏上", "Your favorite photographs, beautifully framed.")
+            .gallery: ("把你喜欢的照片，留在大屏上", "Your favorite photographs, beautifully framed."),
+            .waterfall: ("真实瀑布与岩石，水流不息", "A filmed waterfall flowing over rocks."),
+            .snow: ("华盛顿州的真实飘雪，慢慢落下", "Real slow-motion snowfall in Washington state."),
+            .clouds: ("真实天空延时摄影，云影流动", "Clouds drifting across a filmed sky.")
         ]
         return english ? values[self]!.1 : values[self]!.0
     }
@@ -45,14 +50,30 @@ enum SceneKind: String, Codable, CaseIterable, Identifiable {
         case .rain: return "cloud.rain.fill"
         case .clock: return "clock.fill"
         case .gallery: return "photo.on.rectangle.angled"
+        case .waterfall: return "water.waves"
+        case .snow: return "snowflake"
+        case .clouds: return "cloud.fill"
         }
     }
 
     var category: SceneCategory {
         switch self {
         case .black, .clock: return .night
-        case .aurora, .stars, .ocean, .ember, .dunes, .prism, .rain: return .nature
+        case .aurora, .stars, .ocean, .ember, .dunes, .prism, .rain, .waterfall, .snow, .clouds: return .nature
         case .gallery: return .personal
+        }
+    }
+
+    var suggestedSound: SoundKind? {
+        switch self {
+        case .ocean: return .ocean
+        case .ember: return .fire
+        case .rain: return .rain
+        case .waterfall: return .waterfall
+        case .prism: return .birds
+        case .aurora, .stars: return .crickets
+        case .dunes, .snow, .clouds: return .wind
+        case .black, .clock, .gallery: return nil
         }
     }
 }
@@ -69,18 +90,30 @@ enum SceneCategory: String, CaseIterable, Identifiable {
 }
 
 enum SoundKind: String, CaseIterable, Codable, Identifiable {
-    case rain, ocean, stream, fire, pink, brown
+    case rain, ocean, stream, fire, pink, brown, birds, crickets, wind, waterfall
     var id: String { rawValue }
     /// 返回声景的本地化标题。
     func title(_ english: Bool) -> String {
-        let values = [("细雨", "Soft rain"), ("潮汐", "Ocean tide"), ("溪流", "Forest stream"), ("炉火", "Fireplace"), ("粉噪音", "Pink noise"), ("棕噪音", "Brown noise")]
+        let values = [("细雨", "Soft rain"), ("潮汐", "Ocean tide"), ("溪流", "Forest stream"), ("炉火", "Fireplace"), ("粉噪音", "Pink noise"), ("棕噪音", "Brown noise"), ("林间鸟鸣", "Forest birds"), ("夏夜虫鸣", "Summer crickets"), ("风过树叶", "Rustling leaves"), ("瀑布", "Waterfall")]
         let pair = values[Self.allCases.firstIndex(of: self)!]
         return english ? pair.1 : pair.0
     }
     var symbol: String {
-        ["cloud.rain.fill", "water.waves", "drop.fill", "flame.fill", "waveform", "waveform.path"][Self.allCases.firstIndex(of: self)!]
+        ["cloud.rain.fill", "water.waves", "drop.fill", "flame.fill", "waveform", "waveform.path", "bird.fill", "moon.stars.fill", "wind", "water.waves"][Self.allCases.firstIndex(of: self)!]
     }
     var isRecording: Bool { self != .pink && self != .brown }
+
+    var visualScene: SceneKind {
+        switch self {
+        case .rain: return .rain
+        case .ocean: return .ocean
+        case .fire: return .ember
+        case .stream, .birds, .wind: return .prism
+        case .crickets: return .stars
+        case .waterfall: return .waterfall
+        case .pink, .brown: return .clock
+        }
+    }
 
     /// 明确区分真实自然录音与有色噪音，不把合成噪音描述为实录。
     func subtitle(_ english: Bool) -> String {

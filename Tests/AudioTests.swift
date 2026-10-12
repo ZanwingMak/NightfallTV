@@ -3,7 +3,7 @@ import AVFoundation
 @testable import NightfallTV
 
 final class AudioTests: XCTestCase {
-    /// 检查六项真实解码规格、低响度、削波和循环边界，防止仅文件存在却声音不可用。
+    /// 检查全部声景的真实解码规格、低响度、削波和循环边界，防止仅文件存在却声音不可用。
     func testAudioLevelsStereoAndLoopBoundary() throws {
         XCTAssertEqual(Set(AudioCredit.all.map(\.sound)), Set(SoundKind.allCases.filter(\.isRecording)))
         for credit in AudioCredit.all {

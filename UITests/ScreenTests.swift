@@ -12,6 +12,16 @@ final class ScreenTests: XCTestCase {
     private func focus(_ identifier: String, in app: XCUIApplication, file: StaticString = #filePath, line: UInt = #line) {
         let matchingCells = app.cells.containing(.button, identifier: identifier)
         let target = matchingCells.firstMatch.exists ? matchingCells.firstMatch : app.buttons[identifier].firstMatch
+        // 懒加载网格会移除屏幕外的节点，先用真实方向键寻找上方，再寻找下方内容。
+        if !target.exists {
+            for direction in [XCUIRemote.Button.up, .down] {
+                for _ in 0..<16 {
+                    if target.exists { break }
+                    XCUIRemote.shared.press(direction)
+                }
+                if target.exists { break }
+            }
+        }
         guard target.waitForExistence(timeout: 10) else { XCTFail("Missing \(identifier)", file: file, line: line); return }
         for _ in 0..<30 {
             if target.hasFocus || target.descendants(matching: .any).matching(NSPredicate(format: "hasFocus == true")).firstMatch.exists {
@@ -47,11 +57,11 @@ final class ScreenTests: XCTestCase {
         capture("14-first-row-up-navigation")
     }
 
-    /// 六项声景都能切换、停止，首排任意卡片可直接向上调整音量或停止播放。
+    /// 全部声景都能切换、停止，首排任意卡片可直接向上进入画面控制。
     func testAllSoundSelectionsAndUpNavigation() throws {
         let app = launch()
         activate("nav-sounds", in: app)
-        let names = [("rain", "细雨"), ("ocean", "潮汐"), ("stream", "溪流"), ("fire", "炉火"), ("pink", "粉噪音"), ("brown", "棕噪音")]
+        let names = [("rain", "细雨"), ("ocean", "潮汐"), ("stream", "溪流"), ("fire", "炉火"), ("pink", "粉噪音"), ("brown", "棕噪音"), ("birds", "林间鸟鸣"), ("crickets", "夏夜虫鸣"), ("wind", "风过树叶"), ("waterfall", "瀑布")]
         for (id, name) in names {
             activate("sound-\(id)", in: app)
             XCTAssertTrue(app.staticTexts["sound-status"].label.contains(name))
@@ -59,7 +69,7 @@ final class ScreenTests: XCTestCase {
         for id in ["rain", "ocean", "stream"] {
             focus("sound-\(id)", in: app)
             XCUIRemote.shared.press(.up)
-            XCTAssertTrue(app.buttons.matching(NSPredicate(format: "(identifier == 'stop-sound' OR identifier == 'sound-volume') AND hasFocus == true")).firstMatch.waitForExistence(timeout: 3))
+            XCTAssertTrue(app.buttons.matching(NSPredicate(format: "(identifier == 'sound-picture' OR identifier == 'sound-visual' OR identifier == 'sound-black') AND hasFocus == true")).firstMatch.waitForExistence(timeout: 3))
         }
         capture("15-sound-controls-up-navigation")
         activate("sound-black", in: app)
@@ -67,7 +77,7 @@ final class ScreenTests: XCTestCase {
         try assertBlack()
         XCUIRemote.shared.press(.menu)
         XCTAssertTrue(app.staticTexts["sound-status"].waitForExistence(timeout: 5))
-        XCTAssertTrue(app.staticTexts["sound-status"].label.contains("棕噪音"))
+        XCTAssertTrue(app.staticTexts["sound-status"].label.contains("瀑布"))
         activate("stop-sound", in: app)
         XCTAssertTrue(app.staticTexts["sound-status"].label.contains("静音"))
     }
@@ -141,7 +151,7 @@ final class ScreenTests: XCTestCase {
 
     /// 检查所有场景可独立启动，保存每种场景的真实渲染截图。
     func testEverySceneRenders() {
-        for scene in ["aurora", "stars", "ocean", "ember", "dunes", "prism", "rain", "clock", "gallery"] {
+        for scene in ["aurora", "stars", "ocean", "ember", "dunes", "prism", "rain", "clock", "gallery", "waterfall", "snow", "clouds"] {
             let app = launch(["--scene=\(scene)"])
             XCTAssertTrue(app.descendants(matching: .any)["playing-\(scene)"].waitForExistence(timeout: 10), scene)
             settle(3)
@@ -150,6 +160,59 @@ final class ScreenTests: XCTestCase {
             XCTAssertTrue(app.buttons["exit-player"].waitForExistence(timeout: 5), scene)
             app.terminate()
         }
+    }
+
+    /// 由声景页开画面，再两次切换纯黑和恢复，保持声音并允许播放中更换声景。
+    func testSoundPictureToggleAndCustomPairing() throws {
+        let app = launch()
+        activate("nav-sounds", in: app)
+        XCTAssertFalse(app.buttons["sound-visual"].isEnabled)
+        activate("sound-birds", in: app)
+        activate("sound-picture", in: app)
+        activate("云海漫行", in: app)
+        activate("sound-visual", in: app)
+        XCTAssertTrue(app.descendants(matching: .any)["playing-clouds"].waitForExistence(timeout: 5))
+        XCUIRemote.shared.press(.select)
+        activate("player-timer", in: app)
+        activate("30 分钟", in: app)
+        XCTAssertTrue(app.buttons["player-timer"].label.contains("30 分钟"))
+        XCTAssertTrue(app.descendants(matching: .any)["player-sound-status"].firstMatch.label.contains("林间鸟鸣"))
+        capture("16-sound-picture-controls")
+        activate("player-black", in: app)
+        XCTAssertTrue(app.descendants(matching: .any)["black-screen"].waitForExistence(timeout: 5))
+        try assertBlack()
+        XCUIRemote.shared.press(.up)
+        try assertBlack()
+        XCUIRemote.shared.press(.select)
+        XCTAssertTrue(app.buttons["player-timer"].label.contains("30 分钟"))
+        XCTAssertTrue(app.descendants(matching: .any)["player-sound-status"].firstMatch.label.contains("林间鸟鸣"))
+        activate("player-black", in: app)
+        XCTAssertTrue(app.descendants(matching: .any)["playing-clouds"].waitForExistence(timeout: 5))
+        XCUIRemote.shared.press(.select)
+        activate("player-sound", in: app)
+        activate("夏夜虫鸣", in: app)
+        XCTAssertTrue(app.descendants(matching: .any)["player-sound-status"].firstMatch.label.contains("夏夜虫鸣"))
+        activate("player-stop-sound", in: app)
+        XCTAssertFalse(app.descendants(matching: .any)["player-sound-status"].firstMatch.exists)
+    }
+
+    /// 场景详情的有声入口和睡前快捷方案均经过真实遥控器选择，纯黑快捷方案无亮像素。
+    func testAudibleSceneAndBedtimeRoutine() throws {
+        let app = launch()
+        activate("scene-waterfall", in: app)
+        activate("start-scene-sound", in: app)
+        XCTAssertTrue(app.descendants(matching: .any)["playing-waterfall"].waitForExistence(timeout: 5))
+        XCUIRemote.shared.press(.select)
+        XCTAssertTrue(app.descendants(matching: .any)["player-sound-status"].firstMatch.label.contains("瀑布"))
+        activate("exit-player", in: app)
+        XCUIRemote.shared.press(.menu)
+        activate("nav-night", in: app)
+        activate("night-rain", in: app)
+        try assertBlack()
+        XCUIRemote.shared.press(.select)
+        XCTAssertTrue(app.buttons["player-timer"].label.contains("30 分钟"))
+        XCTAssertTrue(app.descendants(matching: .any)["player-sound-status"].firstMatch.label.contains("细雨"))
+        capture("17-bedtime-routine")
     }
 
     /// 收藏详情操作和播放列表启动经过实际焦点与选择流程。

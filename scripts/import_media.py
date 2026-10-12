@@ -16,22 +16,26 @@ def import_clip(credit):
     """Download one source, create a silent HD excerpt and its actual preview frame."""
     source = ROOT / "artifacts/media-source" / (credit["scene"] + ".source")
     source.parent.mkdir(parents=True, exist_ok=True)
-    request = urllib.request.Request(credit["downloadURL"], headers={"User-Agent": "NightfallTV/1.0 (github.com/ZanwingMak/NightfallTV)"})
-    digest = hashlib.sha256()
-    try:
-        with urllib.request.urlopen(request, timeout=60) as response, source.open("wb") as output:
-            while chunk := response.read(1024 * 1024):
-                digest.update(chunk)
-                output.write(chunk)
-                if output.tell() > 300 * 1024 * 1024:
-                    raise ValueError("Source exceeds the import size limit")
-    except urllib.error.HTTPError as error:
-        if error.code == 429:
-            RETRY.write_text(str(time.time() + int(error.headers.get("Retry-After", "600"))))
-        raise
+    if not source.exists():
+        request = urllib.request.Request(credit["downloadURL"], headers={"User-Agent": "NightfallTV/1.1 (github.com/ZanwingMak/NightfallTV)"})
+        try:
+            with urllib.request.urlopen(request, timeout=60) as response, source.open("wb") as output:
+                while chunk := response.read(1024 * 1024):
+                    output.write(chunk)
+                    if output.tell() > 300 * 1024 * 1024:
+                        raise ValueError("Source exceeds the import size limit")
+        except Exception as error:
+            source.unlink(missing_ok=True)
+            if isinstance(error, urllib.error.HTTPError) and error.code == 429:
+                RETRY.parent.mkdir(parents=True, exist_ok=True)
+                RETRY.write_text(str(time.time() + int(error.headers.get("Retry-After", "600"))))
+            raise
     if source.stat().st_size != credit["sourceBytes"]:
         raise ValueError("Source size differs from reviewed metadata")
-    credit["sourceSHA256"] = digest.hexdigest()
+    digest = hashlib.sha256(source.read_bytes()).hexdigest()
+    if credit.get("sourceSHA256") and credit["sourceSHA256"] != digest:
+        raise ValueError("Source hash differs from reviewed media")
+    credit["sourceSHA256"] = digest
     video = MEDIA / (credit["scene"] + ".mp4")
     subprocess.run(["ffmpeg", "-v", "error", "-ss", str(credit["start"]), "-i", str(source), "-t", str(credit["duration"]),
                     "-an", "-vf", "scale='min(1920,iw)':-2,fps=24,format=yuv420p", "-c:v", "libx264", "-preset", "medium", "-crf", "22",
