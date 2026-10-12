@@ -78,7 +78,7 @@ xcodebuild -project NightfallTV.xcodeproj -scheme NightfallTV \
   CODE_SIGNING_ALLOWED=YES CODE_SIGN_IDENTITY=- DEVELOPMENT_TEAM= test
 ```
 
-1.2.0（6）已在 tvOS26.5 的 Apple TV4K 模拟器完成 **24个单元测试＋16个遥控器UI测试，40/40全部通过，0失败、0跳过**（2026-10-12）。[最终应用源码的云端完整回归](https://github.com/ZanwingMak/NightfallTV/actions/runs/38255699835)也已 **40/40通过**。测试覆盖三层混音持续播放、旧偏好迁移、方案保存与重启恢复／删除、真实等待一分钟的自动黑屏、画面恢复及原有遥控器方向导航。已保存实际界面截图并检查中英文显示和焦点样式。其中照片网络专项访问本仓库的公开截图，离线执行可追加 `-skip-testing:NightfallTVTests/PersistenceTests/testRemotePhotosAndCache`。
+1.3.0（7）已在 Apple TV4K 模拟器完成 **32 个单元测试＋19 个遥控器 UI 测试的联合验收，51 项均有通过记录，0 未解决失败、0 跳过**（2026-10-13）。[云端完整运行](https://github.com/ZanwingMak/NightfallTV/actions/runs/38275774332)为 50 通过、1 个下载瞬态按钮时序失败；修正测试后，[云端下载专项](https://github.com/ZanwingMak/NightfallTV/actions/runs/38287433450)及本地同一专项均 5/5 通过。这是分次联合覆盖，不是一次连续 51/51 记录。测试包括十三语言遥控导航、纯黑逐像素检查、画面定时、三层混音与方案、视频循环、真实 4K／无损资源下载播放删除，以及四档 StoreKit 模拟交易状态。测试详情与实际截图见[回归记录](docs/回归测试.md)。真机听感与长时间播放由用户验收。其中照片网络专项访问本仓库的公开截图，离线执行可追加 `-skip-testing:NightfallTVTests/PersistenceTests/testRemotePhotosAndCache`。
 
 如需修改工程配置，安装 XcodeGen 后执行 `xcodegen generate`。实拍视频可用 `python3 scripts/import_media.py` 重新导入（需 FFmpeg，遵守来源网站限流）。自然录音可用 `python3 scripts/import_audio.py` 重新导入，有色噪音可用 `python3 scripts/generate_audio.py` 生成（两者需要 FFmpeg，以及 `python3 -m pip install -r scripts/requirements-audio.txt` 安装的 NumPy）；图标用 `swift scripts/generate_assets.swift` 生成。安装到自己的真机或发布时，请在 Xcode Signing 中替换为自己的 Team 和 Bundle ID；`ExportOptions.plist` 是本项目维护者的发布配置示例，其他开发者需替换对应值。
 
