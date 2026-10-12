@@ -57,6 +57,19 @@ final class ScreenTests: XCTestCase {
         capture("14-first-row-up-navigation")
     }
 
+    /// 最后一排仅有一张卡片时，从上一排右侧按一次向下也必须能到达。
+    func testLastRowReachableFromRightColumn() {
+        let app = launch()
+        focus("scene-snow", in: app)
+        XCUIRemote.shared.press(.down)
+        XCTAssertTrue(app.buttons["scene-clouds"].hasFocus)
+        activate("nav-sounds", in: app)
+        focus("sound-wind", in: app)
+        XCUIRemote.shared.press(.down)
+        XCTAssertTrue(app.buttons["sound-waterfall"].hasFocus)
+        capture("18-single-card-row-focus")
+    }
+
     /// 全部声景都能切换、停止，首排任意卡片可直接向上进入画面控制。
     func testAllSoundSelectionsAndUpNavigation() throws {
         let app = launch()
@@ -205,9 +218,12 @@ final class ScreenTests: XCTestCase {
         XCUIRemote.shared.press(.select)
         XCTAssertTrue(app.descendants(matching: .any)["player-sound-status"].firstMatch.label.contains("瀑布"))
         activate("exit-player", in: app)
+        XCTAssertTrue(app.buttons["start-scene-sound"].waitForExistence(timeout: 5))
+        settle(1)
         XCUIRemote.shared.press(.menu)
         activate("nav-night", in: app)
         activate("night-rain", in: app)
+        XCTAssertTrue(app.descendants(matching: .any)["black-screen"].waitForExistence(timeout: 5))
         try assertBlack()
         XCUIRemote.shared.press(.select)
         XCTAssertTrue(app.buttons["player-timer"].label.contains("30 分钟"))

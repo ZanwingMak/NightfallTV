@@ -100,10 +100,8 @@ struct LibraryView: View {
                     Spacer()
                     Text(settings.l("\(SceneKind.allCases.count) 个场景 · 无限安静", "\(SceneKind.allCases.count) scenes · endless calm")).font(.caption).foregroundStyle(Palette.muted)
                 }.focusSection()
-                LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 32), count: 3), spacing: 32) {
-                    ForEach(SceneKind.allCases.filter { category == .all || $0.category == category }) { scene in
-                        SceneCard(scene: scene) { open(scene) }
-                    }
+                FocusGrid(SceneKind.allCases.filter { category == .all || $0.category == category }) { scene in
+                    SceneCard(scene: scene) { open(scene) }
                 }.padding(.bottom, 48)
             }.padding(.horizontal, 80).padding(.top, 16)
         }
@@ -146,8 +144,8 @@ struct CollectionView: View {
                         QuietButton(title: settings.value.shuffle ? settings.l("随机播放：开", "Shuffle: on") : settings.l("随机播放：关", "Shuffle: off"), symbol: "shuffle", id: "shuffle") { settings.value.shuffle.toggle() }
                         Text(settings.l("共 \(settings.value.favorites.count) 个场景", "\(settings.value.favorites.count) scenes")).font(.callout).foregroundStyle(Palette.muted)
                     }.frame(maxWidth: .infinity, alignment: .leading).focusSection()
-                    LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 32), count: 3), spacing: 32) {
-                        ForEach(settings.value.favorites) { scene in SceneCard(scene: scene) { open(scene) } }
+                    FocusGrid(settings.value.favorites) { scene in
+                        SceneCard(scene: scene) { open(scene) }
                     }
                 }
             }.padding(80)

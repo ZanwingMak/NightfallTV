@@ -98,8 +98,10 @@ struct PlayerView: View {
                                  options: [0.1, 0.25, 0.5, 0.75, 1].map { ($0, "\(Int($0 * 100))%") })
                         .frame(width: 440).accessibilityIdentifier("player-volume")
                     if let selected = sound.selected {
-                        Label(selected.title(settings.value.english), systemImage: selected.symbol).font(.caption).foregroundStyle(Palette.accent)
-                            .accessibilityIdentifier("player-sound-status")
+                        HStack(spacing: 8) {
+                            Image(systemName: selected.symbol).accessibilityHidden(true)
+                            Text(selected.title(settings.value.english)).accessibilityIdentifier("player-sound-status")
+                        }.font(.caption).foregroundStyle(Palette.accent)
                     }
                     Spacer()
                 }.focusSection()

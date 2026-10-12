@@ -31,8 +31,7 @@ struct SoundsView: View {
                     Spacer()
                 }.focusSection()
                 if let error = sound.error { Text(error).font(.callout).foregroundStyle(.orange) }
-                LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 32), count: 3), spacing: 32) {
-                    ForEach(SoundKind.allCases) { kind in
+                FocusGrid(SoundKind.allCases) { kind in
                         Button {
                             if sound.selected == kind { sound.stop() } else { sound.play(kind, volume: settings.value.soundVolume) }
                             playback.interaction()
@@ -52,7 +51,6 @@ struct SoundsView: View {
                             }.clipShape(RoundedRectangle(cornerRadius: 20))
                         }.buttonStyle(ArtworkButtonStyle()).accessibilityIdentifier("sound-\(kind.rawValue)")
                             .accessibilityLabel(kind.title(settings.value.english) + " · " + (sound.selected == kind ? settings.l("停止", "Stop") : settings.l("播放", "Play")))
-                    }
                 }
                 Text(settings.l("选择声景开始试听，再打开或关闭画面。画面与录音为独立素材；纯黑模式不显示时钟或提示。", "Select a sound to preview, then turn the picture on or off. Footage and recordings are separate assets. Black mode has no clock or overlays.")).font(.caption).foregroundStyle(Palette.muted)
             }.padding(80)

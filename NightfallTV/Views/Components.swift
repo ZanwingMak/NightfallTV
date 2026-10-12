@@ -6,6 +6,33 @@ enum Palette {
     static let accent = Color(red: 0.68, green: 0.6, blue: 1)
 }
 
+struct FocusGrid<Item: Identifiable, Card: View>: View {
+    let items: [Item]
+    let content: (Item) -> Card
+
+    /// 将少量离线卡片排成三列，每行保留完整焦点区域，包括最后一行的空列。
+    init(_ items: [Item], @ViewBuilder content: @escaping (Item) -> Card) {
+        self.items = items
+        self.content = content
+    }
+
+    var body: some View {
+        VStack(spacing: 32) {
+            ForEach(Array(stride(from: 0, to: items.count, by: 3)), id: \.self) { start in
+                HStack(alignment: .top, spacing: 32) {
+                    ForEach(0..<3, id: \.self) { column in
+                        if start + column < items.count {
+                            content(items[start + column]).frame(maxWidth: .infinity)
+                        } else {
+                            Color.clear.frame(maxWidth: .infinity).allowsHitTesting(false).accessibilityHidden(true)
+                        }
+                    }
+                }.focusSection()
+            }
+        }
+    }
+}
+
 struct SceneCard: View {
     let scene: SceneKind
     @EnvironmentObject private var settings: SettingsStore
