@@ -40,6 +40,10 @@ An open-source, native Apple TV screensaver player for a calmer living room and 
 - **赞助支持**：StoreKit 2 消耗型打赏，美国基准价格 $0.99／$2.99／$4.99／$9.99，实际以 Apple 当地价格为准。全部功能与下载免费，没有订阅或功能解锁。
 - **官网与法律文件**：[官方网站](https://zanwingmak.github.io/NightfallTV/)、[隐私政策](https://zanwingmak.github.io/NightfallTV/privacy.html)、[服务条款](https://zanwingmak.github.io/NightfallTV/terms.html)和帮助页，可在应用设置扫码访问。
 
+| 可选 4K 下载 | 应用内开发支持 |
+|---|---|
+| ![下载库](docs/screens/download-library.png) | ![支持](docs/screens/support-development.png) |
+
 ## 使用
 
 在音乐应用里开始播放 → 返回桌面 → 启动 Nightfall TV → 选择屏保，或「一键黑屏」。主动选择声景会与其他应用音频混音，默认没有声音。不同播放器的后台音乐兼容性需要在真实 Apple TV 验证。
