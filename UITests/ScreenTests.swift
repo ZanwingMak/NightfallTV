@@ -370,7 +370,8 @@ final class ScreenTests: XCTestCase {
         XCUIRemote.shared.press(.right)
         XCTAssertTrue(app.alerts.firstMatch.buttons["移除"].firstMatch.hasFocus)
         XCUIRemote.shared.press(.select)
-        XCTAssertFalse(saved.exists)
+        let removed = XCTNSPredicateExpectation(predicate: NSPredicate(format: "exists == false"), object: saved)
+        XCTAssertEqual(XCTWaiter.wait(for: [removed], timeout: 5), .completed)
     }
 
     /// 等待真实一分钟验证自动黑屏独立于睡眠计时，恢复后保留混音并取消亮屏截止时间。

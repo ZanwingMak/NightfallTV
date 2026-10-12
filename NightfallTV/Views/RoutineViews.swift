@@ -114,12 +114,12 @@ struct RoutineShelf: View {
                 }.padding(24).background(.white.opacity(0.04), in: RoundedRectangle(cornerRadius: 24)).focusSection()
             }
         }
-        .alert(settings.l("移除这个方案？", "Remove this routine?"), isPresented: Binding(get: { removing != nil }, set: { if !$0 { removing = nil } })) {
+        .alert(settings.l("移除这个方案？", "Remove this routine?"), isPresented: Binding(get: { removing != nil }, set: { if !$0 { removing = nil } }), presenting: removing) { routine in
             Button(settings.l("取消", "Cancel"), role: .cancel) { removing = nil }
             Button(settings.l("移除", "Remove"), role: .destructive) {
-                if let removing { settings.removeRoutine(removing.id) }
+                settings.removeRoutine(routine.id)
                 removing = nil
             }
-        } message: { Text(removing?.name ?? "") }
+        } message: { routine in Text(routine.name) }
     }
 }
