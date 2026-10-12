@@ -11,7 +11,7 @@
 .language-globe{width:17px;height:17px;color:#c7c2d9;flex-shrink:0}
 .language-chevron{width:15px;height:15px;flex-shrink:0;color:#d7d1e8;transition:transform .18s}
 .lang[aria-expanded=true] .language-chevron{transform:rotate(180deg)}
-.language-panel{position:absolute;inset-inline-end:0;top:calc(100% + 12px);width:252px;max-width:calc(100vw - 32px);max-height:min(440px,calc(100dvh - 112px));overflow-y:auto;overscroll-behavior:contain;padding:7px;background:#15151ef7;border:1px solid #ffffff24;border-radius:18px;box-shadow:0 18px 55px #0007;scrollbar-width:thin;scrollbar-color:#625874 transparent}
+.language-panel{position:absolute;inset-inline-end:0;top:calc(100% + 12px);width:252px;max-width:calc(100vw - 32px);max-height:min(600px,calc(100dvh - 112px));overflow-y:auto;overscroll-behavior:contain;padding:7px;background:#15151ef7;border:1px solid #ffffff24;border-radius:18px;box-shadow:0 18px 55px #0007;scrollbar-width:thin;scrollbar-color:#625874 transparent}
 .language-option{display:flex;align-items:center;justify-content:space-between;width:100%;position:relative;padding:11px 38px 11px 15px;min-height:44px;border:0;border-radius:11px;background:transparent;color:#e7e3f0;font-size:14px;line-height:1.5;text-align:start}
 .language-option:hover{background:#ffffff0c;color:#fff}
 .language-option:focus-visible{outline:2px solid #baadf5;outline-offset:-2px;background:#ffffff0c}
