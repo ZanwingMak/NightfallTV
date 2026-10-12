@@ -1,5 +1,5 @@
 {
-  "checkedAtUTC": "2026-10-12T05:10:12.448426+00:00",
+  "checkedAtUTC": "2026-10-12T07:24:11.187557+00:00",
   "source": "Apple App Store Connect API and TestFlight UI",
   "app": "Nightfall TV",
   "appStoreConnectAppID": "6821692076",
@@ -10,9 +10,9 @@
   "testGroup": "Nightfall Internal",
   "groupContainsBuild": true,
   "whatsNewSaved": true,
-  "betaDescriptionSaved": false,
+  "betaDescriptionSaved": true,
   "hardwareInstallation": "Latest recorded installation is 1.0.2 (4), Apple TV 4K (3rd generation), tvOS 26.6. Installation of 1.1.0 (5) is not yet confirmed.",
-  "hardwareAcceptance": "Pending: subjective sound quality, external music, remote controls, physical black-screen appearance and 30-minute playback require actual results; no Apple TV paired with this Mac.",
+  "hardwareAcceptance": "Delegated to the user by explicit instruction: agent acceptance ends at simulator regression. Subjective sound quality, external music compatibility, physical black-screen appearance and 30-minute hardware playback are not claimed as passed.",
   "sourceCommit": "fbfd065203a9099f19e9e2e6612ba9d11674927b",
   "regression": "https://github.com/ZanwingMak/NightfallTV/actions/runs/38204028253",
   "passedTests": 32,
@@ -21,7 +21,7 @@
   "ipaSHA256": "683aff5bfb51451d89fe53d55bf1ad88595ab6825ff20f85410acb86b8eb98c1",
   "feedbackEvidence": "Official screenshot-feedback and crash-feedback APIs returned zero submissions at this check; empty feedback is not acceptance evidence.",
   "buildID": "3900fe59-b0ca-42cc-8235-bd21d4d91139",
-  "betaDescriptionStatus": "Existing API key returned 403 FORBIDDEN_ERROR for updating the expanded description. Browser remains on sign-in; no permissions changed. User sign-in is required.",
+  "betaDescriptionStatus": "Updated 1.1.0 description saved in App Store Connect UI; persisted content verified through official API.",
   "buildUsageMetrics": {
     "installCount": 0,
     "crashCount": 0,
@@ -29,5 +29,7 @@
     "inviteCount": 3,
     "feedbackCount": 0,
     "note": "Official metrics currently report zero installs/sessions for build 5; reporting delay is possible. This is not evidence of hardware acceptance."
-  }
+  },
+  "hardwareAcceptanceOwner": "user",
+  "agentAcceptance": "Complete: local tvOS 26.5 and GitHub tvOS 26.1 regression each passed 32/32; UI and remote operations visually reviewed; GitHub release and TestFlight 1.1.0 (5) delivery verified."
 }
