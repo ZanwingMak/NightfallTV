@@ -48,7 +48,7 @@ An open-source, native Apple TV screensaver player for a calmer living room and 
 
 在音乐应用里开始播放 → 返回桌面 → 启动 Nightfall TV → 选择屏保，或「一键黑屏」。主动选择声景会与其他应用音频混音，默认没有声音。不同播放器的后台音乐兼容性需要在真实 Apple TV 验证。
 
-维护者的 TestFlight 内部构建为 **1.2.0（6）**，已完成 Apple 处理并加入 Nightfall Internal。收到邀请的 Apple ID 可在 Apple TV 安装 TestFlight，再接受邀请并安装；目前采用内部测试，不提供公开兑换链接。旧1.0.2（4）已有 Apple TV 4K（第三代，tvOS26.6）安装记录；新版真机安装、听感、音乐兼容和长时间播放由用户自行验收；开发交付以模拟器回归通过为准，详见回归记录。
+维护者的 TestFlight 内部构建为 **1.3.0（7）**，已完成 Apple 处理并加入 Nightfall Internal。收到邀请的 Apple ID 可在 Apple TV 安装 TestFlight，再接受邀请并安装；目前采用内部测试，不提供公开兑换链接。旧1.0.2（4）已有 Apple TV 4K（第三代，tvOS26.6）安装记录；新版真机安装、听感、音乐兼容和长时间播放由用户自行验收；开发交付以模拟器回归通过为准，详见回归记录。
 
 [Apple 当前 TestFlight 安装指南](https://beta.itunes.apple.com/)要求 Apple TV 运行 tvOS 18 或以上（应用自身最低 tvOS 17）。邮件邀请需在手机或电脑打开取得兑换码，再到电视上的 TestFlight → Redeem 输入代码；详细安装和配对步骤见[回归文档](docs/回归测试.md#testflight-真机验收)。
 
