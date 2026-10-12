@@ -13,16 +13,16 @@ struct SoundMixerView: View {
                             subtitle: settings.l("最多 3 层。各层音量按比例混合，主音量控制整体响度。", "Up to 3 layers. Blend their relative levels; master volume controls the whole mix."))
                 QuietButton(title: settings.l("完成", "Done"), symbol: "checkmark", id: "close-mixer") { dismiss() }
             }.focusSection()
-            Text(sound.layers.isEmpty ? settings.l("选择声音开始试听", "Select sounds to preview") : sound.title(settings.value.english))
+            Text(sound.layers.isEmpty ? settings.l("选择声音开始试听", "Select sounds to preview") : sound.title(settings.language))
                 .foregroundStyle(Palette.accent).font(.callout).accessibilityIdentifier("mixer-status")
             ScrollView {
                 VStack(spacing: 20) {
-                    ForEach(SoundKind.allCases) { kind in
+                    ForEach(SoundKind.available) { kind in
                         HStack(spacing: 32) {
                             Button { playback.toggleSoundLayer(kind) } label: {
                                 HStack {
                                     Image(systemName: kind.symbol).frame(width: 48)
-                                    Text(kind.title(settings.value.english))
+                                    Text(kind.title(settings.language))
                                     Spacer()
                                     Image(systemName: active(kind) ? "checkmark.circle.fill" : "plus.circle")
                                 }.font(.callout).padding(12)
@@ -66,7 +66,7 @@ struct SaveRoutineView: View {
             PageHeading(eyebrow: "KEEP THIS MOMENT", title: settings.l("下次，一键回到这里。", "Come back with one click."),
                         subtitle: settings.l("保存画面、声音组合、音量、亮度和两种定时。", "Save picture, sound mix, volume, brightness and both timers."))
             TextField(settings.l("方案名称", "Routine name"), text: $name).accessibilityIdentifier("routine-name")
-            Text(playback.scene.title(settings.value.english) + " · " + (sound.layers.isEmpty ? settings.l("静音", "Silent") : sound.title(settings.value.english)))
+            Text(playback.scene.title(settings.language) + " · " + (sound.layers.isEmpty ? settings.l("静音", "Silent") : sound.title(settings.language)))
                 .font(.callout).foregroundStyle(Palette.muted)
             if let error { Text(error).font(.caption).foregroundStyle(.orange) }
             HStack(spacing: 32) {
@@ -79,7 +79,7 @@ struct SaveRoutineView: View {
             Text(settings.l("保存在「夜间 → 我的方案」。只存在这台 Apple TV，不会自动播放。", "Find it in Nightfall → My routines. Stored on this Apple TV; never starts automatically."))
                 .font(.caption).foregroundStyle(Palette.muted)
         }.frame(width: 1100).padding(56).background(Palette.background)
-            .onAppear { name = playback.scene.title(settings.value.english); playback.choosingOptions = true }
+            .onAppear { name = playback.scene.title(settings.language); playback.choosingOptions = true }
             .onExitCommand { dismiss() }
     }
 }
@@ -103,7 +103,7 @@ struct RoutineShelf: View {
                     SceneArtwork(kind: routine.scene).frame(width: 260, height: 150).clipped().clipShape(RoundedRectangle(cornerRadius: 16))
                     VStack(alignment: .leading, spacing: 12) {
                         Text(routine.name).font(.title3).lineLimit(1)
-                        Text(routine.layers.isEmpty ? settings.l("静音", "Silent") : routine.layers.map { $0.sound.title(settings.value.english) }.joined(separator: " + "))
+                        Text(routine.layers.isEmpty ? settings.l("静音", "Silent") : routine.layers.map { $0.sound.title(settings.language) }.joined(separator: " + "))
                             .font(.caption).foregroundStyle(Palette.muted).lineLimit(2)
                         Text(routine.sleepMinutes == 0 ? settings.l("不限时", "No sleep timer") : settings.l("\(routine.sleepMinutes) 分钟", "\(routine.sleepMinutes) minutes"))
                             .font(.caption).foregroundStyle(Palette.accent)

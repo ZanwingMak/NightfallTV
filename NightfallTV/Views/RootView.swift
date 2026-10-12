@@ -3,15 +3,16 @@ import SwiftUI
 private enum AppPage: String, CaseIterable {
     case explore, collection, sounds, night, settings
     /// 返回顶部导航标题。
-    func title(_ english: Bool) -> String {
+    func title(_ language: AppLanguage) -> String {
         let titles = [("探索", "Explore"), ("收藏", "Collection"), ("声景", "Soundscapes"), ("夜间", "Nightfall"), ("设置", "Settings")]
         let pair = titles[Self.allCases.firstIndex(of: self)!]
-        return english ? pair.1 : pair.0
+        return Localizer.text(pair.1, chinese: pair.0, language: language)
     }
 }
 
 struct RootView: View {
     @EnvironmentObject private var settings: SettingsStore
+    @EnvironmentObject private var downloads: DownloadStore
     @EnvironmentObject private var playback: PlaybackController
     @Environment(\.scenePhase) private var scenePhase
     @State private var page: AppPage = .explore
@@ -42,8 +43,14 @@ struct RootView: View {
             }
         }
         .ignoresSafeArea()
+        .environment(\.locale, settings.language.locale)
+        .environment(\.layoutDirection, settings.language.isRTL ? .rightToLeft : .leftToRight)
         .pickerStyle(.menu)
-        .onChange(of: scenePhase) { _, phase in playback.setActive(phase == .active) }
+        .onChange(of: scenePhase) { _, phase in
+            playback.setActive(phase == .active)
+            if phase == .active { downloads.refresh() }
+        }
+        .alert(settings.l("请先下载此内容", "Download this content first"), isPresented: $playback.mediaMissing) { Button(settings.l("好", "OK"), role: .cancel) {} } message: { Text(settings.l("在设置的下载库中重新下载，即可离线播放。", "Download it again from the library in Settings to play offline.")) }
         .onChange(of: playback.now) { _, _ in
             if detail == nil && (page == .explore || page == .collection) { playback.checkIdle() }
         }
@@ -70,7 +77,7 @@ struct RootView: View {
             Spacer()
             ForEach(AppPage.allCases, id: \.self) { item in
                 Button { page = item; playback.interaction() } label: {
-                    Text(item.title(settings.value.english)).font(.callout.weight(page == item ? .semibold : .regular))
+                    Text(item.title(settings.language)).font(.callout.weight(page == item ? .semibold : .regular))
                         .padding(.horizontal, 16).padding(.vertical, 8)
                 }
                 .buttonStyle(NightButtonStyle(isSelected: page == item)).accessibilityAddTraits(page == item ? .isSelected : [])
@@ -82,6 +89,7 @@ struct RootView: View {
 
 struct LibraryView: View {
     @EnvironmentObject private var settings: SettingsStore
+    @EnvironmentObject private var downloads: DownloadStore
     @EnvironmentObject private var playback: PlaybackController
     @Binding var category: SceneCategory
     let open: (SceneKind) -> Void
@@ -93,14 +101,14 @@ struct LibraryView: View {
                 HStack(spacing: 20) {
                     ForEach(SceneCategory.allCases) { item in
                         Button { category = item; playback.interaction() } label: {
-                            Text(item.title(settings.value.english)).font(.callout).padding(.horizontal, 16)
+                            Text(item.title(settings.language)).font(.callout).padding(.horizontal, 16)
                         }.buttonStyle(NightButtonStyle(isSelected: category == item)).accessibilityAddTraits(category == item ? .isSelected : [])
                             .accessibilityIdentifier("category-\(item.rawValue)")
                     }
                     Spacer()
-                    Text(settings.l("\(SceneKind.allCases.count) 个场景 · 无限安静", "\(SceneKind.allCases.count) scenes · endless calm")).font(.caption).foregroundStyle(Palette.muted)
+                    Text(settings.l("\(SceneKind.available.count) 个场景 · 无限安静", "\(SceneKind.available.count) scenes · endless calm")).font(.caption).foregroundStyle(Palette.muted)
                 }.focusSection()
-                FocusGrid(SceneKind.allCases.filter { category == .all || $0.category == category }) { scene in
+                FocusGrid(SceneKind.available.filter { category == .all || $0.category == category }) { scene in
                     SceneCard(scene: scene) { open(scene) }
                 }.padding(.bottom, 48)
             }.padding(.horizontal, 80).padding(.top, 16)
@@ -113,7 +121,7 @@ struct LibraryView: View {
             SceneArtwork(kind: .aurora)
             LinearGradient(colors: [.black.opacity(0.86), .black.opacity(0.5), .clear], startPoint: .leading, endPoint: .trailing)
             VStack(alignment: .leading, spacing: 20) {
-                Text("A LITTLE LESS LIGHT. A LITTLE MORE PEACE.").font(.caption.weight(.medium)).tracking(3).foregroundStyle(Palette.accent)
+                Text(Localizer.text("A LITTLE LESS LIGHT. A LITTLE MORE PEACE.", language: settings.language)).font(.caption.weight(.medium)).tracking(3).foregroundStyle(Palette.accent)
                 Text(settings.l("把夜晚，\n还给自己。", "Let the evening\nbelong to you.")).font(.system(size: 64, weight: .light)).lineSpacing(4).fixedSize(horizontal: false, vertical: true)
                 Text(settings.l("从极光到星海，从一束暖光到完全黑屏。", "From northern lights to starlight. From a warm glow to none.")).font(.callout).foregroundStyle(.white.opacity(0.65))
                 HStack(spacing: 24) {
@@ -128,6 +136,7 @@ struct LibraryView: View {
 
 struct CollectionView: View {
     @EnvironmentObject private var settings: SettingsStore
+    @EnvironmentObject private var downloads: DownloadStore
     @EnvironmentObject private var playback: PlaybackController
     let open: (SceneKind) -> Void
     var body: some View {
@@ -156,26 +165,31 @@ struct CollectionView: View {
 struct SceneDetailView: View {
     let scene: SceneKind
     let close: () -> Void
+    @State private var showingDownloads = false
     @EnvironmentObject private var settings: SettingsStore
+    @EnvironmentObject private var downloads: DownloadStore
     @EnvironmentObject private var playback: PlaybackController
     var body: some View {
         ZStack(alignment: .bottomLeading) {
             SceneArtwork(kind: scene).ignoresSafeArea()
             LinearGradient(colors: [.clear, .black.opacity(0.6), .black.opacity(0.98)], startPoint: .top, endPoint: .bottom)
             VStack(alignment: .leading, spacing: 24) {
-                Text(scene.category.title(settings.value.english).uppercased()).font(.caption).tracking(4).foregroundStyle(Palette.accent)
-                Text(scene.title(settings.value.english)).font(.system(size: 68, weight: .light))
-                Text(scene.subtitle(settings.value.english)).font(.title3).foregroundStyle(.white.opacity(0.6))
+                Text(scene.category.title(settings.language).uppercased()).font(.caption).tracking(4).foregroundStyle(Palette.accent)
+                Text(scene.title(settings.language)).font(.system(size: 68, weight: .light))
+                Text(scene.subtitle(settings.language)).font(.title3).foregroundStyle(.white.opacity(0.6))
                 if scene == .gallery && settings.value.photos.isEmpty {
                     Text(settings.l("在设置中添加 HTTPS 照片地址，即可开始私人轮播。", "Add HTTPS photo URLs in Settings to begin your gallery.")).font(.callout).foregroundStyle(Palette.muted)
                 }
                 if scene == .black {
                     Text(settings.l("播放中没有提示。确认键显示控制，返回键退出。音乐由原播放器控制。", "No overlays while playing. Select opens controls. Back exits. Your music stays with its player.")).font(.callout).foregroundStyle(Palette.muted)
                 }
+                if !scene.isAvailable {
+                    QuietButton(title: settings.l("下载此场景", "Download this scene"), symbol: "arrow.down.circle", id: "download-missing-scene") { showingDownloads = true }
+                }
                 HStack(spacing: 24) {
                     QuietButton(title: settings.l("开始屏保", "Start screensaver"), symbol: "play.fill", id: "start-scene") { playback.start(scene) }
                     if let suggested = scene.suggestedSound {
-                        QuietButton(title: settings.l("有声 · ", "With ") + suggested.title(settings.value.english), symbol: "speaker.wave.2.fill", id: "start-scene-sound") { playback.startWithSound(scene, sound: suggested) }
+                        QuietButton(title: settings.l("有声 · ", "With ") + suggested.title(settings.language), symbol: "speaker.wave.2.fill", id: "start-scene-sound") { playback.startWithSound(scene, sound: suggested) }
                     }
                     QuietButton(title: settings.value.favorites.contains(scene) ? settings.l("已收藏", "Saved") : settings.l("收藏场景", "Save scene"), symbol: settings.value.favorites.contains(scene) ? "heart.fill" : "heart", id: "favorite-scene") { settings.toggleFavorite(scene) }
                     QuietButton(title: settings.l("返回", "Back"), symbol: "arrow.left", id: "close-detail", action: close)
@@ -184,6 +198,6 @@ struct SceneDetailView: View {
                     Text(settings.l("声音为独立自然录音。播放中可换声景、关画面或恢复画面。", "Sound is a separate field recording. Change it or turn the picture off and on while playing.")).font(.caption).foregroundStyle(Palette.muted)
                 }
             }.padding(88)
-        }.onExitCommand(perform: close)
+        }.onExitCommand(perform: close).sheet(isPresented: $showingDownloads) { DownloadsView() }
     }
 }

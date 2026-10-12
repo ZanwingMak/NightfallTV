@@ -15,11 +15,14 @@ struct MediaCreditsView: View {
             ScrollView {
                 VStack(spacing: 24) {
                     ForEach(VideoCredit.all) { credit in
-                        CreditRow(name: credit.scene.title(settings.value.english), title: credit.title, creator: credit.creator, license: credit.license,
+                        CreditRow(name: credit.scene.title(settings.language), title: credit.title, creator: credit.creator, license: credit.license,
                                   sourceURL: credit.sourceURL, licenseURL: credit.licenseURL, changes: credit.changes, id: "credit-\(credit.id)")
                     }
+                    ForEach(DownloadAsset.all) { asset in
+                        CreditRow(name: asset.title(settings.language), title: asset.sourceTitle + " · " + asset.specification, creator: asset.author, license: asset.license, sourceURL: asset.sourceURL.absoluteString, licenseURL: asset.licenseURL.absoluteString, changes: asset.changes, id: "download-credit-\(asset.id)")
+                    }
                     ForEach(AudioCredit.all) { credit in
-                        CreditRow(name: credit.sound.title(settings.value.english), title: credit.title, creator: credit.creator, license: credit.license,
+                        CreditRow(name: credit.sound.title(settings.language), title: credit.title, creator: credit.creator, license: credit.license,
                                   sourceURL: credit.sourceURL, licenseURL: credit.licenseURL, changes: credit.sourceFormat + ". " + credit.changes, id: "audio-credit-\(credit.id)")
                     }
                 }.padding(12)

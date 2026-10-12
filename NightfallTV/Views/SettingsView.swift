@@ -61,6 +61,9 @@ struct SettingsView: View {
     @State private var photoError: String?
     @State private var confirmReset = false
     @State private var showingCredits = false
+    @State private var showingDownloads = false
+    @State private var showingSupport = false
+    @State private var sitePage: SitePage?
 
     var body: some View {
         VStack(alignment: .leading, spacing: 24) {
@@ -107,8 +110,16 @@ struct SettingsView: View {
                     }
                     Text(settings.l("照片加载失败时保持暗色空白，可随时返回。照片需有使用授权。", "Failed photos remain dark; you can always go back. Use photographs you have permission to display.")).font(.caption).foregroundStyle(Palette.muted)
                 }
+                Section(settings.l("支持与帮助", "Support and help")) {
+                    Button(settings.l("下载更多 4K 风景与原生录音", "Download more 4K films and field recordings")) { showingDownloads = true }.accessibilityIdentifier("open-downloads")
+                    Button(settings.l("赞助开发", "Support development")) { showingSupport = true }.accessibilityIdentifier("support-development")
+                    Text(settings.l("自愿打赏，全部功能免费。", "Optional tips. Every feature is free.")).font(.caption).foregroundStyle(Palette.muted)
+                    ForEach(SitePage.allCases) { page in
+                        Button(page.title(settings)) { sitePage = page }.accessibilityIdentifier("site-\(page.rawValue)")
+                    }
+                }
                 Section(settings.l("语言与隐私", "Language & privacy")) {
-                    ChoicePicker(title: "语言 / Language", selection: $settings.value.english, options: [(false, "简体中文"), (true, "English")]).accessibilityIdentifier("language")
+                    ChoicePicker(title: "语言 / Language", selection: Binding(get: { settings.value.languageCode.flatMap(AppLanguage.init(rawValue:)) ?? (settings.value.english ? .en : .zhHans) }, set: { settings.setLanguage($0) }), options: AppLanguage.allCases.map { ($0, $0 == .system ? settings.l("跟随系统", "Automatic") : $0.name) }).accessibilityIdentifier("language")
                     Text(settings.l("没有统计、追踪或广告 SDK。不向开发者服务器上传数据。个人照片由你指定的地址提供，对方可能记录正常的网络访问。", "No analytics, tracking or advertising SDKs. Nothing is uploaded to developer servers. Photo hosts you choose may log normal network requests.")).font(.callout).foregroundStyle(Palette.muted)
                     Button(settings.l("视听素材来源与授权", "Media sources & licenses")) { showingCredits = true }.accessibilityIdentifier("media-credits")
                     Text("Nightfall TV \(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "") · Code: MIT · github.com/ZanwingMak/NightfallTV").font(.caption).foregroundStyle(Palette.muted)
@@ -117,6 +128,9 @@ struct SettingsView: View {
             }.padding(.horizontal, 80)
         }
         .sheet(isPresented: $showingCredits) { MediaCreditsView() }
+        .sheet(isPresented: $showingDownloads) { DownloadsView() }
+        .sheet(isPresented: $showingSupport) { SupportView() }
+        .sheet(item: $sitePage) { SiteLinkView(page: $0) }
         .alert(settings.l("恢复默认设置？", "Reset to defaults?"), isPresented: $confirmReset) {
             Button(settings.l("取消", "Cancel"), role: .cancel) { }
             Button(settings.l("重置", "Reset"), role: .destructive) { sound.stop(); settings.reset(); playback.interaction(); address = ""; photoError = nil }

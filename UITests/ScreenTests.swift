@@ -441,4 +441,67 @@ final class ScreenTests: XCTestCase {
         capture("13-real-fire-loop")
     }
 
+    /// 通过遥控器下载、取消、播放及删除，确保可选媒体没有隐式自动下载。
+    func testOptionalDownloadRemoteControlsAndPlayback() {
+        let app = launch()
+        activate("nav-settings", in: app)
+        activate("open-downloads", in: app)
+        XCTAssertTrue(app.buttons["download-valley"].waitForExistence(timeout: 5))
+        activate("download-mountains", in: app)
+        XCTAssertTrue(app.buttons["cancel-mountains"].waitForExistence(timeout: 5))
+        activate("cancel-mountains", in: app)
+        XCTAssertTrue(app.buttons["download-mountains"].waitForExistence(timeout: 5))
+        activate("download-valley", in: app)
+        XCTAssertTrue(app.buttons["play-download-valley"].waitForExistence(timeout: 90))
+        capture("25-download-library-ready")
+        activate("play-download-valley", in: app)
+        XCTAssertTrue(app.descendants(matching: .any)["playing-valley"].waitForExistence(timeout: 10))
+        capture("26-downloaded-4k-playback")
+        XCUIRemote.shared.press(.menu)
+        activate("nav-settings", in: app)
+        activate("open-downloads", in: app)
+        activate("delete-valley", in: app)
+        XCTAssertTrue(app.buttons["download-valley"].waitForExistence(timeout: 5))
+        activate("close-downloads", in: app)
+        XCTAssertTrue(app.buttons["open-downloads"].waitForExistence(timeout: 5))
+    }
+
+    /// 官网和法律页面二维码可用遥控器打开及退出；赞助页不限制免费功能。
+    func testWebsiteLegalLinksAndSupportSheet() {
+        let app = launch()
+        activate("nav-settings", in: app)
+        for page in ["home", "privacy", "terms", "support"] {
+            activate("site-\(page)", in: app)
+            XCTAssertTrue(app.buttons["close-site-link"].waitForExistence(timeout: 5))
+            let url = page == "home" ? "https://zanwingmak.github.io/NightfallTV/" : "https://zanwingmak.github.io/NightfallTV/\(page).html"
+            XCTAssertTrue(app.staticTexts[url].exists)
+            if page == "privacy" { capture("27-privacy-policy-qr") }
+            XCUIRemote.shared.press(.menu)
+        }
+        activate("support-development", in: app)
+        XCTAssertTrue(app.buttons["close-support"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.staticTexts["tip-status"].exists)
+        capture("28-support-development")
+        activate("close-support", in: app)
+        activate("nav-explore", in: app)
+        activate("quick-black", in: app)
+        XCTAssertTrue(app.descendants(matching: .any)["black-screen"].waitForExistence(timeout: 5))
+    }
+
+    /// 十三种语言均有可操作导航，阿拉伯语镜像布局仍能通过方向键进入设置并返回。
+    func testAllLanguagesHaveWorkingRemoteNavigation() {
+        let labels = [("zh-Hans", "设置"), ("zh-Hant", "設定"), ("en", "Settings"), ("ja", "設定"), ("ko", "설정"), ("fr", "Réglages"), ("de", "Einstellungen"), ("es", "Ajustes"), ("it", "Impostazioni"), ("pt-BR", "Configurações"), ("ru", "Настройки"), ("ar", "الإعدادات"), ("hi", "सेटिंग्स")]
+        for (code, label) in labels {
+            let app = launch(["--language=\(code)"])
+            XCTAssertEqual(app.buttons["nav-settings"].label, label)
+            activate("nav-settings", in: app)
+            activate("language", in: app)
+            XCTAssertTrue(app.buttons["English"].waitForExistence(timeout: 5))
+            XCUIRemote.shared.press(.menu)
+            activate("nav-explore", in: app)
+            if ["de", "ar", "ja", "zh-Hant"].contains(code) { capture("29-language-\(code)") }
+            app.terminate()
+        }
+    }
+
 }

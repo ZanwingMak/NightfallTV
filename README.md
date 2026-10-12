@@ -2,7 +2,7 @@
 
 An open-source, native Apple TV screensaver player for a calmer living room and a darker bedroom. Built with SwiftUI and AVFoundation. Free, offline-first, no account, no ads.
 
-原生 Apple TV 屏保播放器：13 种屏保模式，包含 10 个真实拍摄场景、完全黑屏、个人照片画廊、收藏轮播、10 种离线声景、三层混音、个人睡前方案与独立自动黑屏。免费开源，没有广告或订阅。
+原生 Apple TV 屏保播放器：17 种屏保模式，包含 14 个真实拍摄场景、完全黑屏、个人照片画廊、收藏轮播、14 种声景（含 4 种按需下载）、三层混音、个人睡前方案与独立自动黑屏。免费开源，没有广告或订阅。
 
 ![Nightfall TV 实际首页](docs/screens/library.png)
 
@@ -14,7 +14,7 @@ An open-source, native Apple TV screensaver player for a calmer living room and 
 
 ## 功能
 
-- **13 种场景**：纯黑、实拍极光、夜空、海浪、炉火、沙漠落日、树林、雨窗、庭园瀑布、飘雪、云海、漂移时钟、照片画廊。
+- **17 种场景**：纯黑、实拍极光、夜空、海浪、炉火、沙漠落日、树林、雨窗、庭园瀑布、飘雪、云海、漂移时钟、照片画廊，以及按需下载的雨后海岸、山间清风、碧谷流云与莱茵瀑布。
 - **真实景色**：10 个有免费再分发许可的摄影视频，离线静音循环；预览为真实视频帧，最高 1080p，部分为 720p。
 - **为卧室设计的全黑**：屏幕输出 RGB 0/0/0，无提示、时钟或焦点边框；启动即黑屏可选。
 - **私人收藏**：顺序 / 随机轮播、切换间隔、场景收藏。
@@ -26,7 +26,7 @@ An open-source, native Apple TV screensaver player for a calmer living room and 
 - **睡前快捷方案**：30 分钟细雨、60 分钟棕噪音，一键纯黑入眠。
 - **睡眠与夜间**：15–120 分钟定时，结束保持黑屏；画面和本应用声音最后 30 秒一起淡出；自定义跨午夜规则。
 - **你的照片**：最多 30 张 HTTPS 图片直链；内存缓存、下载与解码限制；加载失败保持暗色。
-- **显示偏好**：亮度、速度、漂移时钟、24 小时制、减少动态效果、中文 / English。
+- **显示偏好**：亮度、速度、漂移时钟、24 小时制、减少动态效果、13 种主流语言与跟随系统；阿拉伯语支持从右到左布局。
 
 | 声景画面开关 | 新增自然录音 |
 |---|---|
@@ -35,6 +35,10 @@ An open-source, native Apple TV screensaver player for a calmer living room and 
 | 三层声景混音 | 自动黑屏后恢复原画面 |
 |---|---|
 | ![混音](docs/screens/sound-mixer.png) | ![独立画面计时](docs/screens/picture-timer.png) |
+
+- **可选高清下载**：4 项原生 3840×2160 实拍、4 项 48 kHz／24-bit／立体声 ALAC 自然录音。下载前显示容量与署名，支持进度、取消、播放和删除；校验 SHA-256 后才登记。约 200 MB 素材托管于 [独立内容 Release](https://github.com/ZanwingMak/NightfallTV/releases/tag/content-2026-10)，不打入应用包。tvOS 可能清理缓存，可免费重下。
+- **赞助支持**：StoreKit 2 消耗型打赏，美国基准价格 $0.99／$2.99／$4.99／$9.99，实际以 Apple 当地价格为准。全部功能与下载免费，没有订阅或功能解锁。
+- **官网与法律文件**：[官方网站](https://zanwingmak.github.io/NightfallTV/)、[隐私政策](https://zanwingmak.github.io/NightfallTV/privacy.html)、[服务条款](https://zanwingmak.github.io/NightfallTV/terms.html)和帮助页，可在应用设置扫码访问。
 
 ## 使用
 
@@ -67,7 +71,7 @@ xcodebuild -project NightfallTV.xcodeproj -scheme NightfallTV \
 ```bash
 xcodebuild -project NightfallTV.xcodeproj -scheme NightfallTV \
   -destination 'platform=tvOS Simulator,id=YOUR_SIMULATOR_ID' \
-  CODE_SIGNING_ALLOWED=NO test
+  CODE_SIGNING_ALLOWED=YES CODE_SIGN_IDENTITY=- DEVELOPMENT_TEAM= test
 ```
 
 1.2.0（6）已在 tvOS26.5 的 Apple TV4K 模拟器完成 **24个单元测试＋16个遥控器UI测试，40/40全部通过，0失败、0跳过**（2026-10-12）。[最终应用源码的云端完整回归](https://github.com/ZanwingMak/NightfallTV/actions/runs/38255699835)也已 **40/40通过**。测试覆盖三层混音持续播放、旧偏好迁移、方案保存与重启恢复／删除、真实等待一分钟的自动黑屏、画面恢复及原有遥控器方向导航。已保存实际界面截图并检查中英文显示和焦点样式。其中照片网络专项访问本仓库的公开截图，离线执行可追加 `-skip-testing:NightfallTVTests/PersistenceTests/testRemotePhotosAndCache`。

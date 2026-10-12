@@ -3,6 +3,7 @@ import Combine
 
 @MainActor
 final class PlaybackController: ObservableObject {
+    @Published var mediaMissing = false
     @Published private(set) var isPlaying = false
     @Published private(set) var scene: SceneKind = .aurora
     @Published private(set) var paused = false
@@ -37,10 +38,11 @@ final class PlaybackController: ObservableObject {
 
     /// 启动屏保或收藏播放列表，始终先隐藏操作界面。
     func start(_ selected: SceneKind, playlist: [SceneKind] = []) {
+        guard selected.isAvailable else { mediaMissing = true; return }
         now = Date()
         scene = selected
         settings.value.lastScene = selected
-        self.playlist = playlist
+        self.playlist = playlist.filter(\.isAvailable)
         timeline = PlaybackTimeline(now: now, sleepMinutes: settings.value.sleepMinutes, pictureOffMinutes: settings.value.pictureOffMinutes ?? 0)
         paused = false
         visualsHidden = false
@@ -54,6 +56,7 @@ final class PlaybackController: ObservableObject {
 
     /// 用户明确选择有声播放时，启动画面并搭配独立录音；普通启动仍保持现有声音状态。
     func startWithSound(_ selected: SceneKind, sound selectedSound: SoundKind) {
+        guard selected.isAvailable, selectedSound.isAvailable else { mediaMissing = true; return }
         start(selected)
         selectSound(selectedSound)
     }
@@ -107,7 +110,7 @@ final class PlaybackController: ObservableObject {
     /// 遥控器手动切换场景；纯黑模式不显示自动提示。
     func step(forward: Bool) {
         guard !timeline.expired(at: Date()), !settings.value.isNight(at: Date()) else { return }
-        let scenes = playlist.isEmpty ? SceneKind.allCases : playlist
+        let scenes = (playlist.isEmpty ? SceneKind.available : playlist).filter(\.isAvailable)
         guard let index = scenes.firstIndex(of: scene), !scenes.isEmpty else { return }
         scene = scenes[(index + (forward ? 1 : scenes.count - 1)) % scenes.count]
         visualsHidden = false
@@ -146,6 +149,7 @@ final class PlaybackController: ObservableObject {
     func startRoutine(_ routine: SavedRoutine, black: Bool = false) {
         var safe = routine
         safe.normalize()
+        guard safe.scene.isAvailable, safe.layers.allSatisfy({ $0.sound.isAvailable }) else { mediaMissing = true; return }
         settings.value.soundVolume = safe.volume
         settings.value.brightness = safe.brightness
         settings.value.sleepMinutes = safe.sleepMinutes
@@ -177,7 +181,7 @@ final class PlaybackController: ObservableObject {
     func checkIdle() {
         let seconds = settings.value.idleSeconds
         if active && !isPlaying && seconds > 0 && now.timeIntervalSince(homeInteraction) >= Double(seconds) {
-            start(settings.value.lastScene)
+            start(settings.value.lastScene.isAvailable ? settings.value.lastScene : .black)
         }
     }
 
@@ -202,7 +206,7 @@ final class PlaybackController: ObservableObject {
         }
         let elapsed = timeline.elapsed(at: date)
         if !paused && !visualsHidden && !settings.value.isNight(at: date) && !playlist.isEmpty && elapsed - lastRotation >= Double(settings.value.rotationSeconds) {
-            if let next = PlaybackTimeline.next(in: playlist, current: scene, shuffle: settings.value.shuffle) { scene = next }
+            if let next = PlaybackTimeline.next(in: playlist.filter(\.isAvailable), current: scene, shuffle: settings.value.shuffle) { scene = next }
             lastRotation = elapsed
         }
     }

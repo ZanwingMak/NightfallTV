@@ -4,25 +4,27 @@ struct SoundsView: View {
     @EnvironmentObject private var settings: SettingsStore
     @EnvironmentObject private var playback: PlaybackController
     @EnvironmentObject private var sound: SoundPlayer
+    @State private var showingDownloads = false
     @State private var picture: SceneKind?
     @State private var showingMixer = false
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 36) {
                 PageHeading(eyebrow: "SOUND, SOFTLY", title: settings.l("让世界，慢一点。", "Let the world slow down."), subtitle: settings.l("8 种真实自然录音，2 种柔和噪音。听声音，看风景，或者完全黑屏。", "Eight nature recordings, two gentle noises. Watch a scene or listen in absolute black."))
+                QuietButton(title: settings.l("下载更多高音质录音", "Download more lossless recordings"), symbol: "arrow.down.circle", id: "sound-downloads") { showingDownloads = true }
                 HStack(spacing: 32) {
                     QuietButton(title: settings.l("停止声景", "Stop sound"), symbol: "speaker.slash.fill", id: "stop-sound") { sound.stop() }
                     ChoicePicker(title: settings.l("声景音量", "Sound volume"), selection: $settings.value.soundVolume,
                                  options: [0.1, 0.25, 0.5, 0.75, 1].map { ($0, "\(Int($0 * 100))%") })
                         .frame(width: 400).accessibilityIdentifier("sound-volume")
                     QuietButton(title: settings.l("混合声景", "Mix sounds"), symbol: "slider.horizontal.3", id: "sound-mixer") { showingMixer = true }
-                    Text(sound.layers.isEmpty ? settings.l("当前静音", "Currently silent") : settings.l("正在播放：", "Playing: ") + sound.title(settings.value.english))
+                    Text(sound.layers.isEmpty ? settings.l("当前静音", "Currently silent") : settings.l("正在播放：", "Playing: ") + sound.title(settings.language))
                         .font(.callout).foregroundStyle(Palette.accent).lineLimit(2).accessibilityIdentifier("sound-status")
                     Spacer()
                 }.focusSection()
                 HStack(spacing: 24) {
                     ChoicePicker(title: settings.l("搭配画面", "Picture"), selection: $picture,
-                                 options: [(nil, settings.l("随声景推荐", "Suggested"))] + SceneKind.allCases.filter { $0 != .black }.map { (Optional($0), $0.title(settings.value.english)) })
+                                 options: [(nil, settings.l("随声景推荐", "Suggested"))] + SceneKind.available.filter { $0 != .black }.map { (Optional($0), $0.title(settings.language)) })
                         .frame(width: 580).accessibilityIdentifier("sound-picture")
                     QuietButton(title: settings.l("打开画面", "Picture on"), symbol: "tv", id: "sound-visual") {
                         guard let selected = sound.selected else { return }
@@ -33,7 +35,7 @@ struct SoundsView: View {
                     Spacer()
                 }.focusSection()
                 if let error = sound.error { Text(error).font(.callout).foregroundStyle(.orange) }
-                FocusGrid(SoundKind.allCases) { kind in
+                FocusGrid(SoundKind.available) { kind in
                         Button {
                             if sound.layers.contains(where: { $0.sound == kind }) { playback.toggleSoundLayer(kind) }
                             else { sound.play(kind, volume: settings.value.soundVolume) }
@@ -45,19 +47,20 @@ struct SoundsView: View {
                                 VStack(alignment: .leading, spacing: 16) {
                                     Image(systemName: kind.symbol).font(.title2).foregroundStyle(Palette.accent)
                                     HStack {
-                                        Text(kind.title(settings.value.english)).font(.title2)
+                                        Text(kind.title(settings.language)).font(.title2)
                                         Spacer()
                                         Image(systemName: sound.layers.contains(where: { $0.sound == kind }) ? "stop.circle.fill" : "play.circle").font(.title2)
                                     }
-                                    Text(kind.subtitle(settings.value.english)).font(.caption).foregroundStyle(Palette.muted)
+                                    Text(kind.subtitle(settings.language)).font(.caption).foregroundStyle(Palette.muted)
                                 }.padding(32)
                             }.clipShape(RoundedRectangle(cornerRadius: 20))
                         }.buttonStyle(ArtworkButtonStyle()).accessibilityIdentifier("sound-\(kind.rawValue)")
-                            .accessibilityLabel(kind.title(settings.value.english) + " · " + (sound.layers.contains(where: { $0.sound == kind }) ? settings.l("移除此声层", "Remove layer") : settings.l("单独播放", "Play alone")))
+                            .accessibilityLabel(kind.title(settings.language) + " · " + (sound.layers.contains(where: { $0.sound == kind }) ? settings.l("移除此声层", "Remove layer") : settings.l("单独播放", "Play alone")))
                 }
                 Text(settings.l("选择声景开始试听，再打开或关闭画面。画面与录音为独立素材；纯黑模式不显示时钟或提示。", "Select a sound to preview, then turn the picture on or off. Footage and recordings are separate assets. Black mode has no clock or overlays.")).font(.caption).foregroundStyle(Palette.muted)
             }.padding(80)
         }.onChange(of: settings.value.soundVolume) { _, volume in sound.setVolume(volume) }
+            .sheet(isPresented: $showingDownloads) { DownloadsView() }
             .sheet(isPresented: $showingMixer, onDismiss: { playback.choosingOptions = false; playback.interaction() }) { SoundMixerView() }
     }
 
@@ -65,16 +68,16 @@ struct SoundsView: View {
     @ViewBuilder
     private func soundArtwork(for sound: SoundKind) -> some View {
         switch sound {
-        case .rain: SceneArtwork(kind: .rain).opacity(0.6)
+        case .rain, .thunder: SceneArtwork(kind: .rain).opacity(0.6)
         case .ocean: SceneArtwork(kind: .ocean).opacity(0.6)
         case .fire: SceneArtwork(kind: .ember).opacity(0.6)
-        case .birds, .wind: SceneArtwork(kind: .prism).opacity(0.5)
+        case .birds, .wind, .parkbirds, .parkwind: SceneArtwork(kind: .prism).opacity(0.5)
         case .crickets: SceneArtwork(kind: .stars).opacity(0.6)
         case .waterfall: SceneArtwork(kind: .waterfall).opacity(0.6)
-        case .stream, .pink, .brown:
+        case .stream, .pink, .brown, .parkriver:
             ZStack(alignment: .topTrailing) {
-                LinearGradient(colors: [sound == .stream ? Color(red: 0.04, green: 0.2, blue: 0.2) : Palette.accent.opacity(0.12), .black], startPoint: .topLeading, endPoint: .bottomTrailing)
-                Image(systemName: sound == .stream ? "water.waves" : "waveform")
+                LinearGradient(colors: [(sound == .stream || sound == .parkriver) ? Color(red: 0.04, green: 0.2, blue: 0.2) : Palette.accent.opacity(0.12), .black], startPoint: .topLeading, endPoint: .bottomTrailing)
+                Image(systemName: (sound == .stream || sound == .parkriver) ? "water.waves" : "waveform")
                     .font(.system(size: 110, weight: .ultraLight)).foregroundStyle(Palette.accent.opacity(0.18)).padding(32)
             }
         }

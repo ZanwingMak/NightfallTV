@@ -3,6 +3,7 @@ import Combine
 
 struct Preferences: Codable, Equatable {
     var english = false
+    var languageCode: String?
     var favorites: [SceneKind] = [.aurora, .stars, .ocean]
     var brightness = 0.8
     var speed = 0.5
@@ -69,6 +70,7 @@ final class SettingsStore: ObservableObject {
         self.defaults = defaults
         var decoded = defaults.data(forKey: key).flatMap { try? JSONDecoder().decode(Preferences.self, from: $0) } ?? Preferences()
         decoded.normalize()
+        if defaults.data(forKey: key) == nil { decoded.languageCode = AppLanguage.system.rawValue }
         value = decoded
         routines = (defaults.data(forKey: "nightfall.routines.v1").flatMap { try? JSONDecoder().decode([SavedRoutine].self, from: $0) } ?? [])
             .prefix(12).compactMap { entry in
@@ -124,5 +126,10 @@ final class SettingsStore: ObservableObject {
     }
 
     /// 选择当前语言对应的界面文案。
-    func l(_ chinese: String, _ english: String) -> String { value.english ? english : chinese }
+    func l(_ chinese: String, _ english: String) -> String { Localizer.text(english, chinese: chinese, language: language) }
+
+    var language: AppLanguage { (value.languageCode.flatMap(AppLanguage.init(rawValue:)) ?? (value.english ? .en : .zhHans)).resolved }
+
+    /// 保存语言选择，同时保留旧版本的布尔偏好兼容信息。
+    func setLanguage(_ language: AppLanguage) { value.languageCode = language.rawValue; value.english = language.resolved == .en }
 }

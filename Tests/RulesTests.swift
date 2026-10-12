@@ -7,8 +7,8 @@ final class RulesTests: XCTestCase {
 
     /// 验证所有屏保和全部离线声音都有独立的标识与文案。
     func testCatalogIsComplete() {
-        XCTAssertEqual(SceneKind.allCases.count, 13)
-        XCTAssertEqual(SoundKind.allCases.count, 10)
+        XCTAssertEqual(SceneKind.allCases.count, 17)
+        XCTAssertEqual(SoundKind.allCases.count, 14)
         for scene in SceneKind.allCases {
             XCTAssertFalse(scene.title(false).isEmpty)
             XCTAssertFalse(scene.title(true).isEmpty)
@@ -157,7 +157,7 @@ final class PersistenceTests: XCTestCase {
 
     /// 音频资源实际存在且能被播放器解码，保证离线声景不是空入口。
     func testBundledAudioDecodes() throws {
-        for sound in SoundKind.allCases {
+        for sound in SoundKind.allCases.filter({ !$0.isDownload }) {
             let url = try XCTUnwrap(Bundle.main.url(forResource: sound.rawValue, withExtension: "m4a"))
             let player = try AVAudioPlayer(contentsOf: url)
             XCTAssertGreaterThan(player.duration, 25)

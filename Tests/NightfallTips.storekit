@@ -1,0 +1,81 @@
+{
+  "identifier": "fb89d158-17ba-4df0-8b80-d295e789fdd9",
+  "nonRenewingSubscriptions": [],
+  "products": [
+    {
+      "displayPrice": "0.99",
+      "familyShareable": false,
+      "internalID": "4d2828c9-0d26-42d4-8ef8-65e9ea70c6ef",
+      "localizations": [
+        {
+          "description": "Thanks for supporting development. All features free.",
+          "displayName": "Support development",
+          "locale": "en_US"
+        }
+      ],
+      "productID": "com.zanwingmak.nightfalltv.tip.small",
+      "referenceName": "Support USD 0.99",
+      "type": "Consumable"
+    },
+    {
+      "displayPrice": "2.99",
+      "familyShareable": false,
+      "internalID": "bdb244a8-7751-47f0-a269-e9b1602c1ba9",
+      "localizations": [
+        {
+          "description": "Thanks for supporting development. All features free.",
+          "displayName": "Support development",
+          "locale": "en_US"
+        }
+      ],
+      "productID": "com.zanwingmak.nightfalltv.tip.kind",
+      "referenceName": "Support USD 2.99",
+      "type": "Consumable"
+    },
+    {
+      "displayPrice": "4.99",
+      "familyShareable": false,
+      "internalID": "8047ece9-6549-4fc6-92b8-15b8c4be7d9d",
+      "localizations": [
+        {
+          "description": "Thanks for supporting development. All features free.",
+          "displayName": "Support development",
+          "locale": "en_US"
+        }
+      ],
+      "productID": "com.zanwingmak.nightfalltv.tip.warm",
+      "referenceName": "Support USD 4.99",
+      "type": "Consumable"
+    },
+    {
+      "displayPrice": "9.99",
+      "familyShareable": false,
+      "internalID": "7ca8cd7f-d638-48b7-a772-446357352296",
+      "localizations": [
+        {
+          "description": "Thanks for supporting development. All features free.",
+          "displayName": "Support development",
+          "locale": "en_US"
+        }
+      ],
+      "productID": "com.zanwingmak.nightfalltv.tip.generous",
+      "referenceName": "Support USD 9.99",
+      "type": "Consumable"
+    }
+  ],
+  "settings": {
+    "_askToBuyEnabled": false,
+    "_billingGracePeriodEnabled": false,
+    "_billingIssuesEnabled": false,
+    "_disableDialogs": false,
+    "_failTransactionsEnabled": false,
+    "_locale": "en_US",
+    "_storefront": "USA",
+    "_storeKitErrors": []
+  },
+  "subscriptionGroups": [],
+  "version": {
+    "major": 3,
+    "minor": 0
+  }
+}

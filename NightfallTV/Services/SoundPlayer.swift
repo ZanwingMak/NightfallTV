@@ -43,7 +43,7 @@ final class SoundPlayer: ObservableObject {
             if players.isEmpty { try session.setActive(true) }
             var newPlayers: [SoundKind: AVAudioPlayer] = [:]
             for layer in nextLayers where players[layer.sound] == nil {
-                guard let url = Bundle.main.url(forResource: layer.sound.rawValue, withExtension: "m4a") else { throw CocoaError(.fileNoSuchFile) }
+                guard let url = DownloadStore.audio(layer.sound) else { throw CocoaError(.fileNoSuchFile) }
                 let next = try AVAudioPlayer(contentsOf: url)
                 next.numberOfLoops = -1
                 next.volume = 0
@@ -84,6 +84,9 @@ final class SoundPlayer: ObservableObject {
 
     /// 返回当前组合名称，用真实的所有选中层显示播放状态。
     func title(_ english: Bool) -> String { layers.map { $0.sound.title(english) }.joined(separator: " + ") }
+
+    /// 返回全部声层的本地化标题。
+    func title(_ language: AppLanguage) -> String { layers.map { $0.sound.title(language) }.joined(separator: " + ") }
 
     /// 读取录音的实际播放位置，用于确认切换混音时持续播放而非重新启动。
     func playbackTime(for kind: SoundKind) -> TimeInterval? { players[kind]?.currentTime }

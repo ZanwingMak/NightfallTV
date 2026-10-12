@@ -16,14 +16,21 @@
 		10860D17681DBFFF450624BF /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 38D83115CFF05A9653C98ABC /* PrivacyInfo.xcprivacy */; };
 		112F771F20D6B548B6281A75 /* aurora-poster.png in Resources */ = {isa = PBXBuildFile; fileRef = 360A9637B961A709E5AB1925 /* aurora-poster.png */; };
 		17C4BF3D7744D29244128969 /* Catalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5F0EE9B2B8D0C56E4EF1FCE /* Catalog.swift */; };
+		186C02C90E1494604284F5C9 /* AppLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD255A54552EF0322BF742C /* AppLanguage.swift */; };
+		1BE063CE6FDD3284862D9743 /* translations.json in Resources */ = {isa = PBXBuildFile; fileRef = 317A74405FCB8B19A57C1BF0 /* translations.json */; };
+		1DB34E942EAF660421432CA5 /* TipStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE214925DEB29E73F78838E /* TipStore.swift */; };
 		2364CF4669EF67340EA4B8F7 /* pink.m4a in Resources */ = {isa = PBXBuildFile; fileRef = B65990CB1872366FE95080A7 /* pink.m4a */; };
 		25C1835009B5266EDBC4BFDD /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D82A555A6F78C08B3D12FC2 /* SettingsView.swift */; };
 		2D735F313FD191EBA539059A /* PlaybackController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565281572865C6AC55F2C4F2 /* PlaybackController.swift */; };
 		340D1F1348EF53C1316CACF9 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB6EA9EBC418E0B5B03FD1F0 /* Preferences.swift */; };
 		3CF834A24351B33818E49CBB /* rain.m4a in Resources */ = {isa = PBXBuildFile; fileRef = B55C151A8A12B5F7294B777E /* rain.m4a */; };
+		3F0B2318221CF8B5E9882A19 /* rhine-poster.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9DACF57696C47D4B848904E4 /* rhine-poster.jpg */; };
 		3F39B2AB1F9ACF60BF2976D7 /* snow.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 423851ED3375324A31ADAAE8 /* snow.mp4 */; };
+		457E092A6FE1F8055C2D7A60 /* DownloadStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D306CDDFF2A11C57BF01CE /* DownloadStore.swift */; };
 		46045DA8942AE736207ACA43 /* stars.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 4A89A37F4C1F73BB5812EF4E /* stars.mp4 */; };
+		4D90BF19349AE7D0CE67EB88 /* coast-poster.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1BCDCCB33B4B5C6E890A9950 /* coast-poster.jpg */; };
 		51B5331D098ABF4F6B80A3A8 /* VideoCredit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6FA8DC48B998C7D9EB01B43 /* VideoCredit.swift */; };
+		5518F2A0A4F9D5B92D51E4BF /* NightfallTips.storekit in Resources */ = {isa = PBXBuildFile; fileRef = E4C76CB7E55392BE7BDC79DD /* NightfallTips.storekit */; };
 		563E55193582C0B38C9A3ACC /* RoutineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5F83BC616CE58BF5A52E25 /* RoutineTests.swift */; };
 		571F165AF162D025B716288A /* clouds-poster.png in Resources */ = {isa = PBXBuildFile; fileRef = 789FF858FB080475C0214373 /* clouds-poster.png */; };
 		599311B745447E01E7B7109F /* brown.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 6B467C5D72A6CDF50777DFF2 /* brown.m4a */; };
@@ -31,22 +38,29 @@
 		5CD8B1A532552CEE796A36E2 /* ocean.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 8E62F34BDA26487D7C50F515 /* ocean.m4a */; };
 		67BAB87955FDED1E1DD40757 /* RulesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165EBB97B44368FFDDD61A85 /* RulesTests.swift */; };
 		694C769F118122BD315DBE06 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4EA7D3B7AF89860BFA8D1647 /* Assets.xcassets */; };
+		6B0D287E6FDA208697AC11C0 /* DownloadAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45061786A75CA26D2C06E225 /* DownloadAsset.swift */; };
 		6D2C08C11ACFABA087AD1EE5 /* prism-poster.png in Resources */ = {isa = PBXBuildFile; fileRef = D59283210094FE4950CD164C /* prism-poster.png */; };
 		6D5CA1C9AC621CC1C86386B4 /* MediaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF72B201B7120740E628885B /* MediaTests.swift */; };
 		755C1B9C8D8655FF1EDC2B0B /* waterfall.m4a in Resources */ = {isa = PBXBuildFile; fileRef = E9BED498D6BB24318318E6D3 /* waterfall.m4a */; };
+		75A876B418C3926855D0C4EC /* valley-poster.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1F702A56979EE47C7E8FFDA6 /* valley-poster.jpg */; };
 		8118DAE58B9D17EFAB31EEF3 /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE68E63C3A9645AFC5C5438 /* Components.swift */; };
 		83DE2D2E9D572F1A5D784601 /* waterfall-poster.png in Resources */ = {isa = PBXBuildFile; fileRef = AA5EA0F7D745DF5BA4DBA161 /* waterfall-poster.png */; };
 		89BFE1A8618009859A5FAC39 /* credits.json in Resources */ = {isa = PBXBuildFile; fileRef = B3CE1B409A2997335808AB7A /* credits.json */; };
+		92B0DBA6446B82E12A5006E1 /* TipTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FBAD3E95CA1123C6FC17991 /* TipTests.swift */; };
 		95EDD6F9F13F3ECF33EEB8EE /* prism.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 7C21EAB3DFD6BD74A2DF3158 /* prism.mp4 */; };
+		973FF87DB246B135D37362A2 /* mountains-poster.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 24EFF258CCCAA7B2A83D3507 /* mountains-poster.jpg */; };
 		976EF18A3C67EC9225DE4006 /* ember-poster.png in Resources */ = {isa = PBXBuildFile; fileRef = EF1F72426F0D54802D643BB6 /* ember-poster.png */; };
 		985119130AEA9534A3FF9491 /* dunes-poster.png in Resources */ = {isa = PBXBuildFile; fileRef = 981FEB23BAFE9530902C90E0 /* dunes-poster.png */; };
 		A4B6740F598E3CA539ABFF46 /* stream.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 0A2EE51414623981FF2DD267 /* stream.m4a */; };
 		A5AF550EEF991751BC27CF25 /* rain-poster.png in Resources */ = {isa = PBXBuildFile; fileRef = 234CB69FD797ED67249EEA04 /* rain-poster.png */; };
 		A5F6E91B774FFAEC5EDBFF32 /* fire.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 3AA3175915B69CD77E6DA513 /* fire.m4a */; };
+		A777821ED1E0DDB3AC5BED8F /* DownloadsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698322FE419AD650781FB0A0 /* DownloadsView.swift */; };
+		A99945398A5BED125E07B9DE /* DownloadLanguageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E446284DF9F30829A4AD70D /* DownloadLanguageTests.swift */; };
 		B58C8F1E175690D05C239058 /* ember.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = ACF5690E5D1259036A04E010 /* ember.mp4 */; };
 		BE69EDB27FE15AC65BC2799E /* VideoScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 877966B641C28475AB28FDF5 /* VideoScene.swift */; };
 		C11663EB301F7EFCF2002891 /* SceneArtwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECDF5BD64ADBB86FE15075C5 /* SceneArtwork.swift */; };
 		C39C26F18C5935565433C5BA /* wind.m4a in Resources */ = {isa = PBXBuildFile; fileRef = FF4637D001A3884313A6DF7E /* wind.m4a */; };
+		C4E53A25B72302D35A7A3FA2 /* downloads.json in Resources */ = {isa = PBXBuildFile; fileRef = 3C317AFF15429BCD32B90DE1 /* downloads.json */; };
 		C5028682EE3DA64AF1F4B5F1 /* rain.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = F64F35F30C8A8599E17E4152 /* rain.mp4 */; };
 		C6B378F58BBF401707D486C2 /* crickets.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 50EFD2CBDE3D5EFECAF77426 /* crickets.m4a */; };
 		C747485F80D018592025E9D2 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C83D74D4D8F6D03C996DB5ED /* RootView.swift */; };
@@ -59,6 +73,7 @@
 		D5A407132E73982BC1FF1E83 /* ScreenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D23AA86138CC42571110123F /* ScreenTests.swift */; };
 		D8B9023022C1D9204760CB21 /* PlaybackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F0C440CD96EBF6B5C944851 /* PlaybackTests.swift */; };
 		DD4520030F4B9D3AF21B9878 /* waterfall.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 8E649DAE7B41285EF06E3D89 /* waterfall.mp4 */; };
+		DE5F8464F0387E60164681AE /* SupportViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCDB8DE562C4141D577C3F83 /* SupportViews.swift */; };
 		E21AA0C2279AD7A52B6590BE /* SoundPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABD1D032D0317E9C9D8A94FD /* SoundPlayer.swift */; };
 		E245C850DDE43A7B57C86F0F /* SoundsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0E8FDDC1A58933DC3FBF18 /* SoundsView.swift */; };
 		F1EF47CF4B88903AE6601356 /* clouds.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 3262837C04B3CA40BCFA2EEC /* clouds.mp4 */; };
@@ -92,15 +107,23 @@
 		0F0C440CD96EBF6B5C944851 /* PlaybackTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackTests.swift; sourceTree = "<group>"; };
 		165EBB97B44368FFDDD61A85 /* RulesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesTests.swift; sourceTree = "<group>"; };
 		16F87B4EA91D401BF9448842 /* NightfallTVUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = NightfallTVUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1BCDCCB33B4B5C6E890A9950 /* coast-poster.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "coast-poster.jpg"; sourceTree = "<group>"; };
+		1F702A56979EE47C7E8FFDA6 /* valley-poster.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "valley-poster.jpg"; sourceTree = "<group>"; };
 		21366E54F0DE12130F20697C /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		234CB69FD797ED67249EEA04 /* rain-poster.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rain-poster.png"; sourceTree = "<group>"; };
+		24EFF258CCCAA7B2A83D3507 /* mountains-poster.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "mountains-poster.jpg"; sourceTree = "<group>"; };
+		316078FEEDBDC0813028CB1B /* Debug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Debug.entitlements; sourceTree = "<group>"; };
+		317A74405FCB8B19A57C1BF0 /* translations.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = translations.json; sourceTree = "<group>"; };
 		3262837C04B3CA40BCFA2EEC /* clouds.mp4 */ = {isa = PBXFileReference; path = clouds.mp4; sourceTree = "<group>"; };
 		348B3C0AFB53A4A3A1AAE2A3 /* NightfallTVApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NightfallTVApp.swift; sourceTree = "<group>"; };
 		360A9637B961A709E5AB1925 /* aurora-poster.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "aurora-poster.png"; sourceTree = "<group>"; };
 		38D83115CFF05A9653C98ABC /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		3AA3175915B69CD77E6DA513 /* fire.m4a */ = {isa = PBXFileReference; path = fire.m4a; sourceTree = "<group>"; };
+		3C317AFF15429BCD32B90DE1 /* downloads.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = downloads.json; sourceTree = "<group>"; };
 		423851ED3375324A31ADAAE8 /* snow.mp4 */ = {isa = PBXFileReference; path = snow.mp4; sourceTree = "<group>"; };
+		45061786A75CA26D2C06E225 /* DownloadAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadAsset.swift; sourceTree = "<group>"; };
 		4A89A37F4C1F73BB5812EF4E /* stars.mp4 */ = {isa = PBXFileReference; path = stars.mp4; sourceTree = "<group>"; };
+		4CD255A54552EF0322BF742C /* AppLanguage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLanguage.swift; sourceTree = "<group>"; };
 		4EA7D3B7AF89860BFA8D1647 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		50EFD2CBDE3D5EFECAF77426 /* crickets.m4a */ = {isa = PBXFileReference; path = crickets.m4a; sourceTree = "<group>"; };
 		565281572865C6AC55F2C4F2 /* PlaybackController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackController.swift; sourceTree = "<group>"; };
@@ -108,7 +131,9 @@
 		5FE68E63C3A9645AFC5C5438 /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
 		648C579E62D62564E1B90D13 /* stars-poster.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stars-poster.png"; sourceTree = "<group>"; };
 		6712338DFCB250EAD5906089 /* aurora.mp4 */ = {isa = PBXFileReference; path = aurora.mp4; sourceTree = "<group>"; };
+		698322FE419AD650781FB0A0 /* DownloadsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadsView.swift; sourceTree = "<group>"; };
 		6B467C5D72A6CDF50777DFF2 /* brown.m4a */ = {isa = PBXFileReference; path = brown.m4a; sourceTree = "<group>"; };
+		6FBAD3E95CA1123C6FC17991 /* TipTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipTests.swift; sourceTree = "<group>"; };
 		70108AF46D4D3E2F66994F61 /* NightfallTV.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = NightfallTV.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7407397426C9285D184CCE81 /* ocean-poster.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ocean-poster.png"; sourceTree = "<group>"; };
 		789FF858FB080475C0214373 /* clouds-poster.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clouds-poster.png"; sourceTree = "<group>"; };
@@ -119,6 +144,9 @@
 		8E649DAE7B41285EF06E3D89 /* waterfall.mp4 */ = {isa = PBXFileReference; path = waterfall.mp4; sourceTree = "<group>"; };
 		981FEB23BAFE9530902C90E0 /* dunes-poster.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dunes-poster.png"; sourceTree = "<group>"; };
 		9978FA54C59433C492650BFA /* MediaCreditsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaCreditsView.swift; sourceTree = "<group>"; };
+		9DACF57696C47D4B848904E4 /* rhine-poster.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "rhine-poster.jpg"; sourceTree = "<group>"; };
+		9DE214925DEB29E73F78838E /* TipStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipStore.swift; sourceTree = "<group>"; };
+		9E446284DF9F30829A4AD70D /* DownloadLanguageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadLanguageTests.swift; sourceTree = "<group>"; };
 		9E5F83BC616CE58BF5A52E25 /* RoutineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineTests.swift; sourceTree = "<group>"; };
 		AA5EA0F7D745DF5BA4DBA161 /* waterfall-poster.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "waterfall-poster.png"; sourceTree = "<group>"; };
 		AA65336DF363DEB43B8365AF /* SavedRoutine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedRoutine.swift; sourceTree = "<group>"; };
@@ -132,12 +160,15 @@
 		BB6EA9EBC418E0B5B03FD1F0 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		C22B7AB48387C440840C8061 /* PlaybackTimeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackTimeline.swift; sourceTree = "<group>"; };
 		C5F0EE9B2B8D0C56E4EF1FCE /* Catalog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Catalog.swift; sourceTree = "<group>"; };
+		C7D306CDDFF2A11C57BF01CE /* DownloadStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadStore.swift; sourceTree = "<group>"; };
 		C83D74D4D8F6D03C996DB5ED /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		CCDB8DE562C4141D577C3F83 /* SupportViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportViews.swift; sourceTree = "<group>"; };
 		CF72B201B7120740E628885B /* MediaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaTests.swift; sourceTree = "<group>"; };
 		D23AA86138CC42571110123F /* ScreenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenTests.swift; sourceTree = "<group>"; };
 		D59283210094FE4950CD164C /* prism-poster.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "prism-poster.png"; sourceTree = "<group>"; };
 		DB599F17FFF15EFCBD0D9097 /* ocean.mp4 */ = {isa = PBXFileReference; path = ocean.mp4; sourceTree = "<group>"; };
 		E30A969E749122E9F2564E13 /* audio-credits.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "audio-credits.json"; sourceTree = "<group>"; };
+		E4C76CB7E55392BE7BDC79DD /* NightfallTips.storekit */ = {isa = PBXFileReference; path = NightfallTips.storekit; sourceTree = "<group>"; };
 		E6FA8DC48B998C7D9EB01B43 /* VideoCredit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCredit.swift; sourceTree = "<group>"; };
 		E9BED498D6BB24318318E6D3 /* waterfall.m4a */ = {isa = PBXFileReference; path = waterfall.m4a; sourceTree = "<group>"; };
 		EA748E82AD307C31CB34326B /* snow-poster.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "snow-poster.png"; sourceTree = "<group>"; };
@@ -162,7 +193,9 @@
 		1B53DE10C33B0C4DD605E12C /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				4CD255A54552EF0322BF742C /* AppLanguage.swift */,
 				C5F0EE9B2B8D0C56E4EF1FCE /* Catalog.swift */,
+				45061786A75CA26D2C06E225 /* DownloadAsset.swift */,
 				C22B7AB48387C440840C8061 /* PlaybackTimeline.swift */,
 				BB6EA9EBC418E0B5B03FD1F0 /* Preferences.swift */,
 				AA65336DF363DEB43B8365AF /* SavedRoutine.swift */,
@@ -175,7 +208,10 @@
 			isa = PBXGroup;
 			children = (
 				4EA7D3B7AF89860BFA8D1647 /* Assets.xcassets */,
+				316078FEEDBDC0813028CB1B /* Debug.entitlements */,
+				3C317AFF15429BCD32B90DE1 /* downloads.json */,
 				38D83115CFF05A9653C98ABC /* PrivacyInfo.xcprivacy */,
+				317A74405FCB8B19A57C1BF0 /* translations.json */,
 				8976FA4F90BFE7D47ABD0F32 /* Audio */,
 				A240C4F66C1F168EC81D5253 /* Media */,
 			);
@@ -185,9 +221,11 @@
 		5B65F513E8D9D680B5EF2BAF /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				C7D306CDDFF2A11C57BF01CE /* DownloadStore.swift */,
 				ECB6ECB984626CFBF2DC4F3B /* PhotoLoader.swift */,
 				565281572865C6AC55F2C4F2 /* PlaybackController.swift */,
 				ABD1D032D0317E9C9D8A94FD /* SoundPlayer.swift */,
+				9DE214925DEB29E73F78838E /* TipStore.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -247,21 +285,25 @@
 				6712338DFCB250EAD5906089 /* aurora.mp4 */,
 				789FF858FB080475C0214373 /* clouds-poster.png */,
 				3262837C04B3CA40BCFA2EEC /* clouds.mp4 */,
+				1BCDCCB33B4B5C6E890A9950 /* coast-poster.jpg */,
 				B3CE1B409A2997335808AB7A /* credits.json */,
 				981FEB23BAFE9530902C90E0 /* dunes-poster.png */,
 				5B722BA6AE2A80EB091EBB3F /* dunes.mp4 */,
 				EF1F72426F0D54802D643BB6 /* ember-poster.png */,
 				ACF5690E5D1259036A04E010 /* ember.mp4 */,
+				24EFF258CCCAA7B2A83D3507 /* mountains-poster.jpg */,
 				7407397426C9285D184CCE81 /* ocean-poster.png */,
 				DB599F17FFF15EFCBD0D9097 /* ocean.mp4 */,
 				D59283210094FE4950CD164C /* prism-poster.png */,
 				7C21EAB3DFD6BD74A2DF3158 /* prism.mp4 */,
 				234CB69FD797ED67249EEA04 /* rain-poster.png */,
 				F64F35F30C8A8599E17E4152 /* rain.mp4 */,
+				9DACF57696C47D4B848904E4 /* rhine-poster.jpg */,
 				EA748E82AD307C31CB34326B /* snow-poster.png */,
 				423851ED3375324A31ADAAE8 /* snow.mp4 */,
 				648C579E62D62564E1B90D13 /* stars-poster.png */,
 				4A89A37F4C1F73BB5812EF4E /* stars.mp4 */,
+				1F702A56979EE47C7E8FFDA6 /* valley-poster.jpg */,
 				AA5EA0F7D745DF5BA4DBA161 /* waterfall-poster.png */,
 				8E649DAE7B41285EF06E3D89 /* waterfall.mp4 */,
 			);
@@ -272,10 +314,13 @@
 			isa = PBXGroup;
 			children = (
 				0A5AF0BC923C00E9734CD27B /* AudioTests.swift */,
+				9E446284DF9F30829A4AD70D /* DownloadLanguageTests.swift */,
 				CF72B201B7120740E628885B /* MediaTests.swift */,
+				E4C76CB7E55392BE7BDC79DD /* NightfallTips.storekit */,
 				0F0C440CD96EBF6B5C944851 /* PlaybackTests.swift */,
 				9E5F83BC616CE58BF5A52E25 /* RoutineTests.swift */,
 				165EBB97B44368FFDDD61A85 /* RulesTests.swift */,
+				6FBAD3E95CA1123C6FC17991 /* TipTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -284,6 +329,7 @@
 			isa = PBXGroup;
 			children = (
 				5FE68E63C3A9645AFC5C5438 /* Components.swift */,
+				698322FE419AD650781FB0A0 /* DownloadsView.swift */,
 				9978FA54C59433C492650BFA /* MediaCreditsView.swift */,
 				21366E54F0DE12130F20697C /* PlayerView.swift */,
 				C83D74D4D8F6D03C996DB5ED /* RootView.swift */,
@@ -291,6 +337,7 @@
 				ECDF5BD64ADBB86FE15075C5 /* SceneArtwork.swift */,
 				0D82A555A6F78C08B3D12FC2 /* SettingsView.swift */,
 				0D0E8FDDC1A58933DC3FBF18 /* SoundsView.swift */,
+				CCDB8DE562C4141D577C3F83 /* SupportViews.swift */,
 				877966B641C28475AB28FDF5 /* VideoScene.swift */,
 			);
 			path = Views;
@@ -304,6 +351,7 @@
 			buildConfigurationList = 654AAF62EE1E15122524A2C8 /* Build configuration list for PBXNativeTarget "NightfallTVTests" */;
 			buildPhases = (
 				8BB6A02E017736FFC6E4F4EB /* Sources */,
+				ADB6D4FA52F2EB6D61C1CD6E /* Resources */,
 			);
 			buildRules = (
 			);
@@ -412,13 +460,16 @@
 				599311B745447E01E7B7109F /* brown.m4a in Resources */,
 				571F165AF162D025B716288A /* clouds-poster.png in Resources */,
 				F1EF47CF4B88903AE6601356 /* clouds.mp4 in Resources */,
+				4D90BF19349AE7D0CE67EB88 /* coast-poster.jpg in Resources */,
 				89BFE1A8618009859A5FAC39 /* credits.json in Resources */,
 				C6B378F58BBF401707D486C2 /* crickets.m4a in Resources */,
+				C4E53A25B72302D35A7A3FA2 /* downloads.json in Resources */,
 				985119130AEA9534A3FF9491 /* dunes-poster.png in Resources */,
 				0C19306C8484C9E2A43DEBED /* dunes.mp4 in Resources */,
 				976EF18A3C67EC9225DE4006 /* ember-poster.png in Resources */,
 				B58C8F1E175690D05C239058 /* ember.mp4 in Resources */,
 				A5F6E91B774FFAEC5EDBFF32 /* fire.m4a in Resources */,
+				973FF87DB246B135D37362A2 /* mountains-poster.jpg in Resources */,
 				02F0142649DF7CBF1B1EBBBD /* ocean-poster.png in Resources */,
 				5CD8B1A532552CEE796A36E2 /* ocean.m4a in Resources */,
 				0D64FB82E320CCA25C8A4033 /* ocean.mp4 in Resources */,
@@ -428,15 +479,26 @@
 				A5AF550EEF991751BC27CF25 /* rain-poster.png in Resources */,
 				3CF834A24351B33818E49CBB /* rain.m4a in Resources */,
 				C5028682EE3DA64AF1F4B5F1 /* rain.mp4 in Resources */,
+				3F0B2318221CF8B5E9882A19 /* rhine-poster.jpg in Resources */,
 				FDDD6CEF1898832BE8497F55 /* snow-poster.png in Resources */,
 				3F39B2AB1F9ACF60BF2976D7 /* snow.mp4 in Resources */,
 				F42B78977CF13C9DED3A090D /* stars-poster.png in Resources */,
 				46045DA8942AE736207ACA43 /* stars.mp4 in Resources */,
 				A4B6740F598E3CA539ABFF46 /* stream.m4a in Resources */,
+				1BE063CE6FDD3284862D9743 /* translations.json in Resources */,
+				75A876B418C3926855D0C4EC /* valley-poster.jpg in Resources */,
 				83DE2D2E9D572F1A5D784601 /* waterfall-poster.png in Resources */,
 				755C1B9C8D8655FF1EDC2B0B /* waterfall.m4a in Resources */,
 				DD4520030F4B9D3AF21B9878 /* waterfall.mp4 in Resources */,
 				C39C26F18C5935565433C5BA /* wind.m4a in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ADB6D4FA52F2EB6D61C1CD6E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5518F2A0A4F9D5B92D51E4BF /* NightfallTips.storekit in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -456,10 +518,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9054AEE38A6E7A18521E3DF /* AudioTests.swift in Sources */,
+				A99945398A5BED125E07B9DE /* DownloadLanguageTests.swift in Sources */,
 				6D5CA1C9AC621CC1C86386B4 /* MediaTests.swift in Sources */,
 				D8B9023022C1D9204760CB21 /* PlaybackTests.swift in Sources */,
 				563E55193582C0B38C9A3ACC /* RoutineTests.swift in Sources */,
 				67BAB87955FDED1E1DD40757 /* RulesTests.swift in Sources */,
+				92B0DBA6446B82E12A5006E1 /* TipTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -467,8 +531,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				186C02C90E1494604284F5C9 /* AppLanguage.swift in Sources */,
 				17C4BF3D7744D29244128969 /* Catalog.swift in Sources */,
 				8118DAE58B9D17EFAB31EEF3 /* Components.swift in Sources */,
+				6B0D287E6FDA208697AC11C0 /* DownloadAsset.swift in Sources */,
+				457E092A6FE1F8055C2D7A60 /* DownloadStore.swift in Sources */,
+				A777821ED1E0DDB3AC5BED8F /* DownloadsView.swift in Sources */,
 				5A3AE39D499ACEAF65E35FA3 /* MediaCreditsView.swift in Sources */,
 				C7CFECD30FE7F287DB10DEB1 /* NightfallTVApp.swift in Sources */,
 				04F9D8291AEC97D7D905316F /* PhotoLoader.swift in Sources */,
@@ -483,6 +551,8 @@
 				25C1835009B5266EDBC4BFDD /* SettingsView.swift in Sources */,
 				E21AA0C2279AD7A52B6590BE /* SoundPlayer.swift in Sources */,
 				E245C850DDE43A7B57C86F0F /* SoundsView.swift in Sources */,
+				DE5F8464F0387E60164681AE /* SupportViews.swift in Sources */,
+				1DB34E942EAF660421432CA5 /* TipStore.swift in Sources */,
 				51B5331D098ABF4F6B80A3A8 /* VideoCredit.swift in Sources */,
 				BE69EDB27FE15AC65BC2799E /* VideoScene.swift in Sources */,
 			);
@@ -573,7 +643,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 2Q2LMV7BR6;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -592,7 +662,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MARKETING_VERSION = 1.2.0;
+				MARKETING_VERSION = 1.3.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -675,7 +745,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 2Q2LMV7BR6;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -688,7 +758,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MARKETING_VERSION = 1.2.0;
+				MARKETING_VERSION = 1.3.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -723,6 +793,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = NightfallTV/Resources/Debug.entitlements;
 				INFOPLIST_FILE = NightfallTV/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

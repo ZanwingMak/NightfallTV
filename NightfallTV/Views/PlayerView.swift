@@ -61,7 +61,7 @@ struct PlayerView: View {
                     .animation(.easeInOut(duration: reduceMotion ? 0 : 1.5), value: playback.effectiveScene)
                 }
                 if playback.effectiveScene == .clock || settings.value.showClock {
-                    FloatingClock(date: playback.now, english: settings.value.english, format24: settings.value.clock24Hour, large: playback.effectiveScene == .clock)
+                    FloatingClock(date: playback.now, language: settings.language, format24: settings.value.clock24Hour, large: playback.effectiveScene == .clock)
                 }
                 Color.black.opacity(1 - settings.value.brightness * playback.timeline.audioGain(at: playback.now) * playback.timeline.pictureGain(at: playback.now)).allowsHitTesting(false)
             }
@@ -81,7 +81,7 @@ struct PlayerView: View {
             VStack(alignment: .leading, spacing: 24) {
                 HStack {
                     VStack(alignment: .leading, spacing: 8) {
-                        Text(playback.effectiveScene.title(settings.value.english)).font(.title2)
+                        Text(playback.effectiveScene.title(settings.language)).font(.title2)
                         Text(statusText).font(.caption).foregroundStyle(Palette.muted)
                     }
                     Spacer()
@@ -98,7 +98,7 @@ struct PlayerView: View {
                 }
                 HStack(spacing: 24) {
                     ChoicePicker(title: sound.layers.count > 1 ? settings.l("切换为单声景", "Switch to one sound") : settings.l("搭配声景", "Soundscape"), selection: Binding(get: { sound.selected }, set: { playback.selectSound($0) }),
-                                 options: [(nil, settings.l("静音", "Silent"))] + SoundKind.allCases.map { (Optional($0), $0.title(settings.value.english)) })
+                                 options: [(nil, settings.l("静音", "Silent"))] + SoundKind.available.map { (Optional($0), $0.title(settings.language)) })
                         .frame(width: 600).accessibilityIdentifier("player-sound")
                         .disabled(playback.timeline.expired(at: playback.now))
                     ChoicePicker(title: settings.l("声景音量", "Sound volume"), selection: $settings.value.soundVolume,
@@ -107,7 +107,7 @@ struct PlayerView: View {
                     if let selected = sound.selected {
                         HStack(spacing: 8) {
                             Image(systemName: selected.symbol).accessibilityHidden(true)
-                            Text(sound.title(settings.value.english)).lineLimit(2).accessibilityIdentifier("player-sound-status")
+                            Text(sound.title(settings.language)).lineLimit(2).accessibilityIdentifier("player-sound-status")
                         }.font(.caption).foregroundStyle(Palette.accent)
                     }
                     Spacer()

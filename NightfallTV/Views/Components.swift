@@ -49,14 +49,14 @@ struct SceneCard: View {
                     }
                     LinearGradient(colors: [.clear, .black.opacity(0.45)], startPoint: .top, endPoint: .bottom)
                     HStack {
-                        Text(scene.category.title(settings.value.english)).font(.caption).foregroundStyle(.white.opacity(0.75))
+                        Text(scene.category.title(settings.language)).font(.caption).foregroundStyle(.white.opacity(0.75))
                         Spacer()
                         if settings.value.favorites.contains(scene) { Image(systemName: "heart.fill").foregroundStyle(Palette.accent) }
                     }.padding(24)
                 }
                 VStack(alignment: .leading, spacing: 8) {
-                    Text(scene.title(settings.value.english)).font(.title3.weight(.medium)).foregroundStyle(.white)
-                    Text(scene.subtitle(settings.value.english)).font(.caption).foregroundStyle(Palette.muted).lineLimit(1)
+                    Text(scene.title(settings.language)).font(.title3.weight(.medium)).foregroundStyle(.white)
+                    Text(scene.subtitle(settings.language)).font(.caption).foregroundStyle(Palette.muted).lineLimit(1)
                 }.padding(24).frame(maxWidth: .infinity, alignment: .leading)
                     .background(Color.white.opacity(0.045))
             }
@@ -65,7 +65,7 @@ struct SceneCard: View {
         }
         .buttonStyle(ArtworkButtonStyle())
         .accessibilityIdentifier("scene-\(scene.rawValue)")
-        .accessibilityLabel(scene.title(settings.value.english))
+        .accessibilityLabel(scene.title(settings.language))
     }
 }
 
@@ -85,12 +85,13 @@ struct ArtworkButtonStyle: ButtonStyle {
 }
 
 struct PageHeading: View {
+    @EnvironmentObject private var settings: SettingsStore
     let eyebrow: String
     let title: String
     let subtitle: String
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text(eyebrow.uppercased()).font(.caption.weight(.medium)).tracking(5).foregroundStyle(Palette.accent)
+            Text(Localizer.text(eyebrow, language: settings.language).uppercased()).font(.caption.weight(.medium)).tracking(5).foregroundStyle(Palette.accent)
             Text(title).font(.system(size: 54, weight: .light)).foregroundStyle(.white)
             Text(subtitle).font(.callout).foregroundStyle(Palette.muted)
         }.frame(maxWidth: .infinity, alignment: .leading)
@@ -141,6 +142,7 @@ struct EmptyPanel: View {
 }
 
 struct ChoicePicker<Value: Equatable>: View {
+    @EnvironmentObject private var settings: SettingsStore
     @EnvironmentObject private var playback: PlaybackController
     let title: String
     @Binding var selection: Value
@@ -166,7 +168,7 @@ struct ChoicePicker<Value: Equatable>: View {
                     HStack {
                         Text(title).font(.title2)
                         Spacer()
-                        Button { showingOptions = false } label: { Image(systemName: "xmark") }.buttonStyle(NightButtonStyle()).accessibilityLabel("关闭 / Close").accessibilityIdentifier("close-options")
+                        Button { showingOptions = false } label: { Image(systemName: "xmark") }.buttonStyle(NightButtonStyle()).accessibilityLabel(settings.l("关闭", "Close")).accessibilityIdentifier("close-options")
                     }
                     ScrollView {
                         VStack(spacing: 16) {

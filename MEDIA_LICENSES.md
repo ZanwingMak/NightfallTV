@@ -199,3 +199,87 @@
 - 修改：Trimmed; 30 Hz high-pass; 3-second loop crossfade; DC removed; RMS level matched with soft peak limiting; ALAC 44.1 kHz stereo. Preview source, where noted, remains lossy in origin.
 - 离线素材：[音频](NightfallTV/Resources/Audio/waterfall.m4a)，循环 60.0 秒。
 - 应用音频 SHA-256：`30023edab43afa04d3fb2b7da7e39a5041ae9d3df5cbd47f6ffa64096906682a`
+
+## 1.3.0 可选下载素材
+
+以下媒体单独发布于 [content-2026-10](https://github.com/ZanwingMak/NightfallTV/releases/tag/content-2026-10)，不随应用内置。对应预览为原视频帧。完整文件长度、SHA-256、规格、来源和修改说明见 [下载清单](NightfallTV/Resources/downloads.json)。许可独立于应用代码 MIT。
+
+### coast · After Storm (4K Resolution)
+
+- 作者：Dhilung Kirat / langmale
+- 来源：[After Storm (4K Resolution)](https://commons.wikimedia.org/wiki/File:After_Storm_(4K_Resolution).webm)
+- 许可：[CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)
+- 交付：4K · 3840 × 2160 · H.264 · 12.0 s，57,072,982 字节
+- 修改：Selected excerpt; cropped to 16:9 where required without upscaling; silent H.264 at 24 fps. Preview frame resized from this excerpt.
+- 文件：[coast.mp4](https://github.com/ZanwingMak/NightfallTV/releases/download/content-2026-10/coast.mp4)
+- SHA-256：`7343d1af9cd4c1fcf8ea70a970cf50af3688a37fe0d1519f51ee5dd9761be950`
+
+### mountains · Crimea Mountains Russia - 4K Video
+
+- 作者：The View
+- 来源：[Crimea Mountains Russia - 4K Video](https://commons.wikimedia.org/wiki/File:Crimea_Mountains_Russia_-_4K_Video.webm)
+- 许可：[CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)
+- 交付：4K · 3840 × 2160 · H.264 · 12.96 s，79,736,310 字节
+- 修改：Selected excerpt; cropped to 16:9 where required without upscaling; silent H.264 at 24 fps. Preview frame resized from this excerpt.
+- 文件：[mountains.mp4](https://github.com/ZanwingMak/NightfallTV/releases/download/content-2026-10/mountains.mp4)
+- SHA-256：`2fb5ab8204296da64641d418c1d3faff3eaa4af8be7c74e170f4da4140479130`
+
+### valley · CHINA - 中國 - 4K DRONE VIDEO
+
+- 作者：Danny Rest; footage by Oleg Rest
+- 来源：[CHINA - 中國 - 4K DRONE VIDEO](https://commons.wikimedia.org/wiki/File:CHINA_-_%E4%B8%AD%E5%9C%8B_-_4K_DRONE_VIDEO.webm)
+- 许可：[CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)
+- 交付：4K · 3840 × 2160 · H.264 · 12.0 s，12,596,205 字节
+- 修改：Selected excerpt; cropped to 16:9 where required without upscaling; silent H.264 at 24 fps. Preview frame resized from this excerpt.
+- 文件：[valley.mp4](https://github.com/ZanwingMak/NightfallTV/releases/download/content-2026-10/valley.mp4)
+- SHA-256：`b83986f019ecf66854d25bd912708c4c1aab1dd71372bfd367e078ede10d47cd`
+
+### rhine · Rheinfall (Rhine Falls)
+
+- 作者：Harry TheSea
+- 来源：[Rheinfall (Rhine Falls)](https://commons.wikimedia.org/wiki/File:Rheinfall_(Rhine_Falls).webm)
+- 许可：[CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)
+- 交付：4K · 3840 × 2160 · H.264 · 12.0 s，38,813,300 字节
+- 修改：Selected excerpt; cropped to 16:9 where required without upscaling; silent H.264 at 24 fps. Preview frame resized from this excerpt.
+- 文件：[rhine.mp4](https://github.com/ZanwingMak/NightfallTV/releases/download/content-2026-10/rhine.mp4)
+- SHA-256：`6083accf48c4ba80ebc05bf43297cf294d67a9e3a7cfa5ad6e991f8b7a213d2d`
+
+### thunder · Light Rain Distant Thunder July 5th 2016
+
+- 作者：kvgarlic
+- 来源：[Light Rain Distant Thunder July 5th 2016](https://commons.wikimedia.org/wiki/File:Light_Rain_Distant_Thunder_July_5th_2016.wav)
+- 许可：[CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/)
+- 交付：ALAC · 48 kHz · 24-bit · stereo · 69.0 s，15,106,812 字节
+- 修改：Excerpt from original 48 kHz stereo WAV; DC and sub-bass removed; gentle peak shaping and low RMS normalization; three-second equal-gain loop crossfade; ALAC 24-bit lossless delivery.
+- 文件：[thunder.m4a](https://github.com/ZanwingMak/NightfallTV/releases/download/content-2026-10/thunder.m4a)
+- SHA-256：`18a644b708f3423b9c56bc1cfe2a7c5ba30947438649e78e9ffe3b01f64e53c7`
+
+### parkbirds · Park ambiences — birds
+
+- 作者：Thimras
+- 来源：[Park ambiences — birds](https://opengameart.org/content/park-ambiences)
+- 许可：[CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/)
+- 交付：ALAC · 48 kHz · 24-bit · stereo · 26.74 s，5,684,837 字节
+- 修改：Excerpt from original 48 kHz stereo WAV; DC and sub-bass removed; gentle peak shaping and low RMS normalization; three-second equal-gain loop crossfade; ALAC 24-bit lossless delivery.
+- 文件：[parkbirds.m4a](https://github.com/ZanwingMak/NightfallTV/releases/download/content-2026-10/parkbirds.m4a)
+- SHA-256：`e695ade94b787d4c7fd55d6e21c9d043c363cae5bbc7bdd50b980c215eb61be8`
+
+### parkriver · Park ambiences — river
+
+- 作者：Thimras
+- 来源：[Park ambiences — river](https://opengameart.org/content/park-ambiences)
+- 许可：[CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/)
+- 交付：ALAC · 48 kHz · 24-bit · stereo · 23.28 s，5,215,887 字节
+- 修改：Excerpt from original 48 kHz stereo WAV; DC and sub-bass removed; gentle peak shaping and low RMS normalization; three-second equal-gain loop crossfade; ALAC 24-bit lossless delivery.
+- 文件：[parkriver.m4a](https://github.com/ZanwingMak/NightfallTV/releases/download/content-2026-10/parkriver.m4a)
+- SHA-256：`5fa594ffa18de7d82bf8bfbe3a76895ac7561d30decb06e32ee0814324f0c73c`
+
+### parkwind · Park ambiences — wind
+
+- 作者：Thimras
+- 来源：[Park ambiences — wind](https://opengameart.org/content/park-ambiences)
+- 许可：[CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/)
+- 交付：ALAC · 48 kHz · 24-bit · stereo · 24.76 s，4,984,109 字节
+- 修改：Excerpt from original 48 kHz stereo WAV; DC and sub-bass removed; gentle peak shaping and low RMS normalization; three-second equal-gain loop crossfade; ALAC 24-bit lossless delivery.
+- 文件：[parkwind.m4a](https://github.com/ZanwingMak/NightfallTV/releases/download/content-2026-10/parkwind.m4a)
+- SHA-256：`d16f3102bdea36de0e3f7ee4a25b351f35fb110d2e9bc242e26d509cc1008f34`

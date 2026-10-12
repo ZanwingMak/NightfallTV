@@ -6,7 +6,7 @@ import AVFoundation
 final class MediaTests: XCTestCase {
     /// 实际解码全部实拍资源，确保高清视频、预览与署名齐全且没有音轨。
     func testFilmedMediaAreCompleteAndSilent() async throws {
-        let expected = Set(SceneKind.allCases.filter { $0.category == .nature })
+        let expected = Set(SceneKind.allCases.filter { $0.category == .nature && !$0.isDownload })
         XCTAssertEqual(Set(VideoCredit.all.map(\.scene)), expected)
         XCTAssertEqual(VideoCredit.all.count, expected.count)
         for credit in VideoCredit.all {

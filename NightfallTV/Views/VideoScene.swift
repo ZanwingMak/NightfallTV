@@ -51,7 +51,7 @@ struct VideoScene: UIViewRepresentable {
             if scene != kind {
                 stop()
                 scene = kind
-                if let url = Bundle.main.url(forResource: kind.rawValue, withExtension: "mp4") {
+                if let url = DownloadStore.video(kind) {
                     looper = AVPlayerLooper(player: player, templateItem: AVPlayerItem(url: url))
                 }
             }
