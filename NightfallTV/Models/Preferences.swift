@@ -12,6 +12,7 @@ struct Preferences: Codable, Equatable {
     var rotationSeconds = 300
     var photoSeconds = 30
     var sleepMinutes = 0
+    var pictureOffMinutes: Int? = 0
     var soundVolume = 0.25
     var nightEnabled = false
     var nightStartHour = 23
@@ -29,6 +30,7 @@ struct Preferences: Codable, Equatable {
         rotationSeconds = [60, 180, 300, 600, 900].contains(rotationSeconds) ? rotationSeconds : 300
         photoSeconds = [10, 30, 60, 120].contains(photoSeconds) ? photoSeconds : 30
         sleepMinutes = [0, 15, 30, 60, 90, 120].contains(sleepMinutes) ? sleepMinutes : 0
+        pictureOffMinutes = [0, 1, 5, 10, 15, 30].contains(pictureOffMinutes ?? 0) ? pictureOffMinutes ?? 0 : 0
         idleSeconds = [0, 30, 60, 180, 300].contains(idleSeconds) ? idleSeconds : 0
         nightStartHour = min(23, max(0, nightStartHour))
         nightEndHour = min(23, max(0, nightEndHour))
@@ -58,6 +60,7 @@ struct Preferences: Codable, Equatable {
 @MainActor
 final class SettingsStore: ObservableObject {
     @Published var value: Preferences { didSet { save() } }
+    @Published private(set) var routines: [SavedRoutine] = []
     private let defaults: UserDefaults
     private let key = "nightfall.preferences.v1"
 
@@ -67,6 +70,12 @@ final class SettingsStore: ObservableObject {
         var decoded = defaults.data(forKey: key).flatMap { try? JSONDecoder().decode(Preferences.self, from: $0) } ?? Preferences()
         decoded.normalize()
         value = decoded
+        routines = (defaults.data(forKey: "nightfall.routines.v1").flatMap { try? JSONDecoder().decode([SavedRoutine].self, from: $0) } ?? [])
+            .prefix(12).compactMap { entry in
+                var safe = entry
+                safe.normalize()
+                return safe.name.isEmpty ? nil : safe
+            }
     }
 
     /// 保存已归一化的偏好，不记录个人图片地址到日志。
@@ -93,7 +102,26 @@ final class SettingsStore: ObservableObject {
     }
 
     /// 恢复全部偏好，保留由界面提供的确认流程。
-    func reset() { value = Preferences() }
+    func reset() { value = Preferences(); routines = []; defaults.removeObject(forKey: "nightfall.routines.v1") }
+
+    /// 保存当前播放组合，返回本地化错误；满十二项时让用户主动删除旧方案。
+    func addRoutine(_ routine: SavedRoutine) -> String? {
+        var safe = routine
+        safe.normalize()
+        guard !safe.name.isEmpty else { return l("请输入方案名称。", "Enter a name.") }
+        guard routines.count < 12 else { return l("最多保存 12 个方案，请先移除一个。", "Remove a routine before saving more than 12.") }
+        routines.append(safe)
+        saveRoutines()
+        return nil
+    }
+
+    /// 移除用户确认删除的个人方案，不影响当前播放。
+    func removeRoutine(_ id: String) { routines.removeAll { $0.id == id }; saveRoutines() }
+
+    /// 将个人方案与原偏好分开保存，兼容已有版本的配置。
+    private func saveRoutines() {
+        if let data = try? JSONEncoder().encode(routines) { defaults.set(data, forKey: "nightfall.routines.v1") }
+    }
 
     /// 选择当前语言对应的界面文案。
     func l(_ chinese: String, _ english: String) -> String { value.english ? english : chinese }

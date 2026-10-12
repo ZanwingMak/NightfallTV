@@ -5,11 +5,13 @@ struct PlaybackTimeline {
     private(set) var pausedAt: Date?
     private(set) var pausedDuration: TimeInterval = 0
     private(set) var deadline: Date?
+    private(set) var pictureDeadline: Date?
 
     /// 新建会话；睡眠定时使用墙钟时间，不随动画暂停。
-    init(now: Date, sleepMinutes: Int = 0) {
+    init(now: Date, sleepMinutes: Int = 0, pictureOffMinutes: Int = 0) {
         startedAt = now
         setSleep(minutes: sleepMinutes, now: now)
+        setPictureOff(minutes: pictureOffMinutes, now: now)
     }
 
     /// 计算排除暂停时长的动画和轮播时间。
@@ -30,6 +32,20 @@ struct PlaybackTimeline {
 
     /// 判断睡眠定时是否到期。
     func expired(at now: Date) -> Bool { deadline.map { now >= $0 } ?? false }
+
+    /// 单独设置画面截止时间，不改变声音和睡眠定时；零值取消自动黑屏。
+    mutating func setPictureOff(minutes: Int, now: Date) {
+        pictureDeadline = minutes > 0 ? now.addingTimeInterval(Double(minutes) * 60) : nil
+    }
+
+    /// 自动黑屏使用真实时间，因此暂停画面不会延长亮屏时间。
+    func pictureExpired(at now: Date) -> Bool { pictureDeadline.map { now >= $0 } ?? false }
+
+    /// 自动黑屏前十秒只渐弱画面，不改变任何声层音量。
+    func pictureGain(at now: Date) -> Double {
+        guard let pictureDeadline else { return 1 }
+        return min(1, max(0, pictureDeadline.timeIntervalSince(now) / 10))
+    }
 
     /// 返回最后三十秒的声音淡出比例。
     func audioGain(at now: Date) -> Double {

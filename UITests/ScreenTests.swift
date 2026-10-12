@@ -2,6 +2,8 @@ import XCTest
 import UIKit
 
 final class ScreenTests: XCTestCase {
+    /// 首个断言失败时停止该用例，避免后续遥控器输入掩盖最初的问题。
+    override func setUp() { super.setUp(); continueAfterFailure = false }
     /// 用真实遥控器方向键移动焦点后选择目标，tvOS 不使用鼠标点击。
     private func activate(_ identifier: String, in app: XCUIApplication, file: StaticString = #filePath, line: UInt = #line) {
         focus(identifier, in: app, file: file, line: line)
@@ -321,6 +323,81 @@ final class ScreenTests: XCTestCase {
         try assertBlack()
         XCUIRemote.shared.press(.select)
         XCTAssertTrue(app.buttons["exit-player"].waitForExistence(timeout: 5))
+    }
+
+    /// 混音的三层限制、相对音量、保存、重启恢复和删除均经过实际遥控器流程。
+    func testSoundMixAndSavedRoutineLifecycle() {
+        let app = launch(["--scene=clouds"])
+        XCUIRemote.shared.press(.select)
+        activate("player-mixer", in: app)
+        activate("mix-rain", in: app)
+        activate("mix-ocean", in: app)
+        activate("mix-wind", in: app)
+        XCTAssertFalse(app.buttons["mix-birds"].isEnabled)
+        activate("mix-level-ocean", in: app)
+        activate("25%", in: app)
+        XCTAssertTrue(app.buttons["mix-level-ocean"].label.contains("25%"))
+        settle(12)
+        XCTAssertTrue(app.buttons["close-mixer"].exists, "Nested choice must not hide its mixer")
+        capture("19-three-layer-mixer")
+        activate("close-mixer", in: app)
+        XCTAssertTrue(app.staticTexts["player-sound-status"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.staticTexts["player-sound-status"].label.contains("潮汐"))
+        activate("player-timer", in: app)
+        activate("30 分钟", in: app)
+        activate("player-picture-timer", in: app)
+        activate("5 分钟后", in: app)
+        activate("save-routine", in: app)
+        activate("confirm-save-routine", in: app)
+        activate("exit-player", in: app)
+        app.terminate()
+        app.launchArguments = []
+        app.launch()
+        activate("nav-night", in: app)
+        let saved = app.buttons.matching(NSPredicate(format: "identifier BEGINSWITH 'routine-black-'" )).firstMatch
+        XCTAssertTrue(saved.waitForExistence(timeout: 5))
+        capture("20-saved-routine")
+        activate(saved.identifier, in: app)
+        XCUIRemote.shared.press(.select)
+        XCTAssertTrue(app.buttons["player-timer"].label.contains("30 分钟"))
+        XCTAssertTrue(app.buttons["player-picture-timer"].label.contains("5 分钟后"))
+        let status = app.staticTexts["player-sound-status"].label
+        for title in ["细雨", "潮汐", "风过树叶"] { XCTAssertTrue(status.contains(title)) }
+        activate("exit-player", in: app)
+        let remove = app.buttons.matching(NSPredicate(format: "identifier BEGINSWITH 'routine-remove-'" )).firstMatch
+        activate(remove.identifier, in: app)
+        XCTAssertTrue(app.alerts.firstMatch.waitForExistence(timeout: 5))
+        XCUIRemote.shared.press(.right)
+        XCTAssertTrue(app.alerts.firstMatch.buttons["移除"].firstMatch.hasFocus)
+        XCUIRemote.shared.press(.select)
+        XCTAssertFalse(saved.exists)
+    }
+
+    /// 等待真实一分钟验证自动黑屏独立于睡眠计时，恢复后保留混音并取消亮屏截止时间。
+    func testAutomaticPictureOffKeepsMixAndSleep() throws {
+        let app = launch(["--scene=ocean"])
+        XCUIRemote.shared.press(.select)
+        activate("player-mixer", in: app)
+        activate("mix-rain", in: app)
+        activate("mix-ocean", in: app)
+        activate("close-mixer", in: app)
+        activate("player-timer", in: app)
+        activate("30 分钟", in: app)
+        activate("player-picture-timer", in: app)
+        activate("1 分钟后", in: app)
+        activate("hide-controls", in: app)
+        XCUIRemote.shared.press(.playPause)
+        settle(62)
+        try assertBlack()
+        XCUIRemote.shared.press(.select)
+        let status = app.staticTexts["player-sound-status"].label
+        XCTAssertTrue(status.contains("细雨") && status.contains("潮汐"))
+        XCTAssertTrue(app.buttons["player-timer"].label.contains("30 分钟"))
+        activate("player-black", in: app)
+        XCTAssertTrue(app.descendants(matching: .any)["playing-ocean"].waitForExistence(timeout: 5))
+        XCUIRemote.shared.press(.select)
+        XCTAssertTrue(app.buttons["player-picture-timer"].label.contains("关闭"))
+        capture("21-picture-timer-restored")
     }
 
     /// 等待播放器实际提交视频帧或定时器推进；不模拟应用内部状态。

@@ -8,6 +8,8 @@ struct PlayerView: View {
     @Environment(\.scenePhase) private var scenePhase
     @FocusState private var screenFocused: Bool
     @FocusState private var controlFocused: Bool
+    @State private var showingMixer = false
+    @State private var savingRoutine = false
 
     var body: some View {
         ZStack {
@@ -33,6 +35,11 @@ struct PlayerView: View {
         .onAppear { screenFocused = true }
         .onChange(of: playback.controlsVisible) { _, visible in screenFocused = !visible; controlFocused = visible }
         .onChange(of: settings.value.soundVolume) { _, volume in sound.setVolume(volume, gain: playback.timeline.audioGain(at: playback.now)) }
+        .sheet(isPresented: $showingMixer, onDismiss: { playback.choosingOptions = false; playback.interaction() }) { SoundMixerView() }
+        .sheet(isPresented: $savingRoutine, onDismiss: { playback.choosingOptions = false; playback.interaction() }) { SaveRoutineView() }
+        .onChange(of: playback.timeline.expired(at: playback.now)) { _, expired in
+            if expired { showingMixer = false; savingRoutine = false }
+        }
     }
 
     @ViewBuilder private var screen: some View {
@@ -56,7 +63,7 @@ struct PlayerView: View {
                 if playback.effectiveScene == .clock || settings.value.showClock {
                     FloatingClock(date: playback.now, english: settings.value.english, format24: settings.value.clock24Hour, large: playback.effectiveScene == .clock)
                 }
-                Color.black.opacity(1 - settings.value.brightness * playback.timeline.audioGain(at: playback.now)).allowsHitTesting(false)
+                Color.black.opacity(1 - settings.value.brightness * playback.timeline.audioGain(at: playback.now) * playback.timeline.pictureGain(at: playback.now)).allowsHitTesting(false)
             }
         }
     }
@@ -90,7 +97,7 @@ struct PlayerView: View {
                     QuietButton(title: settings.l("退出", "Exit"), symbol: "xmark", id: "exit-player") { playback.stop() }
                 }
                 HStack(spacing: 24) {
-                    ChoicePicker(title: settings.l("搭配声景", "Soundscape"), selection: Binding(get: { sound.selected }, set: { playback.selectSound($0) }),
+                    ChoicePicker(title: sound.layers.count > 1 ? settings.l("切换为单声景", "Switch to one sound") : settings.l("搭配声景", "Soundscape"), selection: Binding(get: { sound.selected }, set: { playback.selectSound($0) }),
                                  options: [(nil, settings.l("静音", "Silent"))] + SoundKind.allCases.map { (Optional($0), $0.title(settings.value.english)) })
                         .frame(width: 600).accessibilityIdentifier("player-sound")
                         .disabled(playback.timeline.expired(at: playback.now))
@@ -100,7 +107,7 @@ struct PlayerView: View {
                     if let selected = sound.selected {
                         HStack(spacing: 8) {
                             Image(systemName: selected.symbol).accessibilityHidden(true)
-                            Text(selected.title(settings.value.english)).accessibilityIdentifier("player-sound-status")
+                            Text(sound.title(settings.value.english)).lineLimit(2).accessibilityIdentifier("player-sound-status")
                         }.font(.caption).foregroundStyle(Palette.accent)
                     }
                     Spacer()
@@ -115,6 +122,17 @@ struct PlayerView: View {
                         QuietButton(title: settings.l("停止声景", "Stop sound"), symbol: "speaker.slash", id: "player-stop-sound") { sound.stop(); playback.interaction() }
                     }
                 }
+                HStack(spacing: 24) {
+                    ChoicePicker(title: settings.l("自动黑屏", "Picture timer"), selection: Binding(
+                        get: { playback.timeline.pictureDeadline == nil ? 0 : settings.value.pictureOffMinutes ?? 0 },
+                        set: { playback.setPictureOff($0) }),
+                        options: [(0, settings.l("关闭", "Off"))] + [1, 5, 10, 15, 30].map { ($0, settings.l("\($0) 分钟后", "After \($0) min")) })
+                        .frame(width: 480).accessibilityIdentifier("player-picture-timer")
+                        .disabled(playback.timeline.expired(at: playback.now))
+                    QuietButton(title: settings.l("混合声景", "Mix sounds"), symbol: "slider.horizontal.3", id: "player-mixer") { showingMixer = true }
+                        .disabled(playback.timeline.expired(at: playback.now))
+                    QuietButton(title: settings.l("保存方案", "Save routine"), symbol: "bookmark", id: "save-routine") { savingRoutine = true }
+                }.focusSection()
             }.padding(40).background(Color(red: 0.035, green: 0.035, blue: 0.05), in: RoundedRectangle(cornerRadius: 24))
                 .overlay(RoundedRectangle(cornerRadius: 24).strokeBorder(.white.opacity(0.06)))
                 .padding(64)
@@ -126,6 +144,7 @@ struct PlayerView: View {
         if playback.timeline.expired(at: playback.now) { return settings.l("睡眠定时已结束 · 保持纯黑", "Sleep timer ended · staying dark") }
         if settings.value.isNight(at: playback.now) { return settings.l("夜间规则生效 · 保持纯黑", "Night schedule active · staying dark") }
         if let seconds = playback.secondsRemaining { return settings.l("睡眠定时剩余 \(seconds / 60) 分 \(seconds % 60) 秒", "Sleep timer: \(seconds / 60)m \(seconds % 60)s") }
+        if let seconds = playback.pictureSecondsRemaining { return settings.l("\(seconds / 60) 分 \(seconds % 60) 秒后关闭画面，声音继续", "Picture off in \(seconds / 60)m \(seconds % 60)s; sound continues") }
         return settings.l("音乐由原播放器控制 · 返回键先隐藏控制", "Your music stays with its player · Back hides controls first")
     }
 }

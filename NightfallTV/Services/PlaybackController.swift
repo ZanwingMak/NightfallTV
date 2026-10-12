@@ -26,6 +26,7 @@ final class PlaybackController: ObservableObject {
     }
     var visualElapsed: Double { timeline.elapsed(at: now) }
     var secondsRemaining: Int? { timeline.deadline.map { max(0, Int(ceil($0.timeIntervalSince(now)))) } }
+    var pictureSecondsRemaining: Int? { timeline.pictureDeadline.map { max(0, Int(ceil($0.timeIntervalSince(now)))) } }
 
     /// 创建控制器，并定期维护定时、自动隐藏与轮播状态。
     init(settings: SettingsStore, sound: SoundPlayer) {
@@ -40,7 +41,7 @@ final class PlaybackController: ObservableObject {
         scene = selected
         settings.value.lastScene = selected
         self.playlist = playlist
-        timeline = PlaybackTimeline(now: now, sleepMinutes: settings.value.sleepMinutes)
+        timeline = PlaybackTimeline(now: now, sleepMinutes: settings.value.sleepMinutes, pictureOffMinutes: settings.value.pictureOffMinutes ?? 0)
         paused = false
         visualsHidden = false
         finishedSleep = false
@@ -72,6 +73,7 @@ final class PlaybackController: ObservableObject {
             scene = sound.selected?.visualScene ?? .aurora
             visualsHidden = false
         } else { visualsHidden.toggle() }
+        timeline.setPictureOff(minutes: 0, now: Date())
         lastRotation = timeline.elapsed(at: Date())
         controlsVisible = false
         interaction()
@@ -83,6 +85,7 @@ final class PlaybackController: ObservableObject {
         controlsVisible = false
         choosingOptions = false
         timeline.setSleep(minutes: 0, now: Date())
+        timeline.setPictureOff(minutes: 0, now: Date())
         sound.setVolume(settings.value.soundVolume)
         UIApplication.shared.isIdleTimerDisabled = false
         homeInteraction = Date()
@@ -124,6 +127,41 @@ final class PlaybackController: ObservableObject {
         interaction()
     }
 
+    /// 设置独立自动黑屏计时，保留声音与睡眠截止时间。
+    func setPictureOff(_ minutes: Int) {
+        settings.value.pictureOffMinutes = minutes
+        timeline.setPictureOff(minutes: minutes, now: Date())
+        interaction()
+    }
+
+    /// 将当前画面、混音和睡前参数存为个人方案，保存本身不会启动任何声音。
+    func saveRoutine(named name: String) -> String? {
+        settings.addRoutine(SavedRoutine(name: name, scene: scene, pictureOff: visualsHidden,
+                                        layers: sound.layers, volume: settings.value.soundVolume,
+                                        brightness: settings.value.brightness, sleepMinutes: settings.value.sleepMinutes,
+                                        pictureOffMinutes: timeline.pictureDeadline == nil ? 0 : settings.value.pictureOffMinutes ?? 0))
+    }
+
+    /// 用户明确选择个人方案后恢复所有参数，定时从本次启动计算；夜间规则仍生效。
+    func startRoutine(_ routine: SavedRoutine, black: Bool = false) {
+        var safe = routine
+        safe.normalize()
+        settings.value.soundVolume = safe.volume
+        settings.value.brightness = safe.brightness
+        settings.value.sleepMinutes = safe.sleepMinutes
+        settings.value.pictureOffMinutes = safe.pictureOffMinutes
+        start(safe.scene)
+        visualsHidden = safe.pictureOff || black
+        sound.playMix(safe.layers, volume: safe.volume)
+    }
+
+    /// 播放中混音选择保留会话时限，结束后的计时不能通过混音重新发声。
+    func toggleSoundLayer(_ kind: SoundKind) {
+        guard !isPlaying || !timeline.expired(at: Date()) else { return }
+        sound.toggleLayer(kind, volume: settings.value.soundVolume, gain: isPlaying ? timeline.audioGain(at: Date()) : 1)
+        interaction()
+    }
+
     /// 记录用户操作供自动隐藏与库内闲置判断。
     func interaction() { lastInteraction = Date(); homeInteraction = Date() }
 
@@ -156,6 +194,11 @@ final class PlaybackController: ObservableObject {
                 finishedSleep = true
             }
             return
+        }
+        if timeline.pictureExpired(at: date) && !choosingOptions {
+            visualsHidden = true
+            controlsVisible = false
+            timeline.setPictureOff(minutes: 0, now: date)
         }
         let elapsed = timeline.elapsed(at: date)
         if !paused && !visualsHidden && !settings.value.isNight(at: date) && !playlist.isEmpty && elapsed - lastRotation >= Double(settings.value.rotationSeconds) {

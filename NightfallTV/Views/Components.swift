@@ -146,6 +146,7 @@ struct ChoicePicker<Value: Equatable>: View {
     @Binding var selection: Value
     let options: [(Value, String)]
     @State private var showingOptions = false
+    @State private var previouslyChoosing = false
 
     var body: some View {
         Button { showingOptions = true } label: {
@@ -158,7 +159,7 @@ struct ChoicePicker<Value: Equatable>: View {
         }.buttonStyle(NightButtonStyle())
             .accessibilityLabel(title + ", " + (options.first(where: { $0.0 == selection })?.1 ?? ""))
             .sheet(isPresented: $showingOptions, onDismiss: {
-                playback.choosingOptions = false
+                playback.choosingOptions = previouslyChoosing
                 playback.interaction()
             }) {
                 VStack(spacing: 32) {
@@ -184,7 +185,8 @@ struct ChoicePicker<Value: Equatable>: View {
                     .onExitCommand { showingOptions = false }
             }
             .onChange(of: showingOptions) { _, showing in
-                playback.choosingOptions = showing
+                if showing { previouslyChoosing = playback.choosingOptions; playback.choosingOptions = true }
+                else { playback.choosingOptions = previouslyChoosing }
                 playback.interaction()
             }
     }

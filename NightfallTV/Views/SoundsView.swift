@@ -5,6 +5,7 @@ struct SoundsView: View {
     @EnvironmentObject private var playback: PlaybackController
     @EnvironmentObject private var sound: SoundPlayer
     @State private var picture: SceneKind?
+    @State private var showingMixer = false
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 36) {
@@ -14,8 +15,9 @@ struct SoundsView: View {
                     ChoicePicker(title: settings.l("声景音量", "Sound volume"), selection: $settings.value.soundVolume,
                                  options: [0.1, 0.25, 0.5, 0.75, 1].map { ($0, "\(Int($0 * 100))%") })
                         .frame(width: 400).accessibilityIdentifier("sound-volume")
-                    Text(sound.selected.map { settings.l("正在播放：", "Playing: ") + $0.title(settings.value.english) } ?? settings.l("当前静音", "Currently silent"))
-                        .font(.callout).foregroundStyle(Palette.accent).accessibilityIdentifier("sound-status")
+                    QuietButton(title: settings.l("混合声景", "Mix sounds"), symbol: "slider.horizontal.3", id: "sound-mixer") { showingMixer = true }
+                    Text(sound.layers.isEmpty ? settings.l("当前静音", "Currently silent") : settings.l("正在播放：", "Playing: ") + sound.title(settings.value.english))
+                        .font(.callout).foregroundStyle(Palette.accent).lineLimit(2).accessibilityIdentifier("sound-status")
                     Spacer()
                 }.focusSection()
                 HStack(spacing: 24) {
@@ -33,7 +35,8 @@ struct SoundsView: View {
                 if let error = sound.error { Text(error).font(.callout).foregroundStyle(.orange) }
                 FocusGrid(SoundKind.allCases) { kind in
                         Button {
-                            if sound.selected == kind { sound.stop() } else { sound.play(kind, volume: settings.value.soundVolume) }
+                            if sound.layers.contains(where: { $0.sound == kind }) { playback.toggleSoundLayer(kind) }
+                            else { sound.play(kind, volume: settings.value.soundVolume) }
                             playback.interaction()
                         } label: {
                             ZStack(alignment: .bottomLeading) {
@@ -44,17 +47,18 @@ struct SoundsView: View {
                                     HStack {
                                         Text(kind.title(settings.value.english)).font(.title2)
                                         Spacer()
-                                        Image(systemName: sound.selected == kind ? "stop.circle.fill" : "play.circle").font(.title2)
+                                        Image(systemName: sound.layers.contains(where: { $0.sound == kind }) ? "stop.circle.fill" : "play.circle").font(.title2)
                                     }
                                     Text(kind.subtitle(settings.value.english)).font(.caption).foregroundStyle(Palette.muted)
                                 }.padding(32)
                             }.clipShape(RoundedRectangle(cornerRadius: 20))
                         }.buttonStyle(ArtworkButtonStyle()).accessibilityIdentifier("sound-\(kind.rawValue)")
-                            .accessibilityLabel(kind.title(settings.value.english) + " · " + (sound.selected == kind ? settings.l("停止", "Stop") : settings.l("播放", "Play")))
+                            .accessibilityLabel(kind.title(settings.value.english) + " · " + (sound.layers.contains(where: { $0.sound == kind }) ? settings.l("移除此声层", "Remove layer") : settings.l("单独播放", "Play alone")))
                 }
                 Text(settings.l("选择声景开始试听，再打开或关闭画面。画面与录音为独立素材；纯黑模式不显示时钟或提示。", "Select a sound to preview, then turn the picture on or off. Footage and recordings are separate assets. Black mode has no clock or overlays.")).font(.caption).foregroundStyle(Palette.muted)
             }.padding(80)
         }.onChange(of: settings.value.soundVolume) { _, volume in sound.setVolume(volume) }
+            .sheet(isPresented: $showingMixer, onDismiss: { playback.choosingOptions = false; playback.interaction() }) { SoundMixerView() }
     }
 
     /// 雨、海浪和炉火使用对应实拍；溪流与噪音使用符号背景，避免无关景色误导。
