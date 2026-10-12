@@ -25,11 +25,15 @@ An open-source, native Apple TV screensaver player for a calmer living room and 
 - **你的照片**：最多 30 张 HTTPS 图片直链；内存缓存、下载与解码限制；加载失败保持暗色。
 - **显示偏好**：亮度、速度、漂移时钟、24 小时制、减少动态效果、中文 / English。
 
+| 声景画面开关 | 新增自然录音 |
+|---|---|
+| ![声景控制](docs/screens/sound-controls.png) | ![新声景](docs/screens/new-soundscapes.png) |
+
 ## 使用
 
 在音乐应用里开始播放 → 返回桌面 → 启动 Nightfall TV → 选择屏保，或「一键黑屏」。主动选择声景会与其他应用音频混音，默认没有声音。不同播放器的后台音乐兼容性需要在真实 Apple TV 验证。
 
-维护者的 TestFlight 内部构建为 **1.0.2（4）**。收到邀请的 Apple ID 可在 Apple TV 安装 TestFlight，再接受邀请并安装；目前采用内部测试，不提供公开兑换链接。App Store Connect 已记录修复版 1.0.2（4）安装到 Apple TV 4K（第三代，tvOS 26.6）；听感、音乐兼容和长时间播放真机验收仍待实际结果，详见回归记录。
+维护者的 TestFlight 内部构建为 **1.1.0（5）**，已完成 Apple 处理并加入 Nightfall Internal。收到邀请的 Apple ID 可在 Apple TV 安装 TestFlight，再接受邀请并安装；目前采用内部测试，不提供公开兑换链接。旧1.0.2（4）已有 Apple TV 4K（第三代，tvOS26.6）安装记录；新版安装、听感、音乐兼容和长时间播放真机验收仍待实际结果，详见回归记录。
 
 [Apple 当前 TestFlight 安装指南](https://beta.itunes.apple.com/)要求 Apple TV 运行 tvOS 18 或以上（应用自身最低 tvOS 17）。邮件邀请需在手机或电脑打开取得兑换码，再到电视上的 TestFlight → Redeem 输入代码；详细安装和配对步骤见[回归文档](docs/回归测试.md#testflight-真机验收)。
 
@@ -59,7 +63,7 @@ xcodebuild -project NightfallTV.xcodeproj -scheme NightfallTV \
   CODE_SIGNING_ALLOWED=NO test
 ```
 
-修复版 1.0.2（4）已在 tvOS 26.5 的 Apple TV 4K 模拟器完成 **15 个单元测试 + 11 个 UI 测试，26/26 全部通过**（2026-10-12）；保存实际 3840×2160 截图并人工检查主要界面。[最终提交的云端完整回归](https://github.com/ZanwingMak/NightfallTV/actions/runs/38192272274)也已 **26/26 通过，零失败**（tvOS 26.1）。其中照片网络专项访问本仓库的公开截图，离线执行可追加 `-skip-testing:NightfallTVTests/PersistenceTests/testRemotePhotosAndCache`。
+1.1.0（5）已在 tvOS26.5 的 Apple TV4K 模拟器完成 **18个单元测试＋14个遥控器UI测试，32/32全部通过，0失败、0跳过**（2026-10-12）。[最终应用源码的云端完整回归](https://github.com/ZanwingMak/NightfallTV/actions/runs/38204028253)也已 **32/32通过**（Xcode16.4、tvOS26.1）。测试覆盖自选声景画面、纯黑与恢复、计时不重置、有声屏保、睡前方案及单次方向键跳转，并保存实际界面截图供人工检查。其中照片网络专项访问本仓库的公开截图，离线执行可追加 `-skip-testing:NightfallTVTests/PersistenceTests/testRemotePhotosAndCache`。
 
 如需修改工程配置，安装 XcodeGen 后执行 `xcodegen generate`。实拍视频可用 `python3 scripts/import_media.py` 重新导入（需 FFmpeg，遵守来源网站限流）。自然录音可用 `python3 scripts/import_audio.py` 重新导入，有色噪音可用 `python3 scripts/generate_audio.py` 生成（两者需要 FFmpeg，以及 `python3 -m pip install -r scripts/requirements-audio.txt` 安装的 NumPy）；图标用 `swift scripts/generate_assets.swift` 生成。安装到自己的真机或发布时，请在 Xcode Signing 中替换为自己的 Team 和 Bundle ID；`ExportOptions.plist` 是本项目维护者的发布配置示例，其他开发者需替换对应值。
 
