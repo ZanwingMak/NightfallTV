@@ -44,17 +44,20 @@ struct DownloadsView: View {
                         .accessibilityIdentifier("download-filter-\(item.rawValue)")
                 }
                 Spacer()
-                Text(settings.l("本地缓存", "Local cache") + " · " + ByteCountFormatter.string(fromByteCount: downloads.cachedBytes, countStyle: .file))
-                    .font(.caption).foregroundStyle(Palette.muted).accessibilityIdentifier("download-storage")
-            }.focusSection()
-            if !downloads.progress.isEmpty || !downloads.queued.isEmpty {
-                HStack(spacing: 24) {
-                    Text(settings.l("\(downloads.progress.count) 项下载中 · \(downloads.queued.count) 项排队", "\(downloads.progress.count) downloading · \(downloads.queued.count) queued"))
-                        .font(.caption).foregroundStyle(Palette.accent).accessibilityIdentifier("download-queue-status")
-                    Spacer()
-                    QuietButton(title: settings.l("取消全部下载", "Cancel all downloads"), symbol: "xmark", id: "cancel-all-downloads") { downloads.cancelAll() }
-                }.focusSection()
-            }
+                VStack(alignment: .trailing, spacing: 6) {
+                    Text(settings.l("本地缓存", "Local cache") + " · " + ByteCountFormatter.string(fromByteCount: downloads.cachedBytes, countStyle: .file))
+                        .font(.caption).foregroundStyle(Palette.muted).accessibilityIdentifier("download-storage")
+                    if !downloads.progress.isEmpty || !downloads.queued.isEmpty {
+                        Text(settings.l("\(downloads.progress.count) 项下载中 · \(downloads.queued.count) 项排队", "\(downloads.progress.count) downloading · \(downloads.queued.count) queued"))
+                            .font(.caption2).foregroundStyle(Palette.accent).accessibilityIdentifier("download-queue-status")
+                    }
+                }
+                if !downloads.progress.isEmpty || !downloads.queued.isEmpty {
+                    Button { downloads.cancelAll() } label: { Image(systemName: "xmark.circle").font(.callout).padding(8) }
+                        .buttonStyle(NightButtonStyle()).accessibilityLabel(settings.l("取消全部下载", "Cancel all downloads"))
+                        .accessibilityIdentifier("cancel-all-downloads")
+                }
+            }.frame(height: 80).focusSection()
             ScrollViewReader { proxy in
                 ScrollView {
                     if assets.isEmpty {
@@ -118,13 +121,24 @@ struct DownloadActionButton: View {
     @EnvironmentObject private var downloads: DownloadStore
 
     var body: some View {
-        if let fraction = downloads.progress[asset.id] {
-            ProgressView(value: fraction).tint(Palette.accent).accessibilityIdentifier("progress-\(asset.id)")
-            QuietButton(title: settings.l("取消下载", "Cancel download") + " · \(Int(fraction * 100))%", symbol: "xmark", id: "cancel-\(asset.id)") { downloads.cancel(asset) }
-        } else if let index = downloads.queued.firstIndex(of: asset.id) {
-            QuietButton(title: settings.l("取消排队 · 第 \(index + 1) 项", "Cancel queued download · \(index + 1)"), symbol: "clock", id: "cancel-queued-\(asset.id)") { downloads.cancel(asset) }
-        } else {
-            QuietButton(title: settings.l("免费下载", "Download free"), symbol: "arrow.down.circle", id: "download-\(asset.id)") { downloads.download(asset) }
+        VStack(alignment: .leading, spacing: 12) {
+            if let fraction = downloads.progress[asset.id] {
+                ProgressView(value: fraction).tint(Palette.accent).accessibilityIdentifier("progress-\(asset.id)")
+            }
+            QuietButton(title: title, symbol: waiting ? "xmark" : "arrow.down.circle", id: identifier) {
+                if waiting { downloads.cancel(asset) }
+                else { downloads.download(asset) }
+            }
         }
+    }
+
+    private var waiting: Bool { downloads.progress[asset.id] != nil || downloads.queued.contains(asset.id) }
+    private var identifier: String {
+        (downloads.progress[asset.id] != nil ? "cancel-" : (downloads.queued.contains(asset.id) ? "cancel-queued-" : "download-")) + asset.id
+    }
+    private var title: String {
+        if let fraction = downloads.progress[asset.id] { return settings.l("取消下载", "Cancel download") + " · \(Int(fraction * 100))%" }
+        if let index = downloads.queued.firstIndex(of: asset.id) { return settings.l("取消排队 · 第 \(index + 1) 项", "Cancel queued download · \(index + 1)") }
+        return settings.l("免费下载", "Download free")
     }
 }
