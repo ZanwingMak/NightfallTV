@@ -120,6 +120,20 @@ struct QuietButton: View {
     }
 }
 
+struct NightTextField: View {
+    let title: String
+    @Binding var text: String
+    @State private var editing = false
+    @FocusState private var focused: Bool
+
+    var body: some View {
+        TextField(title, text: $text, onEditingChanged: { editing = $0 })
+            .font(.callout)
+            .focused($focused)
+            .foregroundStyle(editing || focused ? Color.black : Color.white)
+    }
+}
+
 struct NightButtonStyle: ButtonStyle {
     var isSelected = false
     @Environment(\.isFocused) private var focused

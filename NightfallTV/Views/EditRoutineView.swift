@@ -26,7 +26,7 @@ struct EditRoutineView: View {
             if let error { Text(error).font(.caption).foregroundStyle(.orange) }
             Form {
                 Section(settings.l("方案名称", "Routine name")) {
-                    TextField(settings.l("方案名称", "Routine name"), text: $draft.name).accessibilityIdentifier("edit-routine-name")
+                    NightTextField(title: settings.l("方案名称", "Routine name"), text: $draft.name).accessibilityIdentifier("edit-routine-name")
                 }
                 Section(settings.l("画面", "Picture")) {
                     ChoicePicker(title: settings.l("搭配画面", "Picture"), selection: $draft.scene,
@@ -58,7 +58,7 @@ struct EditRoutineView: View {
                         .accessibilityIdentifier("edit-routine-picture-timer")
                 }
             }
-        }.padding(56).background(Palette.background).onExitCommand { dismiss() }
+        }.frame(width: 1500, height: 820).padding(48).background(Palette.background).onExitCommand { dismiss() }
     }
 
     /// 排除其他声层已选的声音，保留原方案中暂时丢失的下载项以免静默修改。

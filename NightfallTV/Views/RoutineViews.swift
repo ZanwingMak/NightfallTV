@@ -65,7 +65,7 @@ struct SaveRoutineView: View {
         VStack(alignment: .leading, spacing: 32) {
             PageHeading(eyebrow: "KEEP THIS MOMENT", title: settings.l("下次，一键回到这里。", "Come back with one click."),
                         subtitle: settings.l("保存画面、声音组合、音量、亮度和两种定时。", "Save picture, sound mix, volume, brightness and both timers."))
-            TextField(settings.l("方案名称", "Routine name"), text: $name).accessibilityIdentifier("routine-name")
+            NightTextField(title: settings.l("方案名称", "Routine name"), text: $name).accessibilityIdentifier("routine-name")
             Text(playback.scene.title(settings.language) + " · " + (sound.layers.isEmpty ? settings.l("静音", "Silent") : sound.title(settings.language)))
                 .font(.callout).foregroundStyle(Palette.muted)
             if let error { Text(error).font(.caption).foregroundStyle(.orange) }

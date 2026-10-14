@@ -88,7 +88,7 @@ struct SettingsView: View {
                 }
                 Section(settings.l("私人照片画廊", "Personal photo gallery")) {
                     Text(settings.l("添加 HTTPS 图片直链，最多 30 张。可使用 iPhone 的 Apple TV 遥控键盘输入。仅访问你添加的网站。", "Add up to 30 direct HTTPS image URLs. Use the Apple TV Remote keyboard on iPhone. Only your chosen websites are contacted.")).font(.caption).foregroundStyle(Palette.muted)
-                    TextField(settings.l("HTTPS 图片地址", "HTTPS image URL"), text: $address).accessibilityIdentifier("photo-url")
+                    NightTextField(title: settings.l("HTTPS 图片地址", "HTTPS image URL"), text: $address).accessibilityIdentifier("photo-url")
                     Button(settings.l("添加照片", "Add photo")) {
                         photoError = settings.addPhoto(address)
                         if photoError == nil { address = "" }
