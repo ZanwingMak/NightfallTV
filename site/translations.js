@@ -125,7 +125,10 @@ const websiteTranslations = {
     "Fireplace": "壁炉",
     "Absolute black": "完全黑屏",
     "Illustration of a black TV screen": "黑色电视屏幕示意",
-    "Northern lights filmed in Lapland": "拉普兰实拍极光"
+    "Northern lights filmed in Lapland": "拉普兰实拍极光",
+    "Join the TestFlight beta ↗": "加入 TestFlight 公测 ↗",
+    "For Apple TV · Free & open source · Public TestFlight beta": "为 Apple TV 而作 · 免费开源 · TestFlight 公开测试",
+    "Join the public beta using the link below. Install TestFlight on your iPhone or iPad and Apple TV, using the same App Store account. Accept the invitation on your iPhone or iPad, then install Nightfall in TestFlight on Apple TV. TestFlight requires tvOS 18 or later. Developers can also build from GitHub.": "通过下方链接加入公测。在 iPhone 或 iPad 与 Apple TV 上安装 TestFlight，并使用同一个 App Store 账户。先在手机或平板接受邀请，再到 Apple TV 的 TestFlight 中安装 Nightfall。TestFlight 要求 tvOS 18 或以上。开发者也可从 GitHub 获取源码自行构建。"
   },
   "ja": {
     "00": "00",
@@ -252,7 +255,10 @@ const websiteTranslations = {
     "Fireplace": "暖炉",
     "Absolute black": "完全な黒画面",
     "Illustration of a black TV screen": "黒いテレビ画面のイメージ",
-    "Northern lights filmed in Lapland": "ラップランドで撮影されたオーロラ"
+    "Northern lights filmed in Lapland": "ラップランドで撮影されたオーロラ",
+    "Join the TestFlight beta ↗": "TestFlight ベータに参加 ↗",
+    "For Apple TV · Free & open source · Public TestFlight beta": "Apple TV 向け · 無料・オープンソース · 公開ベータ",
+    "Join the public beta using the link below. Install TestFlight on your iPhone or iPad and Apple TV, using the same App Store account. Accept the invitation on your iPhone or iPad, then install Nightfall in TestFlight on Apple TV. TestFlight requires tvOS 18 or later. Developers can also build from GitHub.": "下のリンクから公開ベータに参加できます。同じ App Store アカウントで iPhone または iPad と Apple TV に TestFlight を入れてください。iPhone または iPad で招待を受け入れ、Apple TV の TestFlight で Nightfall をインストールします。tvOS 18 以降が必要です。開発者は GitHub のソースからもビルドできます。"
   },
   "ko": {
     "00": "00",
@@ -379,7 +385,10 @@ const websiteTranslations = {
     "Fireplace": "벽난로",
     "Absolute black": "완전한 검은 화면",
     "Illustration of a black TV screen": "검은 TV 화면 예시",
-    "Northern lights filmed in Lapland": "라플란드에서 촬영한 오로라"
+    "Northern lights filmed in Lapland": "라플란드에서 촬영한 오로라",
+    "Join the TestFlight beta ↗": "TestFlight 베타 참여 ↗",
+    "For Apple TV · Free & open source · Public TestFlight beta": "Apple TV용 · 무료 오픈 소스 · TestFlight 공개 베타",
+    "Join the public beta using the link below. Install TestFlight on your iPhone or iPad and Apple TV, using the same App Store account. Accept the invitation on your iPhone or iPad, then install Nightfall in TestFlight on Apple TV. TestFlight requires tvOS 18 or later. Developers can also build from GitHub.": "아래 링크로 공개 베타에 참여하세요. 같은 App Store 계정으로 iPhone 또는 iPad와 Apple TV에 TestFlight를 설치하세요. iPhone 또는 iPad에서 초대를 수락한 뒤 Apple TV의 TestFlight에서 Nightfall을 설치하세요. tvOS 18 이상이 필요합니다. 개발자는 GitHub 소스로 직접 빌드할 수도 있습니다."
   },
   "fr": {
     "00": "00",
@@ -506,7 +515,10 @@ const websiteTranslations = {
     "Fireplace": "Cheminée",
     "Absolute black": "Écran entièrement noir",
     "Illustration of a black TV screen": "Illustration d’un téléviseur à écran noir",
-    "Northern lights filmed in Lapland": "Aurores filmées en Laponie"
+    "Northern lights filmed in Lapland": "Aurores filmées en Laponie",
+    "Join the TestFlight beta ↗": "Rejoindre la bêta TestFlight ↗",
+    "For Apple TV · Free & open source · Public TestFlight beta": "Pour Apple TV · Gratuit et libre · Bêta publique TestFlight",
+    "Join the public beta using the link below. Install TestFlight on your iPhone or iPad and Apple TV, using the same App Store account. Accept the invitation on your iPhone or iPad, then install Nightfall in TestFlight on Apple TV. TestFlight requires tvOS 18 or later. Developers can also build from GitHub.": "Rejoignez la bêta via le lien ci-dessous. Installez TestFlight sur votre iPhone ou iPad et votre Apple TV avec le même compte App Store. Acceptez l’invitation sur votre iPhone ou iPad, puis installez Nightfall dans TestFlight sur Apple TV. tvOS 18 ou ultérieur est requis. Les développeurs peuvent aussi compiler depuis GitHub."
   },
   "de": {
     "00": "00",
@@ -633,7 +645,10 @@ const websiteTranslations = {
     "Fireplace": "Kamin",
     "Absolute black": "Völlig schwarzes Bild",
     "Illustration of a black TV screen": "Darstellung eines schwarzen Fernsehbildschirms",
-    "Northern lights filmed in Lapland": "In Lappland gefilmte Nordlichter"
+    "Northern lights filmed in Lapland": "In Lappland gefilmte Nordlichter",
+    "Join the TestFlight beta ↗": "An der TestFlight-Beta teilnehmen ↗",
+    "For Apple TV · Free & open source · Public TestFlight beta": "Für Apple TV · Kostenlos und quelloffen · Öffentliche TestFlight-Beta",
+    "Join the public beta using the link below. Install TestFlight on your iPhone or iPad and Apple TV, using the same App Store account. Accept the invitation on your iPhone or iPad, then install Nightfall in TestFlight on Apple TV. TestFlight requires tvOS 18 or later. Developers can also build from GitHub.": "Tritt über den Link unten der öffentlichen Beta bei. Installiere TestFlight auf iPhone oder iPad und Apple TV mit demselben App Store-Account. Nimm die Einladung auf iPhone oder iPad an und installiere Nightfall in TestFlight auf Apple TV. tvOS 18 oder neuer ist erforderlich. Entwickler können auch den GitHub-Quellcode bauen."
   },
   "es": {
     "00": "00",
@@ -760,7 +775,10 @@ const websiteTranslations = {
     "Fireplace": "Chimenea",
     "Absolute black": "Pantalla totalmente negra",
     "Illustration of a black TV screen": "Ilustración de un televisor con pantalla negra",
-    "Northern lights filmed in Lapland": "Auroras filmadas en Laponia"
+    "Northern lights filmed in Lapland": "Auroras filmadas en Laponia",
+    "Join the TestFlight beta ↗": "Unirse a la beta de TestFlight ↗",
+    "For Apple TV · Free & open source · Public TestFlight beta": "Para Apple TV · Gratis y abierto · Beta pública de TestFlight",
+    "Join the public beta using the link below. Install TestFlight on your iPhone or iPad and Apple TV, using the same App Store account. Accept the invitation on your iPhone or iPad, then install Nightfall in TestFlight on Apple TV. TestFlight requires tvOS 18 or later. Developers can also build from GitHub.": "Únete a la beta con el enlace de abajo. Instala TestFlight en tu iPhone o iPad y Apple TV con la misma cuenta del App Store. Acepta la invitación en el iPhone o iPad e instala Nightfall en TestFlight en Apple TV. Requiere tvOS 18 o posterior. Los desarrolladores también pueden compilar desde GitHub."
   },
   "it": {
     "00": "00",
@@ -887,7 +905,10 @@ const websiteTranslations = {
     "Fireplace": "Camino",
     "Absolute black": "Schermo completamente nero",
     "Illustration of a black TV screen": "Illustrazione di un televisore con schermo nero",
-    "Northern lights filmed in Lapland": "Aurora filmata in Lapponia"
+    "Northern lights filmed in Lapland": "Aurora filmata in Lapponia",
+    "Join the TestFlight beta ↗": "Partecipa alla beta TestFlight ↗",
+    "For Apple TV · Free & open source · Public TestFlight beta": "Per Apple TV · Gratis e open source · Beta pubblica TestFlight",
+    "Join the public beta using the link below. Install TestFlight on your iPhone or iPad and Apple TV, using the same App Store account. Accept the invitation on your iPhone or iPad, then install Nightfall in TestFlight on Apple TV. TestFlight requires tvOS 18 or later. Developers can also build from GitHub.": "Partecipa alla beta con il link qui sotto. Installa TestFlight su iPhone o iPad e Apple TV con lo stesso account App Store. Accetta l’invito su iPhone o iPad, poi installa Nightfall in TestFlight su Apple TV. Serve tvOS 18 o successivo. Gli sviluppatori possono compilare anche da GitHub."
   },
   "pt-BR": {
     "00": "00",
@@ -1014,7 +1035,10 @@ const websiteTranslations = {
     "Fireplace": "Lareira",
     "Absolute black": "Tela totalmente preta",
     "Illustration of a black TV screen": "Ilustração de uma TV com tela preta",
-    "Northern lights filmed in Lapland": "Auroras filmadas na Lapônia"
+    "Northern lights filmed in Lapland": "Auroras filmadas na Lapônia",
+    "Join the TestFlight beta ↗": "Participar da beta TestFlight ↗",
+    "For Apple TV · Free & open source · Public TestFlight beta": "Para Apple TV · Grátis e código aberto · Beta pública TestFlight",
+    "Join the public beta using the link below. Install TestFlight on your iPhone or iPad and Apple TV, using the same App Store account. Accept the invitation on your iPhone or iPad, then install Nightfall in TestFlight on Apple TV. TestFlight requires tvOS 18 or later. Developers can also build from GitHub.": "Entre na beta pelo link abaixo. Instale TestFlight no iPhone ou iPad e na Apple TV com a mesma conta da App Store. Aceite o convite no iPhone ou iPad e instale Nightfall no TestFlight da Apple TV. Requer tvOS 18 ou posterior. Desenvolvedores também podem compilar pelo GitHub."
   },
   "ru": {
     "00": "00",
@@ -1141,7 +1165,10 @@ const websiteTranslations = {
     "Fireplace": "Камин",
     "Absolute black": "Полностью чёрный экран",
     "Illustration of a black TV screen": "Изображение чёрного экрана телевизора",
-    "Northern lights filmed in Lapland": "Северное сияние, снятое в Лапландии"
+    "Northern lights filmed in Lapland": "Северное сияние, снятое в Лапландии",
+    "Join the TestFlight beta ↗": "Присоединиться к бете TestFlight ↗",
+    "For Apple TV · Free & open source · Public TestFlight beta": "Для Apple TV · Бесплатно и открыто · Публичная бета TestFlight",
+    "Join the public beta using the link below. Install TestFlight on your iPhone or iPad and Apple TV, using the same App Store account. Accept the invitation on your iPhone or iPad, then install Nightfall in TestFlight on Apple TV. TestFlight requires tvOS 18 or later. Developers can also build from GitHub.": "Присоединитесь к бете по ссылке ниже. Установите TestFlight на iPhone или iPad и Apple TV с одним аккаунтом App Store. Примите приглашение на iPhone или iPad, затем установите Nightfall через TestFlight на Apple TV. Нужна tvOS 18 или новее. Разработчики могут собрать приложение из исходников на GitHub."
   },
   "ar": {
     "00": "00",
@@ -1268,7 +1295,10 @@ const websiteTranslations = {
     "Fireplace": "المدفأة",
     "Absolute black": "شاشة سوداء تماماً",
     "Illustration of a black TV screen": "رسم توضيحي لتلفاز بشاشة سوداء",
-    "Northern lights filmed in Lapland": "شفق قطبي مصوّر في لابلاند"
+    "Northern lights filmed in Lapland": "شفق قطبي مصوّر في لابلاند",
+    "Join the TestFlight beta ↗": "انضم إلى النسخة التجريبية ↗",
+    "For Apple TV · Free & open source · Public TestFlight beta": "لـ Apple TV · مجاني ومفتوح المصدر · اختبار TestFlight عام",
+    "Join the public beta using the link below. Install TestFlight on your iPhone or iPad and Apple TV, using the same App Store account. Accept the invitation on your iPhone or iPad, then install Nightfall in TestFlight on Apple TV. TestFlight requires tvOS 18 or later. Developers can also build from GitHub.": "انضم للاختبار العام عبر الرابط أدناه. ثبّت TestFlight على iPhone أو iPad وعلى Apple TV باستخدام حساب App Store نفسه. اقبل الدعوة على هاتفك أو جهازك اللوحي ثم ثبّت Nightfall من TestFlight على Apple TV. يلزم tvOS 18 أو أحدث. يمكن للمطورين أيضًا بناء التطبيق من GitHub."
   },
   "hi": {
     "00": "00",
@@ -1395,7 +1425,10 @@ const websiteTranslations = {
     "Fireplace": "अंगीठी",
     "Absolute black": "पूरी तरह काली स्क्रीन",
     "Illustration of a black TV screen": "काले टीवी स्क्रीन का चित्र",
-    "Northern lights filmed in Lapland": "लैपलैंड में फ़िल्माई ध्रुवीय ज्योति"
+    "Northern lights filmed in Lapland": "लैपलैंड में फ़िल्माई ध्रुवीय ज्योति",
+    "Join the TestFlight beta ↗": "TestFlight बीटा में शामिल हों ↗",
+    "For Apple TV · Free & open source · Public TestFlight beta": "Apple TV के लिए · मुफ़्त और खुला स्रोत · सार्वजनिक TestFlight बीटा",
+    "Join the public beta using the link below. Install TestFlight on your iPhone or iPad and Apple TV, using the same App Store account. Accept the invitation on your iPhone or iPad, then install Nightfall in TestFlight on Apple TV. TestFlight requires tvOS 18 or later. Developers can also build from GitHub.": "नीचे दिए लिंक से बीटा में शामिल हों। एक ही App Store खाते से iPhone या iPad और Apple TV पर TestFlight स्थापित करें। iPhone या iPad पर निमंत्रण स्वीकार करें, फिर Apple TV के TestFlight में Nightfall स्थापित करें। tvOS 18 या नया संस्करण चाहिए। डेवलपर GitHub के स्रोत से भी ऐप बना सकते हैं।"
   },
   "zh-Hant": {
     "Privacy policy · Nightfall TV": "隱私政策 · Nightfall TV",
@@ -1522,6 +1555,9 @@ const websiteTranslations = {
     "Trimmed; 30 Hz high-pass; 3-second loop crossfade; DC removed; RMS level matched with soft peak limiting; ALAC 44.1 kHz stereo. Preview source, where noted, remains lossy in origin.": "截取片段；30 Hz 高通；3 秒循環交叉淡化；去除直流偏置；統一 RMS 響度並柔和限制峰值；ALAC 44.1 kHz 立體聲。標注為預覽來源的素材，原始格式仍為有損。",
     "Voluntary tips use Apple StoreKit. Apple processes payment, purchase authentication and refunds under its own privacy policies. The app verifies the transaction and completes it; we do not receive payment card details or store a purchase history on a developer server. Tips are one-time consumable purchases and do not unlock functionality.": "自願贊助使用 Apple StoreKit。Apple 根據其隱私政策處理支付、購買認證與退款。應用驗證並完成交易；開發者不會收到銀行卡資料，也不在開發者服務器保存購買歷史。贊助是一次性消耗型內購，不解鎖任何功能。",
     "Free to enjoy.\nYours to support.": "安心享受。\n隨心支持。",
-    "Use the app lawfully and respect source licenses. We aim to keep it reliable, but uninterrupted hosting, compatibility and future updates are not guaranteed. The MIT license states the code warranty and liability terms; mandatory consumer protections and any rights that cannot lawfully be excluded continue to apply. Nightfall is not a medical device or a treatment for sleep conditions.": "請合法使用並尊重素材許可。我們努力保持可靠，但不保證托管持續可用、所有設備兼容或未來持續更新。代碼的保證與責任條款以 MIT 許可為準；強制性消費者保護及法律不得排除的權利始終保留。Nightfall 不是醫療設備，也不是睡眠疾病治療方案。"
+    "Use the app lawfully and respect source licenses. We aim to keep it reliable, but uninterrupted hosting, compatibility and future updates are not guaranteed. The MIT license states the code warranty and liability terms; mandatory consumer protections and any rights that cannot lawfully be excluded continue to apply. Nightfall is not a medical device or a treatment for sleep conditions.": "請合法使用並尊重素材許可。我們努力保持可靠，但不保證托管持續可用、所有設備兼容或未來持續更新。代碼的保證與責任條款以 MIT 許可為準；強制性消費者保護及法律不得排除的權利始終保留。Nightfall 不是醫療設備，也不是睡眠疾病治療方案。",
+    "Join the TestFlight beta ↗": "加入 TestFlight 公測 ↗",
+    "For Apple TV · Free & open source · Public TestFlight beta": "為 Apple TV 而作 · 免費開源 · TestFlight 公開測試",
+    "Join the public beta using the link below. Install TestFlight on your iPhone or iPad and Apple TV, using the same App Store account. Accept the invitation on your iPhone or iPad, then install Nightfall in TestFlight on Apple TV. TestFlight requires tvOS 18 or later. Developers can also build from GitHub.": "透過下方連結加入公測。在 iPhone 或 iPad 與 Apple TV 安裝 TestFlight，並使用同一個 App Store 帳號。先在手機或平板接受邀請，再到 Apple TV 的 TestFlight 安裝 Nightfall。TestFlight 需要 tvOS 18 或以上。開發者也可從 GitHub 取得原始碼自行建置。"
   }
 };
