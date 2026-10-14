@@ -9,6 +9,7 @@ final class DownloadStore: ObservableObject {
     @Published private(set) var ready: Set<String> = []
     @Published private(set) var progress: [String: Double] = [:]
     @Published private(set) var errors: Set<String> = []
+    @Published private(set) var queued: [String] = []
     private var transfers: [String: MediaTransfer] = [:]
     private var generations: [String: UUID] = [:]
 
@@ -22,10 +23,26 @@ final class DownloadStore: ObservableObject {
     /// 检查真实缓存存在与大小，系统清理后自动恢复为可下载状态。
     func refresh() { ready = Set(DownloadAsset.all.filter { Self.fileURL($0) != nil }.map(\.id)) }
 
-    /// 仅在用户明确点击后下载，限制并发两项，使用独立代号隔离取消和重试。
+    /// 用户选择的资源按顺序排队，去重并限制同时下载两项。
     func download(_ asset: DownloadAsset) {
-        guard transfers[asset.id] == nil, transfers.count < 2, Self.fileURL(asset) == nil,
+        guard transfers[asset.id] == nil, !queued.contains(asset.id), Self.fileURL(asset) == nil,
               asset.url.scheme == "https", asset.url.host == "github.com", asset.bytes > 0 else { return }
+        errors.remove(asset.id)
+        queued.append(asset.id)
+        startQueued()
+    }
+
+    /// 空出的传输槽自动接收下一项；未点击的内容不会进入队列。
+    private func startQueued() {
+        while transfers.count < 2, !queued.isEmpty {
+            let id = queued.removeFirst()
+            guard let asset = DownloadAsset.all.first(where: { $0.id == id }), Self.fileURL(asset) == nil else { continue }
+            startTransfer(asset)
+        }
+    }
+
+    /// 为每次实际传输建立独立代号，迟到的进度和完成回调不能污染重试。
+    private func startTransfer(_ asset: DownloadAsset) {
         let generation = UUID()
         generations[asset.id] = generation
         errors.remove(asset.id)
@@ -43,6 +60,7 @@ final class DownloadStore: ObservableObject {
                 }
                 self.transfers[asset.id] = nil
                 self.progress[asset.id] = nil
+                self.generations[asset.id] = nil
                 do {
                     let staging = try result.get()
                     defer { try? FileManager.default.removeItem(at: staging) }
@@ -51,6 +69,7 @@ final class DownloadStore: ObservableObject {
                     try FileManager.default.moveItem(at: staging, to: destination)
                 } catch { self.errors.insert(asset.id) }
                 self.refresh()
+                self.startQueued()
             }
         })
         transfers[asset.id] = transfer
@@ -59,11 +78,23 @@ final class DownloadStore: ObservableObject {
 
     /// 取消后不保留未验证文件，迟到的回调不能覆盖下一次下载。
     func cancel(_ asset: DownloadAsset) {
+        queued.removeAll { $0 == asset.id }
         generations[asset.id] = nil
         transfers.removeValue(forKey: asset.id)?.cancel()
         progress[asset.id] = nil
         errors.remove(asset.id)
+        startQueued()
     }
+
+    /// 一次取消用户排队和传输中的全部内容，不删除已经下载好的资源。
+    func cancelAll() {
+        queued.removeAll()
+        for id in Array(transfers.keys) {
+            if let asset = DownloadAsset.all.first(where: { $0.id == id }) { cancel(asset) }
+        }
+    }
+
+    var cachedBytes: Int64 { DownloadAsset.all.filter { ready.contains($0.id) }.reduce(0) { $0 + $1.bytes } }
 
     /// 删除用户选择的可下载缓存，内置内容保持可离线使用。
     func remove(_ asset: DownloadAsset) {

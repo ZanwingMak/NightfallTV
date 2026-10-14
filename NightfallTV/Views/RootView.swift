@@ -106,12 +106,16 @@ struct LibraryView: View {
                             .accessibilityIdentifier("category-\(item.rawValue)")
                     }
                     Spacer()
-                    Text(settings.l("\(SceneKind.available.count) 个场景 · 无限安静", "\(SceneKind.available.count) scenes · endless calm")).font(.caption).foregroundStyle(Palette.muted)
+                    Text(settings.l("\(SceneKind.allCases.count) 个场景 · 无限安静", "\(SceneKind.allCases.count) scenes · endless calm")).font(.caption).foregroundStyle(Palette.muted)
                 }.focusSection()
-                FocusGrid(SceneKind.available.filter { category == .all || $0.category == category }) { scene in
+                FocusGrid(SceneKind.allCases.filter { !$0.isDownload && (category == .all || $0.category == category) }) { scene in
                     SceneCard(scene: scene) { open(scene) }
-                }.padding(.bottom, 48)
-            }.padding(.horizontal, 80).padding(.top, 16)
+                }
+                if category == .all || category == .nature {
+                    PageHeading(eyebrow: "A WIDER WORLD", title: settings.l("4K 风景", "4K films"), subtitle: settings.l("先选喜欢的，再免费下载。", "Choose a favorite, then download it free."))
+                    FocusGrid(SceneKind.allCases.filter(\.isDownload)) { scene in SceneCard(scene: scene) { open(scene) } }
+                }
+            }.padding(.horizontal, 80).padding(.top, 16).padding(.bottom, 48)
         }
         .accessibilityIdentifier("library")
     }
@@ -148,8 +152,9 @@ struct CollectionView: View {
                 } else {
                     HStack(spacing: 24) {
                         QuietButton(title: settings.l("播放收藏", "Play collection"), symbol: "play.fill", id: "play-collection") {
-                            if let first = settings.value.favorites.first { playback.start(first, playlist: settings.value.favorites) }
-                        }
+                            let available = settings.value.favorites.filter(\.isAvailable)
+                            if let first = available.first { playback.start(first, playlist: available) }
+                        }.disabled(!settings.value.favorites.contains(where: \.isAvailable))
                         QuietButton(title: settings.value.shuffle ? settings.l("随机播放：开", "Shuffle: on") : settings.l("随机播放：关", "Shuffle: off"), symbol: "shuffle", id: "shuffle") { settings.value.shuffle.toggle() }
                         Text(settings.l("共 \(settings.value.favorites.count) 个场景", "\(settings.value.favorites.count) scenes")).font(.callout).foregroundStyle(Palette.muted)
                     }.frame(maxWidth: .infinity, alignment: .leading).focusSection()
@@ -165,7 +170,7 @@ struct CollectionView: View {
 struct SceneDetailView: View {
     let scene: SceneKind
     let close: () -> Void
-    @State private var showingDownloads = false
+    @State private var downloadAsset: DownloadAsset?
     @EnvironmentObject private var settings: SettingsStore
     @EnvironmentObject private var downloads: DownloadStore
     @EnvironmentObject private var playback: PlaybackController
@@ -183,21 +188,31 @@ struct SceneDetailView: View {
                 if scene == .black {
                     Text(settings.l("播放中没有提示。确认键显示控制，返回键退出。音乐由原播放器控制。", "No overlays while playing. Select opens controls. Back exits. Your music stays with its player.")).font(.callout).foregroundStyle(Palette.muted)
                 }
-                if !scene.isAvailable {
-                    QuietButton(title: settings.l("下载此场景", "Download this scene"), symbol: "arrow.down.circle", id: "download-missing-scene") { showingDownloads = true }
+                if let asset = DownloadAsset.scene(scene) {
+                    Text(asset.specification + " · " + asset.size + " · " + asset.author + " · " + asset.license)
+                        .font(.caption).foregroundStyle(Palette.muted)
+                    if !scene.isAvailable {
+                        VStack(alignment: .leading, spacing: 16) { DownloadActionButton(asset: asset) }.frame(width: 580)
+                        if downloads.errors.contains(asset.id) {
+                            Text(settings.l("下载未完成，请检查网络、可用空间后重试。", "Download incomplete. Check your connection and free space, then retry.")).font(.caption).foregroundStyle(Palette.accent)
+                        }
+                    }
                 }
                 HStack(spacing: 24) {
-                    QuietButton(title: settings.l("开始屏保", "Start screensaver"), symbol: "play.fill", id: "start-scene") { playback.start(scene) }
+                    QuietButton(title: settings.l("开始屏保", "Start screensaver"), symbol: "play.fill", id: "start-scene") { playback.start(scene) }.disabled(!scene.isAvailable)
                     if let suggested = scene.suggestedSound {
-                        QuietButton(title: settings.l("有声 · ", "With ") + suggested.title(settings.language), symbol: "speaker.wave.2.fill", id: "start-scene-sound") { playback.startWithSound(scene, sound: suggested) }
+                        QuietButton(title: settings.l("有声 · ", "With ") + suggested.title(settings.language), symbol: "speaker.wave.2.fill", id: "start-scene-sound") { playback.startWithSound(scene, sound: suggested) }.disabled(!scene.isAvailable || !suggested.isAvailable)
                     }
                     QuietButton(title: settings.value.favorites.contains(scene) ? settings.l("已收藏", "Saved") : settings.l("收藏场景", "Save scene"), symbol: settings.value.favorites.contains(scene) ? "heart.fill" : "heart", id: "favorite-scene") { settings.toggleFavorite(scene) }
                     QuietButton(title: settings.l("返回", "Back"), symbol: "arrow.left", id: "close-detail", action: close)
                 }.padding(.top, 16)
+                if let suggested = scene.suggestedSound, !suggested.isAvailable, let asset = DownloadAsset.sound(suggested) {
+                    QuietButton(title: settings.l("下载推荐声景", "Download suggested sound"), symbol: "arrow.down.circle", id: "download-suggested-sound") { downloadAsset = asset }
+                }
                 if scene.suggestedSound != nil {
                     Text(settings.l("声音为独立自然录音。播放中可换声景、关画面或恢复画面。", "Sound is a separate field recording. Change it or turn the picture off and on while playing.")).font(.caption).foregroundStyle(Palette.muted)
                 }
             }.padding(88)
-        }.onExitCommand(perform: close).sheet(isPresented: $showingDownloads) { DownloadsView() }
+        }.onExitCommand(perform: close).sheet(item: $downloadAsset) { asset in DownloadsView(filter: .audio, assetID: asset.id) }
     }
 }

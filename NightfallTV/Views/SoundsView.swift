@@ -4,14 +4,16 @@ struct SoundsView: View {
     @EnvironmentObject private var settings: SettingsStore
     @EnvironmentObject private var playback: PlaybackController
     @EnvironmentObject private var sound: SoundPlayer
+    @EnvironmentObject private var downloads: DownloadStore
     @State private var showingDownloads = false
+    @State private var downloadID: String?
     @State private var picture: SceneKind?
     @State private var showingMixer = false
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 36) {
-                PageHeading(eyebrow: "SOUND, SOFTLY", title: settings.l("让世界，慢一点。", "Let the world slow down."), subtitle: settings.l("8 种真实自然录音，2 种柔和噪音。听声音，看风景，或者完全黑屏。", "Eight nature recordings, two gentle noises. Watch a scene or listen in absolute black."))
-                QuietButton(title: settings.l("下载更多高音质录音", "Download more lossless recordings"), symbol: "arrow.down.circle", id: "sound-downloads") { showingDownloads = true }
+                PageHeading(eyebrow: "SOUND, SOFTLY", title: settings.l("让世界，慢一点。", "Let the world slow down."), subtitle: settings.l("真实自然录音与柔和噪音。可搭配风景，或纯黑听。", "Nature recordings and gentle noise. Watch a scene or listen in black."))
+                QuietButton(title: settings.l("下载更多高音质录音", "Download more lossless recordings"), symbol: "arrow.down.circle", id: "sound-downloads") { downloadID = nil; showingDownloads = true }
                 HStack(spacing: 32) {
                     QuietButton(title: settings.l("停止声景", "Stop sound"), symbol: "speaker.slash.fill", id: "stop-sound") { sound.stop() }
                     ChoicePicker(title: settings.l("声景音量", "Sound volume"), selection: $settings.value.soundVolume,
@@ -35,33 +37,49 @@ struct SoundsView: View {
                     Spacer()
                 }.focusSection()
                 if let error = sound.error { Text(error).font(.callout).foregroundStyle(.orange) }
-                FocusGrid(SoundKind.available) { kind in
-                        Button {
-                            if sound.layers.contains(where: { $0.sound == kind }) { playback.toggleSoundLayer(kind) }
-                            else { sound.play(kind, volume: settings.value.soundVolume) }
-                            playback.interaction()
-                        } label: {
-                            ZStack(alignment: .bottomLeading) {
-                                soundArtwork(for: kind).aspectRatio(1.75, contentMode: .fit)
-                                LinearGradient(colors: [.clear, .black.opacity(0.85)], startPoint: .top, endPoint: .bottom)
-                                VStack(alignment: .leading, spacing: 16) {
-                                    Image(systemName: kind.symbol).font(.title2).foregroundStyle(Palette.accent)
-                                    HStack {
-                                        Text(kind.title(settings.language)).font(.title2)
-                                        Spacer()
-                                        Image(systemName: sound.layers.contains(where: { $0.sound == kind }) ? "stop.circle.fill" : "play.circle").font(.title2)
-                                    }
-                                    Text(kind.subtitle(settings.language)).font(.caption).foregroundStyle(Palette.muted)
-                                }.padding(32)
-                            }.clipShape(RoundedRectangle(cornerRadius: 20))
-                        }.buttonStyle(ArtworkButtonStyle()).accessibilityIdentifier("sound-\(kind.rawValue)")
-                            .accessibilityLabel(kind.title(settings.language) + " · " + (sound.layers.contains(where: { $0.sound == kind }) ? settings.l("移除此声层", "Remove layer") : settings.l("单独播放", "Play alone")))
-                }
+                FocusGrid(SoundKind.allCases.filter { !$0.isDownload }) { kind in soundCard(kind) }
+                PageHeading(eyebrow: "A WIDER WORLD", title: settings.l("更多无损录音", "More lossless recordings"), subtitle: settings.l("先选喜欢的，再免费下载。", "Choose a favorite, then download it free."))
+                FocusGrid(SoundKind.allCases.filter(\.isDownload)) { kind in soundCard(kind) }
                 Text(settings.l("选择声景开始试听，再打开或关闭画面。画面与录音为独立素材；纯黑模式不显示时钟或提示。", "Select a sound to preview, then turn the picture on or off. Footage and recordings are separate assets. Black mode has no clock or overlays.")).font(.caption).foregroundStyle(Palette.muted)
             }.padding(80)
         }.onChange(of: settings.value.soundVolume) { _, volume in sound.setVolume(volume) }
-            .sheet(isPresented: $showingDownloads) { DownloadsView() }
+            .sheet(isPresented: $showingDownloads) { DownloadsView(filter: .audio, assetID: downloadID) }
             .sheet(isPresented: $showingMixer, onDismiss: { playback.choosingOptions = false; playback.interaction() }) { SoundMixerView() }
+    }
+
+    /// 未下载的录音展示规格并打开对应下载项，只有可播放的录音才会开始试听。
+    private func soundCard(_ kind: SoundKind) -> some View {
+        Button {
+            if !kind.isAvailable { downloadID = DownloadAsset.sound(kind)?.id; showingDownloads = true; return }
+            if sound.layers.contains(where: { $0.sound == kind }) { playback.toggleSoundLayer(kind) }
+            else { sound.play(kind, volume: settings.value.soundVolume) }
+            playback.interaction()
+        } label: {
+            ZStack(alignment: .bottomLeading) {
+                soundArtwork(for: kind).aspectRatio(1.75, contentMode: .fit)
+                LinearGradient(colors: [.clear, .black.opacity(0.85)], startPoint: .top, endPoint: .bottom)
+                VStack(alignment: .leading, spacing: 16) {
+                    Image(systemName: kind.symbol).font(.title2).foregroundStyle(Palette.accent)
+                    HStack {
+                        Text(kind.title(settings.language)).font(.title2)
+                        Spacer()
+                        Image(systemName: !kind.isAvailable ? "arrow.down.circle" : (sound.layers.contains(where: { $0.sound == kind }) ? "stop.circle.fill" : "play.circle")).font(.title2)
+                    }
+                    Text(kind.subtitle(settings.language)).font(.caption).foregroundStyle(Palette.muted)
+                }.padding(32)
+                if kind.isDownload {
+                    VStack {
+                        HStack {
+                            Spacer()
+                            Label(downloads.ready.contains(kind.rawValue) ? settings.l("已下载", "Downloaded") : settings.l("免费下载", "Download free"), systemImage: downloads.ready.contains(kind.rawValue) ? "checkmark.circle.fill" : "arrow.down.circle")
+                                .font(.caption2).padding(10).background(.black.opacity(0.75), in: Capsule())
+                        }
+                        Spacer()
+                    }.padding(16)
+                }
+            }.clipShape(RoundedRectangle(cornerRadius: 20))
+        }.buttonStyle(ArtworkButtonStyle()).accessibilityIdentifier("sound-\(kind.rawValue)")
+            .accessibilityLabel(kind.title(settings.language) + " · " + (!kind.isAvailable ? settings.l("免费下载", "Download free") : (sound.layers.contains(where: { $0.sound == kind }) ? settings.l("移除此声层", "Remove layer") : settings.l("单独播放", "Play alone"))))
     }
 
     /// 雨、海浪和炉火使用对应实拍；溪流与噪音使用符号背景，避免无关景色误导。

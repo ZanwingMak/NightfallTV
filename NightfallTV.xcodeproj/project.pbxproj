@@ -28,6 +28,7 @@
 		3F39B2AB1F9ACF60BF2976D7 /* snow.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 423851ED3375324A31ADAAE8 /* snow.mp4 */; };
 		457E092A6FE1F8055C2D7A60 /* DownloadStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D306CDDFF2A11C57BF01CE /* DownloadStore.swift */; };
 		46045DA8942AE736207ACA43 /* stars.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 4A89A37F4C1F73BB5812EF4E /* stars.mp4 */; };
+		4A90B699F6B1CF9A75FE7366 /* EditRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D321F54A30A3D9A01D3B65C5 /* EditRoutineView.swift */; };
 		4D90BF19349AE7D0CE67EB88 /* coast-poster.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1BCDCCB33B4B5C6E890A9950 /* coast-poster.jpg */; };
 		51B5331D098ABF4F6B80A3A8 /* VideoCredit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6FA8DC48B998C7D9EB01B43 /* VideoCredit.swift */; };
 		5518F2A0A4F9D5B92D51E4BF /* NightfallTips.storekit in Resources */ = {isa = PBXBuildFile; fileRef = E4C76CB7E55392BE7BDC79DD /* NightfallTips.storekit */; };
@@ -165,6 +166,7 @@
 		CCDB8DE562C4141D577C3F83 /* SupportViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportViews.swift; sourceTree = "<group>"; };
 		CF72B201B7120740E628885B /* MediaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaTests.swift; sourceTree = "<group>"; };
 		D23AA86138CC42571110123F /* ScreenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenTests.swift; sourceTree = "<group>"; };
+		D321F54A30A3D9A01D3B65C5 /* EditRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRoutineView.swift; sourceTree = "<group>"; };
 		D59283210094FE4950CD164C /* prism-poster.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "prism-poster.png"; sourceTree = "<group>"; };
 		DB599F17FFF15EFCBD0D9097 /* ocean.mp4 */ = {isa = PBXFileReference; path = ocean.mp4; sourceTree = "<group>"; };
 		E30A969E749122E9F2564E13 /* audio-credits.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "audio-credits.json"; sourceTree = "<group>"; };
@@ -330,6 +332,7 @@
 			children = (
 				5FE68E63C3A9645AFC5C5438 /* Components.swift */,
 				698322FE419AD650781FB0A0 /* DownloadsView.swift */,
+				D321F54A30A3D9A01D3B65C5 /* EditRoutineView.swift */,
 				9978FA54C59433C492650BFA /* MediaCreditsView.swift */,
 				21366E54F0DE12130F20697C /* PlayerView.swift */,
 				C83D74D4D8F6D03C996DB5ED /* RootView.swift */,
@@ -537,6 +540,7 @@
 				6B0D287E6FDA208697AC11C0 /* DownloadAsset.swift in Sources */,
 				457E092A6FE1F8055C2D7A60 /* DownloadStore.swift in Sources */,
 				A777821ED1E0DDB3AC5BED8F /* DownloadsView.swift in Sources */,
+				4A90B699F6B1CF9A75FE7366 /* EditRoutineView.swift in Sources */,
 				5A3AE39D499ACEAF65E35FA3 /* MediaCreditsView.swift in Sources */,
 				C7CFECD30FE7F287DB10DEB1 /* NightfallTVApp.swift in Sources */,
 				04F9D8291AEC97D7D905316F /* PhotoLoader.swift in Sources */,
@@ -643,7 +647,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 2Q2LMV7BR6;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -662,7 +666,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MARKETING_VERSION = 1.3.0;
+				MARKETING_VERSION = 1.4.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -745,7 +749,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 2Q2LMV7BR6;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -758,7 +762,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MARKETING_VERSION = 1.3.0;
+				MARKETING_VERSION = 1.4.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";

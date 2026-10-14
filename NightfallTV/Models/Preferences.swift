@@ -120,6 +120,17 @@ final class SettingsStore: ObservableObject {
     /// 移除用户确认删除的个人方案，不影响当前播放。
     func removeRoutine(_ id: String) { routines.removeAll { $0.id == id }; saveRoutines() }
 
+    /// 编辑使用原方案标识并原位保存，不占用额外名额，也不改变正在播放的会话。
+    func updateRoutine(_ routine: SavedRoutine) -> String? {
+        var safe = routine
+        safe.normalize()
+        guard !safe.name.isEmpty else { return l("请输入方案名称。", "Enter a name.") }
+        guard let index = routines.firstIndex(where: { $0.id == safe.id }) else { return l("这个方案已被移除。", "This routine was removed.") }
+        routines[index] = safe
+        saveRoutines()
+        return nil
+    }
+
     /// 将个人方案与原偏好分开保存，兼容已有版本的配置。
     private func saveRoutines() {
         if let data = try? JSONEncoder().encode(routines) { defaults.set(data, forKey: "nightfall.routines.v1") }

@@ -37,6 +37,7 @@ struct SceneCard: View {
     let scene: SceneKind
     @EnvironmentObject private var settings: SettingsStore
     @EnvironmentObject private var playback: PlaybackController
+    @EnvironmentObject private var downloads: DownloadStore
     let action: () -> Void
     var body: some View {
         Button(action: action) {
@@ -53,6 +54,16 @@ struct SceneCard: View {
                         Spacer()
                         if settings.value.favorites.contains(scene) { Image(systemName: "heart.fill").foregroundStyle(Palette.accent) }
                     }.padding(24)
+                    if scene.isDownload {
+                        VStack {
+                            HStack {
+                                Spacer()
+                                Label(downloads.ready.contains(scene.rawValue) ? settings.l("已下载", "Downloaded") : settings.l("免费下载", "Download free"), systemImage: downloads.ready.contains(scene.rawValue) ? "checkmark.circle.fill" : "arrow.down.circle")
+                                    .font(.caption2).padding(10).background(.black.opacity(0.75), in: Capsule())
+                            }
+                            Spacer()
+                        }.padding(16)
+                    }
                 }
                 VStack(alignment: .leading, spacing: 8) {
                     Text(scene.title(settings.language)).font(.title3.weight(.medium)).foregroundStyle(.white)
@@ -65,7 +76,7 @@ struct SceneCard: View {
         }
         .buttonStyle(ArtworkButtonStyle())
         .accessibilityIdentifier("scene-\(scene.rawValue)")
-        .accessibilityLabel(scene.title(settings.language))
+        .accessibilityLabel(scene.title(settings.language) + (scene.isDownload ? " · " + (scene.isAvailable ? settings.l("已下载", "Downloaded") : settings.l("免费下载", "Download free")) : ""))
     }
 }
 

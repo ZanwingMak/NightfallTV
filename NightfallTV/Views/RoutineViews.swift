@@ -88,6 +88,7 @@ struct RoutineShelf: View {
     @EnvironmentObject private var settings: SettingsStore
     @EnvironmentObject private var playback: PlaybackController
     @State private var removing: SavedRoutine?
+    @State private var editing: SavedRoutine?
 
     var body: some View {
         VStack(alignment: .leading, spacing: 24) {
@@ -99,21 +100,27 @@ struct RoutineShelf: View {
                     .frame(maxWidth: .infinity, alignment: .leading).background(.white.opacity(0.04), in: RoundedRectangle(cornerRadius: 20))
             }
             ForEach(settings.routines) { routine in
-                HStack(spacing: 32) {
-                    SceneArtwork(kind: routine.scene).frame(width: 260, height: 150).clipped().clipShape(RoundedRectangle(cornerRadius: 16))
-                    VStack(alignment: .leading, spacing: 12) {
-                        Text(routine.name).font(.title3).lineLimit(1)
-                        Text(routine.layers.isEmpty ? settings.l("静音", "Silent") : routine.layers.map { $0.sound.title(settings.language) }.joined(separator: " + "))
-                            .font(.caption).foregroundStyle(Palette.muted).lineLimit(2)
-                        Text(routine.sleepMinutes == 0 ? settings.l("不限时", "No sleep timer") : settings.l("\(routine.sleepMinutes) 分钟", "\(routine.sleepMinutes) minutes"))
-                            .font(.caption).foregroundStyle(Palette.accent)
+                VStack(alignment: .leading, spacing: 24) {
+                    HStack(spacing: 32) {
+                        SceneArtwork(kind: routine.scene).frame(width: 260, height: 150).clipped().clipShape(RoundedRectangle(cornerRadius: 16))
+                        VStack(alignment: .leading, spacing: 12) {
+                            Text(routine.name).font(.title3).lineLimit(1)
+                            Text(routine.layers.isEmpty ? settings.l("静音", "Silent") : routine.layers.map { $0.sound.title(settings.language) }.joined(separator: " + "))
+                                .font(.caption).foregroundStyle(Palette.muted).lineLimit(2)
+                            Text(routine.sleepMinutes == 0 ? settings.l("不限时", "No sleep timer") : settings.l("\(routine.sleepMinutes) 分钟", "\(routine.sleepMinutes) minutes"))
+                                .font(.caption).foregroundStyle(Palette.accent)
+                        }.frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                    HStack(spacing: 24) {
+                        QuietButton(title: settings.l("播放", "Play"), symbol: "play.fill", id: "routine-play-\(routine.id)") { playback.startRoutine(routine) }
+                        QuietButton(title: settings.l("纯黑听", "Listen in black"), symbol: "moon.zzz.fill", id: "routine-black-\(routine.id)") { playback.startRoutine(routine, black: true) }
+                        QuietButton(title: settings.l("编辑", "Edit"), symbol: "pencil", id: "routine-edit-\(routine.id)") { editing = routine }
+                        QuietButton(title: settings.l("移除", "Remove"), symbol: "trash", id: "routine-remove-\(routine.id)") { removing = routine }
                     }.frame(maxWidth: .infinity, alignment: .leading)
-                    QuietButton(title: settings.l("播放", "Play"), symbol: "play.fill", id: "routine-play-\(routine.id)") { playback.startRoutine(routine) }
-                    QuietButton(title: settings.l("纯黑听", "Listen in black"), symbol: "moon.zzz.fill", id: "routine-black-\(routine.id)") { playback.startRoutine(routine, black: true) }
-                    QuietButton(title: settings.l("移除", "Remove"), symbol: "trash", id: "routine-remove-\(routine.id)") { removing = routine }
                 }.padding(24).background(.white.opacity(0.04), in: RoundedRectangle(cornerRadius: 24)).focusSection()
             }
         }
+        .sheet(item: $editing) { EditRoutineView(routine: $0) }
         .alert(settings.l("移除这个方案？", "Remove this routine?"), isPresented: Binding(get: { removing != nil }, set: { if !$0 { removing = nil } }), presenting: removing) { routine in
             Button(settings.l("取消", "Cancel"), role: .cancel) { removing = nil }
             Button(settings.l("移除", "Remove"), role: .destructive) {
