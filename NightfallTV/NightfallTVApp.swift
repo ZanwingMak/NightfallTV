@@ -14,7 +14,6 @@ struct NightfallTVApp: App {
         #if DEBUG
         if ProcessInfo.processInfo.arguments.contains("--uitesting") { settings.reset() }
         if let argument = ProcessInfo.processInfo.arguments.first(where: { $0.hasPrefix("--language=") }), let language = AppLanguage(rawValue: String(argument.dropFirst(11))) { settings.setLanguage(language) }
-        if ProcessInfo.processInfo.arguments.contains("--launch-black") { settings.value.launchBlack = true }
         if ProcessInfo.processInfo.arguments.contains("--clock-overlay") { settings.value.showClock = true; settings.value.brightness = 1 }
         #endif
         let sound = SoundPlayer()

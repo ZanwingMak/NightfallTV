@@ -30,7 +30,7 @@ struct EditRoutineView: View {
                 }
                 Section(settings.l("画面", "Picture")) {
                     ChoicePicker(title: settings.l("搭配画面", "Picture"), selection: $draft.scene,
-                                 options: SceneKind.allCases.filter { $0.isAvailable || $0 == draft.scene }.map { ($0, $0.title(settings.language)) })
+                                 options: SceneKind.allCases.filter { !$0.isPlayerMode && ($0.isAvailable || $0 == draft.scene) }.map { ($0, $0.title(settings.language)) })
                         .accessibilityIdentifier("edit-routine-scene")
                     Toggle(settings.l("关闭画面", "Picture off"), isOn: $draft.pictureOff).accessibilityIdentifier("edit-routine-black")
                     ChoicePicker(title: settings.l("画面亮度", "Scene brightness"), selection: $draft.brightness,

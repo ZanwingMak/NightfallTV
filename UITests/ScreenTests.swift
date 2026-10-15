@@ -44,7 +44,7 @@ final class ScreenTests: XCTestCase {
     /// 首排三个卡片都能直接向上进入分类，再向上进入精选按钮和顶部导航。
     func testFirstRowMovesUpToCategories() {
         let app = launch()
-        for scene in ["black", "aurora", "stars"] {
+        for scene in ["aurora", "stars", "ocean"] {
             focus("scene-\(scene)", in: app)
             XCTAssertTrue(app.buttons["scene-\(scene)"].hasFocus)
             XCUIRemote.shared.press(.up)
@@ -153,9 +153,12 @@ final class ScreenTests: XCTestCase {
         XCTAssertTrue(app.buttons["quick-black"].waitForExistence(timeout: 5))
     }
 
-    /// 启动即黑屏没有先显示首页，并能通过确认键退出。
+    /// 已移除启动即黑屏；旧启动参数不能再自动开始会话，仍可手动播放纯音频。
     func testLaunchBlack() throws {
         let app = launch(["--launch-black", "--clock-overlay"])
+        XCTAssertTrue(app.buttons["quick-black"].waitForExistence(timeout: 10))
+        XCTAssertFalse(app.descendants(matching: .any)["black-screen"].exists)
+        activate("quick-black", in: app)
         XCTAssertTrue(app.descendants(matching: .any)["black-screen"].waitForExistence(timeout: 10))
         try assertBlack()
         XCUIRemote.shared.press(.select)
@@ -166,7 +169,7 @@ final class ScreenTests: XCTestCase {
 
     /// 检查所有场景可独立启动，保存每种场景的真实渲染截图。
     func testEverySceneRenders() {
-        for scene in ["aurora", "stars", "ocean", "ember", "dunes", "prism", "rain", "clock", "gallery", "waterfall", "snow", "clouds"] {
+        for scene in ["aurora", "stars", "ocean", "ember", "dunes", "prism", "rain", "gallery", "waterfall", "snow", "clouds"] {
             let app = launch(["--scene=\(scene)"])
             XCTAssertTrue(app.descendants(matching: .any)["playing-\(scene)"].waitForExistence(timeout: 10), scene)
             settle(3)
@@ -300,7 +303,9 @@ final class ScreenTests: XCTestCase {
 
     /// 选择框允许慢慢操作，取消保持原值，结束操作后控制层才开始自动隐藏。
     func testTimerPickerAndControlAutoHide() throws {
-        let app = launch(["--launch-black"])
+        let app = launch(["--scene=ocean"])
+        XCUIRemote.shared.press(.select)
+        activate("player-black", in: app)
         XCUIRemote.shared.press(.select)
         XCTAssertTrue(app.buttons["player-timer"].waitForExistence(timeout: 5))
         activate("player-timer", in: app)
@@ -411,8 +416,8 @@ final class ScreenTests: XCTestCase {
     /// 分类在详情返回后保留，语言选择可取消，授权页可由遥控器关闭。
     func testCategoryReturnLanguageAndCredits() {
         let app = launch()
-        activate("category-night", in: app)
-        activate("scene-clock", in: app)
+        activate("category-personal", in: app)
+        activate("scene-gallery", in: app)
         XCTAssertTrue(app.buttons["close-detail"].waitForExistence(timeout: 5))
         activate("close-detail", in: app)
         XCTAssertFalse(app.buttons["scene-aurora"].exists, "Returning should preserve the chosen filter")

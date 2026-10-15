@@ -4,7 +4,7 @@ private enum AppPage: String, CaseIterable {
     case explore, collection, sounds, night, settings
     /// 返回顶部导航标题。
     func title(_ language: AppLanguage) -> String {
-        let titles = [("探索", "Explore"), ("收藏", "Collection"), ("声景", "Soundscapes"), ("夜间", "Nightfall"), ("设置", "Settings")]
+        let titles = [("风景视频", "Videos"), ("收藏", "Collection"), ("声景", "Soundscapes"), ("夜间", "Nightfall"), ("设置", "Settings")]
         let pair = titles[Self.allCases.firstIndex(of: self)!]
         return Localizer.text(pair.1, chinese: pair.0, language: language)
     }
@@ -51,9 +51,6 @@ struct RootView: View {
             if phase == .active { downloads.refresh() }
         }
         .alert(settings.l("请先下载此内容", "Download this content first"), isPresented: $playback.mediaMissing) { Button(settings.l("好", "OK"), role: .cancel) {} } message: { Text(settings.l("在设置的下载库中重新下载，即可离线播放。", "Download it again from the library in Settings to play offline.")) }
-        .onChange(of: playback.now) { _, _ in
-            if detail == nil && (page == .explore || page == .collection) { playback.checkIdle() }
-        }
         .onAppear {
             guard !launched else { return }
             launched = true
@@ -64,7 +61,6 @@ struct RootView: View {
                 return
             }
             #endif
-            if settings.value.launchBlack { playback.start(.black) }
         }
     }
 
@@ -106,9 +102,9 @@ struct LibraryView: View {
                             .accessibilityIdentifier("category-\(item.rawValue)")
                     }
                     Spacer()
-                    Text(settings.l("\(SceneKind.allCases.count) 个场景 · 无限安静", "\(SceneKind.allCases.count) scenes · endless calm")).font(.caption).foregroundStyle(Palette.muted)
+                    Text(settings.l("\(SceneKind.allCases.filter { !$0.isPlayerMode && $0 != .gallery }.count) 个场景 · 无限安静", "\(SceneKind.allCases.filter { !$0.isPlayerMode && $0 != .gallery }.count) scenes · endless calm")).font(.caption).foregroundStyle(Palette.muted)
                 }.focusSection()
-                FocusGrid(SceneKind.allCases.filter { !$0.isDownload && (category == .all || $0.category == category) }) { scene in
+                FocusGrid(libraryScenes) { scene in
                     SceneCard(scene: scene) { open(scene) }
                 }
                 if category == .all || category == .nature {
@@ -120,6 +116,16 @@ struct LibraryView: View {
         .accessibilityIdentifier("library")
     }
 
+    /// 风景库只展示可主动播放的媒体；黑屏和时钟不再作为独立内容提供。
+    private var libraryScenes: [SceneKind] {
+        SceneKind.allCases.filter { scene in
+            guard !scene.isDownload, !scene.isPlayerMode else { return false }
+            if scene == .gallery { return category == .personal }
+            if category == .night { return [.aurora, .stars, .rain].contains(scene) }
+            return category == .all || category == .nature
+        }
+    }
+
     private var hero: some View {
         ZStack(alignment: .leading) {
             SceneArtwork(kind: .aurora)
@@ -127,10 +133,10 @@ struct LibraryView: View {
             VStack(alignment: .leading, spacing: 20) {
                 Text(Localizer.text("A LITTLE LESS LIGHT. A LITTLE MORE PEACE.", language: settings.language)).font(.caption.weight(.medium)).tracking(3).foregroundStyle(Palette.accent)
                 Text(settings.l("把夜晚，\n还给自己。", "Let the evening\nbelong to you.")).font(.system(size: 64, weight: .light)).lineSpacing(4).fixedSize(horizontal: false, vertical: true)
-                Text(settings.l("从极光到星海，从一束暖光到完全黑屏。", "From northern lights to starlight. From a warm glow to none.")).font(.callout).foregroundStyle(.white.opacity(0.65))
+                Text(settings.l("真实自然视频，搭配你喜欢的声景。", "Real nature videos. Soundscapes you choose.")).font(.callout).foregroundStyle(.white.opacity(0.65))
                 HStack(spacing: 24) {
                     QuietButton(title: settings.l("探索极光", "Explore aurora"), symbol: "play.fill", id: "hero-aurora") { open(.aurora) }
-                    QuietButton(title: settings.l("一键黑屏", "Go dark"), symbol: "moon.zzz.fill", id: "quick-black") { playback.start(.black) }
+                    QuietButton(title: settings.l("只听细雨", "Listen to rain"), symbol: "headphones", id: "quick-black") { playback.startWithSound(.black, sound: .rain) }
                 }.frame(maxWidth: .infinity, alignment: .leading).padding(.top, 16).focusSection()
             }.padding(48)
         }.frame(height: 560).clipShape(RoundedRectangle(cornerRadius: 28))
@@ -146,7 +152,7 @@ struct CollectionView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 40) {
-                PageHeading(eyebrow: "YOUR QUIET CORNER", title: settings.l("只留下喜欢的。", "Only your favorites."), subtitle: settings.l("你的私人屏保播放列表。", "A personal playlist for your screen."))
+                PageHeading(eyebrow: "YOUR QUIET CORNER", title: settings.l("只留下喜欢的。", "Only your favorites."), subtitle: settings.l("你的私人视频播放列表。", "A personal playlist for your screen."))
                 if settings.value.favorites.isEmpty {
                     EmptyPanel(symbol: "heart", title: settings.l("这里等着你的第一个收藏", "Your first favorite belongs here"), subtitle: settings.l("在探索中打开任意场景，选择收藏。", "Open a scene in Explore and add it to your collection."))
                 } else {
@@ -199,7 +205,7 @@ struct SceneDetailView: View {
                     }
                 }
                 HStack(spacing: 24) {
-                    QuietButton(title: settings.l("开始屏保", "Start screensaver"), symbol: "play.fill", id: "start-scene") { playback.start(scene) }.disabled(!scene.isAvailable)
+                    QuietButton(title: settings.l("播放视频", "Play video"), symbol: "play.fill", id: "start-scene") { playback.start(scene) }.disabled(!scene.isAvailable)
                     if let suggested = scene.suggestedSound {
                         QuietButton(title: settings.l("有声 · ", "With ") + suggested.title(settings.language), symbol: "speaker.wave.2.fill", id: "start-scene-sound") { playback.startWithSound(scene, sound: suggested) }.disabled(!scene.isAvailable || !suggested.isAvailable)
                     }

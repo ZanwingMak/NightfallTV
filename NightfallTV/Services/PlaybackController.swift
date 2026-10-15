@@ -15,7 +15,6 @@ final class PlaybackController: ObservableObject {
     @Published private(set) var playlist: [SceneKind] = []
     private var lastRotation: TimeInterval = 0
     private var lastInteraction = Date()
-    private var homeInteraction = Date()
     private var ticker: AnyCancellable?
     private var active = true
     private var finishedSleep = false
@@ -36,13 +35,13 @@ final class PlaybackController: ObservableObject {
         ticker = Timer.publish(every: 1, on: .main, in: .common).autoconnect().sink { [weak self] date in self?.tick(date) }
     }
 
-    /// 启动屏保或收藏播放列表，始终先隐藏操作界面。
+    /// 用户主动启动媒体或播放列表，纯黑仅作为播放器的关闭画面状态。
     func start(_ selected: SceneKind, playlist: [SceneKind] = []) {
-        guard selected.isAvailable else { mediaMissing = true; return }
+        guard selected != .clock, selected.isAvailable else { mediaMissing = true; return }
         now = Date()
         scene = selected
         settings.value.lastScene = selected
-        self.playlist = playlist.filter(\.isAvailable)
+        self.playlist = playlist.filter { !$0.isPlayerMode && $0.isAvailable }
         timeline = PlaybackTimeline(now: now, sleepMinutes: settings.value.sleepMinutes, pictureOffMinutes: settings.value.pictureOffMinutes ?? 0)
         paused = false
         visualsHidden = false
@@ -51,7 +50,7 @@ final class PlaybackController: ObservableObject {
         controlsVisible = false
         choosingOptions = false
         isPlaying = true
-        UIApplication.shared.isIdleTimerDisabled = active
+        updateIdleTimer()
     }
 
     /// 用户明确选择有声播放时，启动画面并搭配独立录音；普通启动仍保持现有声音状态。
@@ -91,13 +90,12 @@ final class PlaybackController: ObservableObject {
         timeline.setPictureOff(minutes: 0, now: Date())
         sound.setVolume(settings.value.soundVolume)
         UIApplication.shared.isIdleTimerDisabled = false
-        homeInteraction = Date()
     }
 
     /// 记录操作并显示低亮度控制层。
     func showControls() { interaction(); controlsVisible = true }
 
-    /// 返回键优先隐藏控制层，再离开屏保，保持遥控器行为可预测。
+    /// 返回键优先隐藏控制层，再退出播放器，保留系统 Home 按钮行为。
     func back() {
         if controlsVisible { controlsVisible = false }
         else { stop() }
@@ -166,28 +164,27 @@ final class PlaybackController: ObservableObject {
         interaction()
     }
 
-    /// 记录用户操作供自动隐藏与库内闲置判断。
-    func interaction() { lastInteraction = Date(); homeInteraction = Date() }
+    /// 记录播放控制操作，仅用于自动隐藏控制栏。
+    func interaction() { lastInteraction = Date() }
 
     /// 前后台切换时释放系统闲置锁，停止本应用声景并保留黑屏会话。
     func setActive(_ value: Bool) {
         active = value
-        UIApplication.shared.isIdleTimerDisabled = value && isPlaying
-        if value { tick(Date()); homeInteraction = Date() }
+        updateIdleTimer()
+        if value { tick(Date()) }
         else { sound.stop(); controlsVisible = false; choosingOptions = false }
     }
 
-    /// 检查库内闲置启动，仅由支持自动播放的浏览页面调用。
-    func checkIdle() {
-        let seconds = settings.value.idleSeconds
-        if active && !isPlaying && seconds > 0 && now.timeIntervalSince(homeInteraction) >= Double(seconds) {
-            start(settings.value.lastScene.isAvailable ? settings.value.lastScene : .black)
-        }
+    /// 仅在前台实际播放媒体时保持亮屏；静音黑屏、暂停或定时结束交还系统闲置行为。
+    private func updateIdleTimer() {
+        let playingVideo = effectiveScene != .black && !paused && (effectiveScene != .gallery || !settings.value.photos.isEmpty)
+        UIApplication.shared.isIdleTimerDisabled = active && isPlaying && !timeline.expired(at: now) && (playingVideo || sound.isPlaying)
     }
 
     /// 每秒推进控制状态；到期时静默纯黑并停止本应用声音。
     private func tick(_ date: Date) {
         now = date
+        defer { updateIdleTimer() }
         guard active, isPlaying else { return }
         sound.setVolume(settings.value.soundVolume, gain: timeline.audioGain(at: date))
         if controlsVisible && !choosingOptions && date.timeIntervalSince(lastInteraction) >= 10 { controlsVisible = false }

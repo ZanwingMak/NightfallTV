@@ -108,7 +108,7 @@ final class RulesTests: XCTestCase {
         XCTAssertEqual(preferences.sleepMinutes, 0)
         XCTAssertEqual(preferences.nightStartHour, 23)
         XCTAssertEqual(preferences.nightEndHour, 0)
-        XCTAssertEqual(preferences.favorites, [.black, .ocean])
+        XCTAssertEqual(preferences.favorites, [.ocean])
         XCTAssertEqual(preferences.photos, ["https://example.com/a"])
     }
 }
@@ -121,14 +121,14 @@ final class PersistenceTests: XCTestCase {
         let defaults = UserDefaults(suiteName: domain)!
         defer { defaults.removePersistentDomain(forName: domain) }
         let store = SettingsStore(defaults: defaults)
-        store.toggleFavorite(.black)
+        store.toggleFavorite(.gallery)
         store.value.launchBlack = true
         XCTAssertNil(store.addPhoto(" https://example.com/a.png "))
         XCTAssertNotNil(store.addPhoto("https://example.com/a.png"))
         XCTAssertNotNil(store.addPhoto("http://example.com/a.png"))
         let restored = SettingsStore(defaults: defaults)
-        XCTAssertTrue(restored.value.favorites.contains(.black))
-        XCTAssertTrue(restored.value.launchBlack)
+        XCTAssertTrue(restored.value.favorites.contains(.gallery))
+        XCTAssertFalse(restored.value.launchBlack)
         XCTAssertEqual(restored.value.photos, ["https://example.com/a.png"])
         restored.reset()
         XCTAssertEqual(SettingsStore(defaults: defaults).value, Preferences())

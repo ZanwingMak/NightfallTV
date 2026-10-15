@@ -32,10 +32,13 @@ struct Preferences: Codable, Equatable {
         photoSeconds = [10, 30, 60, 120].contains(photoSeconds) ? photoSeconds : 30
         sleepMinutes = [0, 15, 30, 60, 90, 120].contains(sleepMinutes) ? sleepMinutes : 0
         pictureOffMinutes = [0, 1, 5, 10, 15, 30].contains(pictureOffMinutes ?? 0) ? pictureOffMinutes ?? 0 : 0
-        idleSeconds = [0, 30, 60, 180, 300].contains(idleSeconds) ? idleSeconds : 0
+        // 旧配置仅用于解码兼容；新版必须由用户明确开始播放。
+        idleSeconds = 0
+        launchBlack = false
+        if lastScene.isPlayerMode { lastScene = .aurora }
         nightStartHour = min(23, max(0, nightStartHour))
         nightEndHour = min(23, max(0, nightEndHour))
-        favorites = favorites.reduce(into: []) { if !$0.contains($1) { $0.append($1) } }
+        favorites = favorites.filter { !$0.isPlayerMode }.reduce(into: []) { if !$0.contains($1) { $0.append($1) } }
         photos = Array(photos.filter { Self.validPhotoURL($0) }.reduce(into: [String]()) {
             if !$0.contains($1) { $0.append($1) }
         }.prefix(30))

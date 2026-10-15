@@ -5,12 +5,13 @@ enum SceneKind: String, Codable, CaseIterable, Identifiable {
     var id: String { rawValue }
     var isDownload: Bool { [.coast, .mountains, .valley, .rhine].contains(self) }
     var isAvailable: Bool { !isDownload || DownloadAsset.scene(self).flatMap(DownloadStore.fileURL) != nil }
-    static var available: [SceneKind] { allCases.filter(\.isAvailable) }
+    var isPlayerMode: Bool { self == .black || self == .clock }
+    static var available: [SceneKind] { allCases.filter { !$0.isPlayerMode && $0.isAvailable } }
 
     /// 返回场景的中英文名称。
     func title(_ english: Bool) -> String {
         let names: [SceneKind: (String, String)] = [
-            .black: ("纯黑 · 深眠", "Absolute black"), .aurora: ("极光之境", "Northern lights"),
+            .black: ("只听声音", "Audio only"), .aurora: ("极光之境", "Northern lights"),
             .stars: ("漫游星河", "Stellar drift"), .ocean: ("静海潮汐", "Ocean tides"),
             .ember: ("余烬炉火", "Quiet embers"), .dunes: ("沙漠落日", "Desert sunset"),
             .prism: ("林间树影", "Forest light"), .rain: ("雨落窗前", "Rain on glass"),
@@ -96,7 +97,7 @@ enum SceneCategory: String, CaseIterable, Identifiable {
     var id: String { rawValue }
     /// 返回分类标题。
     func title(_ english: Bool) -> String {
-        let values = [("全部", "All"), ("实拍", "Filmed"), ("夜间", "After dark"), ("照片", "Photos")]
+        let values = [("全部", "All"), ("实拍", "Filmed"), ("夜景", "Night films"), ("照片", "Photos")]
         let pair = values[Self.allCases.firstIndex(of: self)!]
         return english ? pair.1 : pair.0
     }
@@ -127,7 +128,7 @@ enum SoundKind: String, CaseIterable, Codable, Identifiable {
         case .stream, .birds, .wind, .parkbirds, .parkriver, .parkwind: return .prism
         case .crickets: return .stars
         case .waterfall: return .waterfall
-        case .pink, .brown: return .clock
+        case .pink, .brown: return .clouds
         }
     }
 

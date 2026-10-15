@@ -30,6 +30,8 @@ struct SavedRoutine: Codable, Equatable, Identifiable {
     /// 收敛个人方案参数；照片仅引用画廊，不复制用户的照片地址。
     mutating func normalize() {
         name = String(name.trimmingCharacters(in: .whitespacesAndNewlines).prefix(40))
+        if scene == .black { scene = .aurora; pictureOff = true }
+        if scene == .clock { scene = .aurora }
         layers = SoundLayer.normalized(layers)
         var preferences = Preferences()
         preferences.soundVolume = volume

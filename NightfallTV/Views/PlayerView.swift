@@ -26,7 +26,7 @@ struct PlayerView: View {
                     }
                 }
                 .accessibilityIdentifier(playback.effectiveScene == .black ? "black-screen" : "playing-\(playback.effectiveScene.rawValue)")
-                .accessibilityLabel(settings.l("屏保。按确认键打开控制。", "Screensaver. Press Select for controls."))
+                .accessibilityLabel(settings.l("播放器。按确认键打开控制。", "Playback. Press Select for controls."))
             if playback.controlsVisible { controls }
         }
         .background(.black).ignoresSafeArea()
