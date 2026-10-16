@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct NightView: View {
+    @State private var showingMeditation = false
     @EnvironmentObject private var sound: SoundPlayer
     @EnvironmentObject private var settings: SettingsStore
     @EnvironmentObject private var playback: PlaybackController
@@ -16,6 +17,7 @@ struct NightView: View {
                             QuietButton(title: settings.l("细雨 · 30 分钟", "Rain · 30 min"), symbol: "cloud.rain.fill", id: "night-rain") { startRoutine(.rain) }
                             QuietButton(title: settings.l("棕噪 · 60 分钟", "Brown · 60 min"), symbol: "waveform.path", id: "night-brown") { startRoutine(.brown) }
                         }.focusSection()
+                        QuietButton(title: settings.l("呼吸引导", "Guided breathing"), symbol: "circle.dotted", id: "guided-meditation") { showingMeditation = true }
                         HStack(spacing: 20) {
                             QuietButton(title: settings.l("静心 · 10 分钟", "Unwind · 10 min"), symbol: "leaf", id: "meditate-10") { startMeditation(10) }
                             QuietButton(title: settings.l("静心 · 20 分钟", "Unwind · 20 min"), symbol: "leaf.fill", id: "meditate-20") { startMeditation(20) }
@@ -46,7 +48,7 @@ struct NightView: View {
                 }
                 RoutineShelf()
             }.padding(.horizontal, 80).padding(.top, 48).padding(.bottom, 56)
-        }
+        }.sheet(isPresented: $showingMeditation) { MeditationSetupView() }
     }
 
     /// 以溪流录音开始自主静心，不包含语音指导，也不采集冥想或睡眠数据。

@@ -22,7 +22,7 @@ struct RootView: View {
         ZStack {
             Palette.background.ignoresSafeArea()
             if playback.isPlaying {
-                PlayerView()
+                if playback.meditation != nil { MeditationView() } else { PlayerView() }
             } else {
                 VStack(spacing: 28) {
                     navigation.padding(.horizontal, 72).padding(.top, 40).focusSection()

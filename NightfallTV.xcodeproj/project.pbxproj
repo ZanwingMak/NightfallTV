@@ -20,6 +20,7 @@
 		1BE063CE6FDD3284862D9743 /* translations.json in Resources */ = {isa = PBXBuildFile; fileRef = 317A74405FCB8B19A57C1BF0 /* translations.json */; };
 		1DB34E942EAF660421432CA5 /* TipStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE214925DEB29E73F78838E /* TipStore.swift */; };
 		2364CF4669EF67340EA4B8F7 /* pink.m4a in Resources */ = {isa = PBXBuildFile; fileRef = B65990CB1872366FE95080A7 /* pink.m4a */; };
+		24EFBCD31C8D4379561A6B2B /* MeditationSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6371A1895F5C70894B5A4FE /* MeditationSession.swift */; };
 		25C1835009B5266EDBC4BFDD /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D82A555A6F78C08B3D12FC2 /* SettingsView.swift */; };
 		2D735F313FD191EBA539059A /* PlaybackController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 565281572865C6AC55F2C4F2 /* PlaybackController.swift */; };
 		340D1F1348EF53C1316CACF9 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB6EA9EBC418E0B5B03FD1F0 /* Preferences.swift */; };
@@ -36,6 +37,7 @@
 		571F165AF162D025B716288A /* clouds-poster.png in Resources */ = {isa = PBXBuildFile; fileRef = 789FF858FB080475C0214373 /* clouds-poster.png */; };
 		599311B745447E01E7B7109F /* brown.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 6B467C5D72A6CDF50777DFF2 /* brown.m4a */; };
 		5A3AE39D499ACEAF65E35FA3 /* MediaCreditsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9978FA54C59433C492650BFA /* MediaCreditsView.swift */; };
+		5A82B5B4EA20C3F4E6C24E53 /* MeditationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3363AF2D31F33E5F53E00BA9 /* MeditationView.swift */; };
 		5CD8B1A532552CEE796A36E2 /* ocean.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 8E62F34BDA26487D7C50F515 /* ocean.m4a */; };
 		67BAB87955FDED1E1DD40757 /* RulesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165EBB97B44368FFDDD61A85 /* RulesTests.swift */; };
 		694C769F118122BD315DBE06 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4EA7D3B7AF89860BFA8D1647 /* Assets.xcassets */; };
@@ -120,6 +122,7 @@
 		316078FEEDBDC0813028CB1B /* Debug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Debug.entitlements; sourceTree = "<group>"; };
 		317A74405FCB8B19A57C1BF0 /* translations.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = translations.json; sourceTree = "<group>"; };
 		3262837C04B3CA40BCFA2EEC /* clouds.mp4 */ = {isa = PBXFileReference; path = clouds.mp4; sourceTree = "<group>"; };
+		3363AF2D31F33E5F53E00BA9 /* MeditationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeditationView.swift; sourceTree = "<group>"; };
 		348B3C0AFB53A4A3A1AAE2A3 /* NightfallTVApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NightfallTVApp.swift; sourceTree = "<group>"; };
 		35AF15AD65257494E36AB55F /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		360A9637B961A709E5AB1925 /* aurora-poster.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "aurora-poster.png"; sourceTree = "<group>"; };
@@ -166,6 +169,7 @@
 		AFB39DABC1C9BD4A5226731E /* RoutineViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineViews.swift; sourceTree = "<group>"; };
 		B3CE1B409A2997335808AB7A /* credits.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = credits.json; sourceTree = "<group>"; };
 		B55C151A8A12B5F7294B777E /* rain.m4a */ = {isa = PBXFileReference; path = rain.m4a; sourceTree = "<group>"; };
+		B6371A1895F5C70894B5A4FE /* MeditationSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeditationSession.swift; sourceTree = "<group>"; };
 		B65990CB1872366FE95080A7 /* pink.m4a */ = {isa = PBXFileReference; path = pink.m4a; sourceTree = "<group>"; };
 		BB5AA613A3B8837D2A957D51 /* NightfallTVTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = NightfallTVTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB6EA9EBC418E0B5B03FD1F0 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
@@ -214,6 +218,7 @@
 				4CD255A54552EF0322BF742C /* AppLanguage.swift */,
 				C5F0EE9B2B8D0C56E4EF1FCE /* Catalog.swift */,
 				45061786A75CA26D2C06E225 /* DownloadAsset.swift */,
+				B6371A1895F5C70894B5A4FE /* MeditationSession.swift */,
 				C22B7AB48387C440840C8061 /* PlaybackTimeline.swift */,
 				BB6EA9EBC418E0B5B03FD1F0 /* Preferences.swift */,
 				AA65336DF363DEB43B8365AF /* SavedRoutine.swift */,
@@ -352,6 +357,7 @@
 				698322FE419AD650781FB0A0 /* DownloadsView.swift */,
 				D321F54A30A3D9A01D3B65C5 /* EditRoutineView.swift */,
 				9978FA54C59433C492650BFA /* MediaCreditsView.swift */,
+				3363AF2D31F33E5F53E00BA9 /* MeditationView.swift */,
 				21366E54F0DE12130F20697C /* PlayerView.swift */,
 				C83D74D4D8F6D03C996DB5ED /* RootView.swift */,
 				AFB39DABC1C9BD4A5226731E /* RoutineViews.swift */,
@@ -574,6 +580,8 @@
 				A777821ED1E0DDB3AC5BED8F /* DownloadsView.swift in Sources */,
 				4A90B699F6B1CF9A75FE7366 /* EditRoutineView.swift in Sources */,
 				5A3AE39D499ACEAF65E35FA3 /* MediaCreditsView.swift in Sources */,
+				24EFBCD31C8D4379561A6B2B /* MeditationSession.swift in Sources */,
+				5A82B5B4EA20C3F4E6C24E53 /* MeditationView.swift in Sources */,
 				C7CFECD30FE7F287DB10DEB1 /* NightfallTVApp.swift in Sources */,
 				04F9D8291AEC97D7D905316F /* PhotoLoader.swift in Sources */,
 				2D735F313FD191EBA539059A /* PlaybackController.swift in Sources */,
@@ -702,7 +710,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 13;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 2Q2LMV7BR6;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -804,7 +812,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 12;
+				CURRENT_PROJECT_VERSION = 13;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 2Q2LMV7BR6;
 				ENABLE_NS_ASSERTIONS = NO;

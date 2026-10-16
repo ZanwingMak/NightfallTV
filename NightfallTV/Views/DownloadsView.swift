@@ -97,12 +97,13 @@ struct DownloadsView: View {
                 HStack(spacing: 18) {
                     QuietButton(title: asset.scene == nil ? settings.l("播放", "Play") : settings.l("打开画面", "Picture on"), symbol: "play.fill", id: "play-download-\(asset.id)") {
                         dismiss()
-                        if let scene = asset.scene { playback.start(scene) }
+                        if let scene = asset.scene { playback.changeBackground(scene) }
                         else if let recording = asset.sound { playback.startWithSound(recording.visualScene, sound: recording) }
                     }
                     .disabled(asset.scene != nil && sound.selected == nil)
                     QuietButton(title: settings.l("删除下载", "Delete download"), symbol: "trash", id: "delete-\(asset.id)") {
                         if let recording = asset.sound, sound.layers.contains(where: { $0.sound == recording }) { playback.toggleSoundLayer(recording) }
+                        if asset.scene == playback.scene, let selected = sound.selected { playback.changeBackground(selected.visualScene) }
                         downloads.remove(asset)
                     }
                 }

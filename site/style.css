@@ -28,3 +28,8 @@ html[dir=rtl] summary:after{float:left}
 
 /* 助眠首页以静态声波表现聆听，不引入会打扰休息的动画。 */
 .listening-panel{padding:48px;border:1px solid #ffffff18;border-radius:24px;background:#17141d}.listening-panel p{color:var(--quiet);font-size:16px}.sound-symbol{display:block;font-size:96px;line-height:1;color:var(--accent);font-weight:200;margin-bottom:28px}.brand{letter-spacing:1px}@media(max-width:480px){.brand{font-size:18px}.brand .moon{width:22px;height:22px}.listening-panel{padding:28px}}
+
+/* 呼吸示意只用于介绍练习；减少动态效果时保持静止。 */
+.breathing-demo{display:block;width:100px;height:100px;margin:0 0 32px;border:1px solid #ad99ff;border-radius:50%;background:radial-gradient(circle,#ad99ff38,transparent 72%);animation:breathing-demo 10s ease-in-out infinite}
+@keyframes breathing-demo{0%,100%{transform:scale(.68)}40%{transform:scale(1)}}
+@media(prefers-reduced-motion:reduce){.breathing-demo{animation:none}}

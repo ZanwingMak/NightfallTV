@@ -10,29 +10,28 @@ struct PlayerView: View {
     @FocusState private var controlFocused: Bool
     @State private var showingMixer = false
     @State private var savingRoutine = false
+    @State private var showingDownloads = false
 
     var body: some View {
         ZStack {
-            if playback.effectiveScene == .black {
-                screen.focusable(!playback.controlsVisible).focusEffectDisabled().focused($screenFocused)
-                    .onTapGesture { playback.showControls() }
-                    .accessibilityIdentifier("black-screen")
-                    .accessibilityLabel(settings.l("播放器。按确认键打开控制。", "Playback. Press Select for controls."))
-                if playback.controlsVisible { controls }
-            } else {
-                VStack(spacing: 16) {
-                    HStack(spacing: 48) {
-                        screen.frame(width: 560, height: 280).clipped()
-                            .clipShape(RoundedRectangle(cornerRadius: 20))
-                            .accessibilityIdentifier("playing-\(playback.effectiveScene.rawValue)")
-                        VStack(alignment: .leading, spacing: 20) {
-                            Image(systemName: sound.selected?.symbol ?? "waveform").font(.title).foregroundStyle(Palette.accent)
-                            Text(sound.title(settings.language)).font(.title2)
-                            Text(statusText).font(.callout).foregroundStyle(Palette.muted)
-                        }.frame(maxWidth: .infinity, alignment: .leading)
-                    }.padding(.horizontal, 80)
-                    controls
-                }.padding(.top, 48)
+            screen.focusable(!playback.controlsVisible).focusEffectDisabled().focused($screenFocused)
+                .onTapGesture { playback.showControls() }
+                .onMoveCommand { _ in
+                    if !playback.controlsVisible && playback.effectiveScene != .black { playback.showControls() }
+                }
+                .accessibilityIdentifier(playback.effectiveScene == .black ? "black-screen" : "playing-\(playback.effectiveScene.rawValue)")
+                .accessibilityLabel(settings.l("播放器。按确认键打开控制。", "Playback. Press Select for controls."))
+            if playback.controlsVisible { controls }
+            else if playback.effectiveScene != .black {
+                VStack {
+                    Spacer()
+                    HStack(spacing: 16) {
+                        Image(systemName: playback.paused ? "pause.fill" : "speaker.wave.2.fill").foregroundStyle(Palette.accent)
+                        Text(sound.title(settings.language)).font(.callout)
+                        Spacer()
+                        Text("nightfall sleep").font(.caption).foregroundStyle(Palette.muted)
+                    }.padding(24).background(.black.opacity(0.65), in: RoundedRectangle(cornerRadius: 16)).padding(64)
+                }.allowsHitTesting(false).accessibilityIdentifier("audio-now-playing")
             }
         }
         .background(.black).ignoresSafeArea()
@@ -43,6 +42,7 @@ struct PlayerView: View {
         .onChange(of: playback.controlsVisible) { _, visible in screenFocused = !visible; controlFocused = visible }
         .onChange(of: settings.value.soundVolume) { _, volume in sound.setVolume(volume, gain: playback.timeline.audioGain(at: playback.now)) }
         .sheet(isPresented: $showingMixer, onDismiss: { playback.choosingOptions = false; playback.interaction() }) { SoundMixerView() }
+        .sheet(isPresented: $showingDownloads, onDismiss: { playback.choosingOptions = false; playback.interaction() }) { DownloadsView() }
         .sheet(isPresented: $savingRoutine, onDismiss: { playback.choosingOptions = false; playback.interaction() }) { SaveRoutineView() }
         .onChange(of: playback.timeline.expired(at: playback.now)) { _, expired in
             if expired { showingMixer = false; savingRoutine = false }
@@ -66,21 +66,21 @@ struct PlayerView: View {
 
     private var controls: some View {
         VStack {
-            if playback.effectiveScene == .black { Spacer() }
+            Spacer()
             VStack(alignment: .leading, spacing: 24) {
-                if playback.effectiveScene == .black { HStack {
+                HStack {
                     VStack(alignment: .leading, spacing: 8) {
                         Text(sound.title(settings.language)).font(.title2)
                         Text(statusText).font(.caption).foregroundStyle(Palette.muted)
                     }
                     Spacer()
-                    if playback.effectiveScene == .black { Text(settings.l("10 秒后隐藏", "Hides after 10 seconds")).font(.caption).foregroundStyle(Palette.muted) }
-                } }
+                    Text(settings.l("10 秒后隐藏", "Hides after 10 seconds")).font(.caption).foregroundStyle(Palette.muted)
+                }
                 HStack(spacing: 20) {
                     QuietButton(title: playback.paused ? settings.l("继续", "Resume") : settings.l("暂停", "Pause"), symbol: playback.paused ? "play.fill" : "pause.fill", id: "player-pause") { playback.togglePause() }.focused($controlFocused).disabled(playback.timeline.expired(at: playback.now))
                     QuietButton(title: playback.effectiveScene == .black ? settings.l("打开画面", "Picture on") : settings.l("关闭画面", "Picture off"), symbol: playback.effectiveScene == .black ? "tv" : "moon.zzz.fill", id: "player-black") { playback.toggleVisuals() }
                         .disabled(playback.timeline.expired(at: playback.now) || settings.value.isNight(at: playback.now))
-                    if playback.effectiveScene == .black { QuietButton(title: settings.l("隐藏", "Hide"), symbol: "chevron.down", id: "hide-controls") { playback.controlsVisible = false } }
+                    QuietButton(title: settings.l("隐藏", "Hide"), symbol: "chevron.down", id: "hide-controls") { playback.controlsVisible = false }
                     QuietButton(title: settings.l("退出", "Exit"), symbol: "xmark", id: "exit-player") { playback.stop() }
                 }.frame(maxWidth: .infinity, alignment: .leading).focusSection()
                 HStack(spacing: 24) {
@@ -118,6 +118,7 @@ struct PlayerView: View {
                     QuietButton(title: settings.l("混合声景", "Mix sounds"), symbol: "slider.horizontal.3", id: "player-mixer") { showingMixer = true }
                         .disabled(playback.timeline.expired(at: playback.now))
                     QuietButton(title: settings.l("保存方案", "Save routine"), symbol: "bookmark", id: "save-routine") { savingRoutine = true }.disabled(sound.layers.isEmpty)
+                    QuietButton(title: settings.l("已下载", "Downloaded"), symbol: "arrow.down.circle", id: "player-downloads") { playback.choosingOptions = true; showingDownloads = true }
                 }.focusSection()
             }.padding(40).background(Color(red: 0.035, green: 0.035, blue: 0.05), in: RoundedRectangle(cornerRadius: 24))
                 .overlay(RoundedRectangle(cornerRadius: 24).strokeBorder(.white.opacity(0.06)))

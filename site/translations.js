@@ -157,7 +157,12 @@ const websiteTranslations = {
     "Optional downloads come directly from public GitHub Releases. GitHub and its delivery providers receive ordinary connection information such as IP address, time and user agent. tvOS may clear cached media; downloading again is free.": "可选下载直接来自公开的 GitHub Releases。GitHub 及其分发服务会收到 IP 地址、时间和用户代理等常规连接信息。tvOS 可能清理缓存，重新下载免费。",
     "Remove downloads or reset local data in Settings. Uninstalling removes local app data, subject to Apple backups. Clear this website’s language choice in your browser’s site-data settings. Apple and GitHub manage their own records.": "可在设置中删除下载或重置本地数据。卸载应用会移除本地应用数据，Apple 备份规则仍适用。网站语言偏好可在浏览器的网站数据设置中清除。Apple 和 GitHub 各自管理其记录。",
     "Effective October 17, 2026 · Developer: ZanwingMak": "生效日期：2026 年 10 月 17 日 · 开发者：ZanwingMak",
-    "Downloads": "下载"
+    "Downloads": "下载",
+    "Choose a sound to start audio and real footage. Controls hide after 10 seconds; Select shows them again. Picture off keeps audio playing. Stop sound ends the session. There is no idle auto-play, standalone scenery playback, photo gallery or clock mode.": "选择声景即播放声音与实拍画面。控件在 10 秒后隐藏，确认键重新显示。关闭画面后声音继续；停止声景即结束会话。不提供闲置自动播放、独立景色播放、照片画廊或时钟模式。",
+    "Guided breathing for 5, 10 or 20 minutes. Follow the circle, choose a sound and enable optional spoken rhythm cues. Pause, resume or continue listening with the picture off.": "5、10 或 20 分钟呼吸引导。跟随圆环、选择声景，可开启语音节奏提示。支持暂停、继续，以及关闭画面聆听。",
+    "Optional breathing cues use the device’s system voice. The app never records your voice or requests microphone access.": "可选呼吸提示使用设备的系统语音。应用不录制你的声音，也不请求麦克风权限。",
+    "Guided breathing": "呼吸引导",
+    "Optional system voice says when to breathe in and out, even with the picture off.": "可选系统语音提示吸气与呼气，关闭画面后也能跟随。"
   },
   "ja": {
     "00": "00",
@@ -317,7 +322,12 @@ const websiteTranslations = {
     "Optional downloads come directly from public GitHub Releases. GitHub and its delivery providers receive ordinary connection information such as IP address, time and user agent. tvOS may clear cached media; downloading again is free.": "追加ダウンロードは公開 GitHub Releases から直接取得します。GitHub と配信事業者は IP アドレス、時刻、ユーザーエージェントなどの接続情報を受信します。tvOS がキャッシュを削除しても再ダウンロードは無料です。",
     "Remove downloads or reset local data in Settings. Uninstalling removes local app data, subject to Apple backups. Clear this website’s language choice in your browser’s site-data settings. Apple and GitHub manage their own records.": "設定でダウンロードの削除やローカルデータのリセットができます。アンインストールは Apple のバックアップ規則に従いローカルデータを削除します。サイトの言語はブラウザのサイトデータ設定で消去できます。Apple と GitHub は各自の記録を管理します。",
     "Effective October 17, 2026 · Developer: ZanwingMak": "施行日：2026年10月17日 · 開発者：ZanwingMak",
-    "Downloads": "ダウンロード"
+    "Downloads": "ダウンロード",
+    "Choose a sound to start audio and real footage. Controls hide after 10 seconds; Select shows them again. Picture off keeps audio playing. Stop sound ends the session. There is no idle auto-play, standalone scenery playback, photo gallery or clock mode.": "音を選ぶと音声と実写映像が始まります。操作は10秒後に隠れ、決定で再表示します。画面を消しても音は続き、音を停止するとセッションが終了します。待機中の自動再生、独立した風景再生、写真ギャラリー、時計モードはありません。",
+    "Guided breathing for 5, 10 or 20 minutes. Follow the circle, choose a sound and enable optional spoken rhythm cues. Pause, resume or continue listening with the picture off.": "5・10・20分の呼吸ガイド。円に合わせて呼吸し、音を選び、任意でリズムの音声案内を有効にできます。一時停止、再開、画面を消しての聴取に対応します。",
+    "Optional breathing cues use the device’s system voice. The app never records your voice or requests microphone access.": "任意の呼吸案内にはデバイスのシステム音声を使います。声を録音せず、マイク権限も求めません。",
+    "Guided breathing": "呼吸ガイド",
+    "Optional system voice says when to breathe in and out, even with the picture off.": "任意のシステム音声が吸う・吐くタイミングを案内します。画面を消しても続きます。"
   },
   "ko": {
     "00": "00",
@@ -477,7 +487,12 @@ const websiteTranslations = {
     "Optional downloads come directly from public GitHub Releases. GitHub and its delivery providers receive ordinary connection information such as IP address, time and user agent. tvOS may clear cached media; downloading again is free.": "선택한 다운로드는 공개 GitHub Releases에서 직접 받습니다. GitHub와 배포 서비스는 IP 주소, 시간, 사용자 에이전트 등의 일반 연결 정보를 받습니다. tvOS가 캐시를 삭제해도 다시 다운로드하는 것은 무료입니다.",
     "Remove downloads or reset local data in Settings. Uninstalling removes local app data, subject to Apple backups. Clear this website’s language choice in your browser’s site-data settings. Apple and GitHub manage their own records.": "설정에서 다운로드를 삭제하거나 로컬 데이터를 초기화할 수 있습니다. 앱 제거 시 Apple 백업 규칙에 따라 로컬 앱 데이터가 삭제됩니다. 사이트 언어는 브라우저의 사이트 데이터 설정에서 지울 수 있습니다. Apple과 GitHub는 각자의 기록을 관리합니다.",
     "Effective October 17, 2026 · Developer: ZanwingMak": "시행일: 2026년 10월 17일 · 개발자: ZanwingMak",
-    "Downloads": "다운로드"
+    "Downloads": "다운로드",
+    "Choose a sound to start audio and real footage. Controls hide after 10 seconds; Select shows them again. Picture off keeps audio playing. Stop sound ends the session. There is no idle auto-play, standalone scenery playback, photo gallery or clock mode.": "소리를 선택하면 오디오와 실제 촬영 화면이 시작됩니다. 제어는 10초 뒤 숨겨지고 선택 키로 다시 표시됩니다. 화면을 꺼도 소리는 계속되며 소리를 중지하면 세션이 끝납니다. 유휴 자동 재생, 독립 풍경 재생, 사진 갤러리나 시계 모드는 없습니다.",
+    "Guided breathing for 5, 10 or 20 minutes. Follow the circle, choose a sound and enable optional spoken rhythm cues. Pause, resume or continue listening with the picture off.": "5분, 10분 또는 20분 호흡 안내. 원을 따라 호흡하고 소리를 선택하며 음성 리듬 안내를 켤 수 있습니다. 일시 정지, 계속하기, 화면 없이 듣기를 지원합니다.",
+    "Optional breathing cues use the device’s system voice. The app never records your voice or requests microphone access.": "선택한 호흡 안내는 기기의 시스템 음성을 사용합니다. 앱은 목소리를 녹음하거나 마이크 권한을 요청하지 않습니다.",
+    "Guided breathing": "호흡 안내",
+    "Optional system voice says when to breathe in and out, even with the picture off.": "선택한 시스템 음성이 들이쉬고 내쉴 때를 알려줍니다. 화면을 꺼도 계속됩니다."
   },
   "fr": {
     "00": "00",
@@ -637,7 +652,12 @@ const websiteTranslations = {
     "Optional downloads come directly from public GitHub Releases. GitHub and its delivery providers receive ordinary connection information such as IP address, time and user agent. tvOS may clear cached media; downloading again is free.": "Les téléchargements facultatifs viennent directement des Releases publiques GitHub. GitHub et ses diffuseurs reçoivent les informations de connexion ordinaires : IP, heure et agent utilisateur. tvOS peut vider le cache ; retélécharger est gratuit.",
     "Remove downloads or reset local data in Settings. Uninstalling removes local app data, subject to Apple backups. Clear this website’s language choice in your browser’s site-data settings. Apple and GitHub manage their own records.": "Supprimez les téléchargements ou réinitialisez les données dans Réglages. Désinstaller efface les données locales, sous réserve des sauvegardes Apple. Effacez la langue du site dans les données du navigateur. Apple et GitHub gèrent leurs propres registres.",
     "Effective October 17, 2026 · Developer: ZanwingMak": "En vigueur le 17 octobre 2026 · Développeur : ZanwingMak",
-    "Downloads": "Téléchargements"
+    "Downloads": "Téléchargements",
+    "Choose a sound to start audio and real footage. Controls hide after 10 seconds; Select shows them again. Picture off keeps audio playing. Stop sound ends the session. There is no idle auto-play, standalone scenery playback, photo gallery or clock mode.": "Choisissez un son pour lancer l’audio et les images réelles. Les commandes se masquent après 10 secondes ; Sélection les réaffiche. Sans image, le son continue. Arrêter le son termine la session. Aucun démarrage au repos, paysage autonome, galerie photo ou mode horloge.",
+    "Guided breathing for 5, 10 or 20 minutes. Follow the circle, choose a sound and enable optional spoken rhythm cues. Pause, resume or continue listening with the picture off.": "Respiration guidée de 5, 10 ou 20 minutes. Suivez le cercle, choisissez un son et activez les repères vocaux facultatifs. Pause, reprise et écoute sans image sont disponibles.",
+    "Optional breathing cues use the device’s system voice. The app never records your voice or requests microphone access.": "Les repères respiratoires facultatifs utilisent la voix système de l’appareil. L’app n’enregistre pas votre voix et ne demande pas l’accès au microphone.",
+    "Guided breathing": "Respiration guidée",
+    "Optional system voice says when to breathe in and out, even with the picture off.": "La voix système facultative indique quand inspirer et expirer, même sans image."
   },
   "de": {
     "00": "00",
@@ -797,7 +817,12 @@ const websiteTranslations = {
     "Optional downloads come directly from public GitHub Releases. GitHub and its delivery providers receive ordinary connection information such as IP address, time and user agent. tvOS may clear cached media; downloading again is free.": "Optionale Downloads kommen direkt aus öffentlichen GitHub Releases. GitHub und seine Auslieferungsdienste erhalten übliche Verbindungsdaten wie IP-Adresse, Uhrzeit und User-Agent. tvOS kann den Cache leeren; erneutes Herunterladen ist kostenlos.",
     "Remove downloads or reset local data in Settings. Uninstalling removes local app data, subject to Apple backups. Clear this website’s language choice in your browser’s site-data settings. Apple and GitHub manage their own records.": "Entferne Downloads oder setze lokale Daten in den Einstellungen zurück. Deinstallation entfernt lokale App-Daten unter Berücksichtigung von Apple-Backups. Die Website-Sprache lässt sich in den Browser-Websitedaten löschen. Apple und GitHub verwalten ihre eigenen Aufzeichnungen.",
     "Effective October 17, 2026 · Developer: ZanwingMak": "Gültig ab 17. Oktober 2026 · Entwickler: ZanwingMak",
-    "Downloads": "Downloads"
+    "Downloads": "Downloads",
+    "Choose a sound to start audio and real footage. Controls hide after 10 seconds; Select shows them again. Picture off keeps audio playing. Stop sound ends the session. There is no idle auto-play, standalone scenery playback, photo gallery or clock mode.": "Wähle einen Klang, um Audio und reale Aufnahmen zu starten. Regler verschwinden nach 10 Sekunden; Auswahl zeigt sie erneut. Ohne Bild läuft der Ton weiter. Ton stoppen beendet die Sitzung. Kein Start bei Inaktivität, separate Landschaftswiedergabe, Fotogalerie oder Uhrmodus.",
+    "Guided breathing for 5, 10 or 20 minutes. Follow the circle, choose a sound and enable optional spoken rhythm cues. Pause, resume or continue listening with the picture off.": "Geführtes Atmen für 5, 10 oder 20 Minuten. Folge dem Kreis, wähle einen Klang und aktiviere auf Wunsch gesprochene Atemhinweise. Pausieren, fortsetzen und ohne Bild weiterhören sind möglich.",
+    "Optional breathing cues use the device’s system voice. The app never records your voice or requests microphone access.": "Optionale Atemhinweise verwenden die Systemstimme des Geräts. Die App nimmt deine Stimme nicht auf und fordert keinen Mikrofonzugriff an.",
+    "Guided breathing": "Geführtes Atmen",
+    "Optional system voice says when to breathe in and out, even with the picture off.": "Eine optionale Systemstimme begleitet Ein- und Ausatmen, auch bei ausgeschaltetem Bild."
   },
   "es": {
     "00": "00",
@@ -957,7 +982,12 @@ const websiteTranslations = {
     "Optional downloads come directly from public GitHub Releases. GitHub and its delivery providers receive ordinary connection information such as IP address, time and user agent. tvOS may clear cached media; downloading again is free.": "Las descargas opcionales vienen directamente de GitHub Releases públicos. GitHub y sus distribuidores reciben datos de conexión normales, como IP, hora y agente de usuario. tvOS puede borrar la caché; descargar de nuevo es gratis.",
     "Remove downloads or reset local data in Settings. Uninstalling removes local app data, subject to Apple backups. Clear this website’s language choice in your browser’s site-data settings. Apple and GitHub manage their own records.": "Elimina descargas o restablece datos locales en Ajustes. Desinstalar elimina los datos locales, según las copias de Apple. Borra el idioma del sitio en los datos del navegador. Apple y GitHub gestionan sus propios registros.",
     "Effective October 17, 2026 · Developer: ZanwingMak": "Vigente desde el 17 de octubre de 2026 · Desarrollador: ZanwingMak",
-    "Downloads": "Descargas"
+    "Downloads": "Descargas",
+    "Choose a sound to start audio and real footage. Controls hide after 10 seconds; Select shows them again. Picture off keeps audio playing. Stop sound ends the session. There is no idle auto-play, standalone scenery playback, photo gallery or clock mode.": "Elige un sonido para iniciar audio e imágenes reales. Los controles se ocultan tras 10 segundos; Seleccionar los muestra. Sin imagen, el audio continúa. Detener el sonido termina la sesión. No hay inicio por inactividad, paisajes independientes, galería de fotos ni reloj.",
+    "Guided breathing for 5, 10 or 20 minutes. Follow the circle, choose a sound and enable optional spoken rhythm cues. Pause, resume or continue listening with the picture off.": "Respiración guiada de 5, 10 o 20 minutos. Sigue el círculo, elige un sonido y activa indicaciones de voz opcionales. Puedes pausar, reanudar o escuchar sin imagen.",
+    "Optional breathing cues use the device’s system voice. The app never records your voice or requests microphone access.": "Las indicaciones opcionales usan la voz del sistema del dispositivo. La app no graba tu voz ni solicita acceso al micrófono.",
+    "Guided breathing": "Respiración guiada",
+    "Optional system voice says when to breathe in and out, even with the picture off.": "La voz opcional del sistema indica cuándo inspirar y espirar, incluso sin imagen."
   },
   "it": {
     "00": "00",
@@ -1117,7 +1147,12 @@ const websiteTranslations = {
     "Optional downloads come directly from public GitHub Releases. GitHub and its delivery providers receive ordinary connection information such as IP address, time and user agent. tvOS may clear cached media; downloading again is free.": "I download facoltativi provengono direttamente dalle GitHub Releases pubbliche. GitHub e i suoi distributori ricevono normali dati di connessione, come IP, ora e user agent. tvOS può cancellare la cache; riscaricare è gratuito.",
     "Remove downloads or reset local data in Settings. Uninstalling removes local app data, subject to Apple backups. Clear this website’s language choice in your browser’s site-data settings. Apple and GitHub manage their own records.": "Elimina download o ripristina i dati locali in Impostazioni. Disinstallare elimina i dati locali, secondo le regole dei backup Apple. Cancella la lingua del sito nei dati del browser. Apple e GitHub gestiscono i propri registri.",
     "Effective October 17, 2026 · Developer: ZanwingMak": "In vigore dal 17 ottobre 2026 · Sviluppatore: ZanwingMak",
-    "Downloads": "Download"
+    "Downloads": "Download",
+    "Choose a sound to start audio and real footage. Controls hide after 10 seconds; Select shows them again. Picture off keeps audio playing. Stop sound ends the session. There is no idle auto-play, standalone scenery playback, photo gallery or clock mode.": "Scegli un suono per avviare audio e riprese reali. I controlli scompaiono dopo 10 secondi; Seleziona li mostra. Senza immagine l’audio continua. Fermare il suono termina la sessione. Nessun avvio inattivo, paesaggio autonomo, galleria o orologio.",
+    "Guided breathing for 5, 10 or 20 minutes. Follow the circle, choose a sound and enable optional spoken rhythm cues. Pause, resume or continue listening with the picture off.": "Respiro guidato per 5, 10 o 20 minuti. Segui il cerchio, scegli un suono e attiva le indicazioni vocali facoltative. Puoi mettere in pausa, riprendere o ascoltare senza immagine.",
+    "Optional breathing cues use the device’s system voice. The app never records your voice or requests microphone access.": "Le indicazioni facoltative usano la voce di sistema del dispositivo. L’app non registra la tua voce e non richiede accesso al microfono.",
+    "Guided breathing": "Respiro guidato",
+    "Optional system voice says when to breathe in and out, even with the picture off.": "La voce di sistema facoltativa indica quando inspirare ed espirare, anche senza immagine."
   },
   "pt-BR": {
     "00": "00",
@@ -1277,7 +1312,12 @@ const websiteTranslations = {
     "Optional downloads come directly from public GitHub Releases. GitHub and its delivery providers receive ordinary connection information such as IP address, time and user agent. tvOS may clear cached media; downloading again is free.": "Downloads opcionais vêm diretamente das GitHub Releases públicas. GitHub e seus distribuidores recebem dados comuns de conexão, como IP, horário e agente do usuário. O tvOS pode limpar o cache; baixar novamente é grátis.",
     "Remove downloads or reset local data in Settings. Uninstalling removes local app data, subject to Apple backups. Clear this website’s language choice in your browser’s site-data settings. Apple and GitHub manage their own records.": "Remova downloads ou redefina dados locais em Ajustes. Desinstalar remove os dados locais, conforme os backups da Apple. Apague o idioma do site nos dados do navegador. Apple e GitHub gerenciam seus próprios registros.",
     "Effective October 17, 2026 · Developer: ZanwingMak": "Em vigor em 17 de outubro de 2026 · Desenvolvedor: ZanwingMak",
-    "Downloads": "Downloads"
+    "Downloads": "Downloads",
+    "Choose a sound to start audio and real footage. Controls hide after 10 seconds; Select shows them again. Picture off keeps audio playing. Stop sound ends the session. There is no idle auto-play, standalone scenery playback, photo gallery or clock mode.": "Escolha um som para iniciar áudio e imagens reais. Os controles somem após 10 segundos; Selecionar os mostra novamente. Sem imagem, o áudio continua. Parar o som encerra a sessão. Sem início por inatividade, paisagem independente, galeria ou relógio.",
+    "Guided breathing for 5, 10 or 20 minutes. Follow the circle, choose a sound and enable optional spoken rhythm cues. Pause, resume or continue listening with the picture off.": "Respiração guiada de 5, 10 ou 20 minutos. Siga o círculo, escolha um som e ative orientações de voz opcionais. Pause, retome ou continue ouvindo sem imagem.",
+    "Optional breathing cues use the device’s system voice. The app never records your voice or requests microphone access.": "As orientações opcionais usam a voz do sistema do dispositivo. O app não grava sua voz nem solicita acesso ao microfone.",
+    "Guided breathing": "Respiração guiada",
+    "Optional system voice says when to breathe in and out, even with the picture off.": "A voz opcional do sistema orienta quando inspirar e expirar, mesmo sem imagem."
   },
   "ru": {
     "00": "00",
@@ -1437,7 +1477,12 @@ const websiteTranslations = {
     "Optional downloads come directly from public GitHub Releases. GitHub and its delivery providers receive ordinary connection information such as IP address, time and user agent. tvOS may clear cached media; downloading again is free.": "Дополнительные файлы загружаются напрямую из публичных GitHub Releases. GitHub и службы доставки получают обычные сведения о соединении: IP, время и user agent. tvOS может очистить кэш; повторная загрузка бесплатна.",
     "Remove downloads or reset local data in Settings. Uninstalling removes local app data, subject to Apple backups. Clear this website’s language choice in your browser’s site-data settings. Apple and GitHub manage their own records.": "Удаляйте загрузки или сбрасывайте локальные данные в настройках. Удаление приложения очищает локальные данные с учётом резервных копий Apple. Язык сайта можно удалить в данных сайта браузера. Apple и GitHub управляют собственными записями.",
     "Effective October 17, 2026 · Developer: ZanwingMak": "Действует с 17 октября 2026 г. · Разработчик: ZanwingMak",
-    "Downloads": "Загрузки"
+    "Downloads": "Загрузки",
+    "Choose a sound to start audio and real footage. Controls hide after 10 seconds; Select shows them again. Picture off keeps audio playing. Stop sound ends the session. There is no idle auto-play, standalone scenery playback, photo gallery or clock mode.": "Выберите звук, чтобы запустить аудио и реальные съёмки. Через 10 секунд управление скрывается; кнопка выбора показывает его снова. Без изображения звук продолжается. Остановка звука завершает сеанс. Нет автозапуска при бездействии, отдельных пейзажей, фотогалереи и часов.",
+    "Guided breathing for 5, 10 or 20 minutes. Follow the circle, choose a sound and enable optional spoken rhythm cues. Pause, resume or continue listening with the picture off.": "Дыхательная практика на 5, 10 или 20 минут. Следуйте кругу, выберите звук и при желании включите голосовые подсказки. Можно сделать паузу, продолжить или слушать без изображения.",
+    "Optional breathing cues use the device’s system voice. The app never records your voice or requests microphone access.": "Необязательные подсказки используют системный голос устройства. Приложение не записывает ваш голос и не запрашивает доступ к микрофону.",
+    "Guided breathing": "Дыхательная практика",
+    "Optional system voice says when to breathe in and out, even with the picture off.": "Необязательный системный голос подсказывает вдох и выдох даже без изображения."
   },
   "ar": {
     "00": "00",
@@ -1597,7 +1642,12 @@ const websiteTranslations = {
     "Optional downloads come directly from public GitHub Releases. GitHub and its delivery providers receive ordinary connection information such as IP address, time and user agent. tvOS may clear cached media; downloading again is free.": "تأتي التنزيلات الاختيارية مباشرة من GitHub Releases العامة. يتلقى GitHub ومزودو التوزيع معلومات الاتصال المعتادة مثل عنوان IP والوقت ووكيل المستخدم. قد يمسح tvOS الذاكرة المؤقتة؛ وإعادة التنزيل مجانية.",
     "Remove downloads or reset local data in Settings. Uninstalling removes local app data, subject to Apple backups. Clear this website’s language choice in your browser’s site-data settings. Apple and GitHub manage their own records.": "احذف التنزيلات أو أعد ضبط البيانات المحلية في الإعدادات. تؤدي إزالة التطبيق إلى حذف بياناته المحلية وفق قواعد نسخ Apple الاحتياطية. امسح لغة الموقع من إعدادات بيانات المواقع في المتصفح. تدير Apple وGitHub سجلاتهما الخاصة.",
     "Effective October 17, 2026 · Developer: ZanwingMak": "يسري من 17 أكتوبر 2026 · المطور: ZanwingMak",
-    "Downloads": "التنزيلات"
+    "Downloads": "التنزيلات",
+    "Choose a sound to start audio and real footage. Controls hide after 10 seconds; Select shows them again. Picture off keeps audio playing. Stop sound ends the session. There is no idle auto-play, standalone scenery playback, photo gallery or clock mode.": "اختر صوتًا لتشغيل الصوت والمشاهد الحقيقية. تختفي عناصر التحكم بعد ١٠ ثوانٍ وتظهر بزر التحديد. يستمر الصوت عند إطفاء الصورة، وينتهي عند إيقافه. لا تشغيل تلقائي عند الخمول أو مشاهد مستقلة أو معرض صور أو وضع ساعة.",
+    "Guided breathing for 5, 10 or 20 minutes. Follow the circle, choose a sound and enable optional spoken rhythm cues. Pause, resume or continue listening with the picture off.": "تنفّس موجّه لمدة ٥ أو ١٠ أو ٢٠ دقيقة. اتبع الدائرة واختر صوتًا وفعّل إرشادات الإيقاع الصوتية اختياريًا. يمكنك الإيقاف المؤقت والاستئناف أو الاستماع دون صورة.",
+    "Optional breathing cues use the device’s system voice. The app never records your voice or requests microphone access.": "تستخدم إرشادات التنفّس الاختيارية صوت نظام الجهاز. لا يسجّل التطبيق صوتك ولا يطلب الوصول إلى الميكروفون.",
+    "Guided breathing": "تنفّس موجّه",
+    "Optional system voice says when to breathe in and out, even with the picture off.": "يمكن لصوت النظام إرشاد الشهيق والزفير، حتى عند إطفاء الصورة."
   },
   "hi": {
     "00": "00",
@@ -1757,7 +1807,12 @@ const websiteTranslations = {
     "Optional downloads come directly from public GitHub Releases. GitHub and its delivery providers receive ordinary connection information such as IP address, time and user agent. tvOS may clear cached media; downloading again is free.": "वैकल्पिक डाउनलोड सीधे सार्वजनिक GitHub Releases से आते हैं। GitHub और उसके वितरण प्रदाता IP पता, समय और यूज़र एजेंट जैसी सामान्य कनेक्शन जानकारी पाते हैं। tvOS कैश हटा सकता है; दोबारा डाउनलोड मुफ़्त है।",
     "Remove downloads or reset local data in Settings. Uninstalling removes local app data, subject to Apple backups. Clear this website’s language choice in your browser’s site-data settings. Apple and GitHub manage their own records.": "सेटिंग्स में डाउनलोड हटाएँ या स्थानीय डेटा रीसेट करें। ऐप हटाने पर Apple बैकअप नियमों के अनुसार स्थानीय डेटा हटता है। ब्राउज़र के साइट डेटा में वेबसाइट की भाषा मिटाएँ। Apple और GitHub अपने रिकॉर्ड स्वयं सँभालते हैं।",
     "Effective October 17, 2026 · Developer: ZanwingMak": "17 अक्टूबर 2026 से लागू · डेवलपर: ZanwingMak",
-    "Downloads": "डाउनलोड"
+    "Downloads": "डाउनलोड",
+    "Choose a sound to start audio and real footage. Controls hide after 10 seconds; Select shows them again. Picture off keeps audio playing. Stop sound ends the session. There is no idle auto-play, standalone scenery playback, photo gallery or clock mode.": "ऑडियो और वास्तविक दृश्य शुरू करने के लिए ध्वनि चुनें। नियंत्रण 10 सेकंड बाद छिपते हैं; चयन बटन उन्हें फिर दिखाता है। चित्र बंद होने पर ऑडियो चलता है। ध्वनि रोकने पर सत्र समाप्त होता है। निष्क्रिय ऑटो-प्ले, अलग दृश्य प्लेबैक, फ़ोटो गैलरी या घड़ी मोड नहीं है।",
+    "Guided breathing for 5, 10 or 20 minutes. Follow the circle, choose a sound and enable optional spoken rhythm cues. Pause, resume or continue listening with the picture off.": "5, 10 या 20 मिनट का निर्देशित श्वास अभ्यास। वृत्त का अनुसरण करें, ध्वनि चुनें और वैकल्पिक बोले गए लय संकेत चालू करें। रोकें, जारी रखें या चित्र बंद करके सुनें।",
+    "Optional breathing cues use the device’s system voice. The app never records your voice or requests microphone access.": "वैकल्पिक श्वास संकेत डिवाइस की सिस्टम आवाज़ का उपयोग करते हैं। ऐप आपकी आवाज़ रिकॉर्ड नहीं करता और माइक्रोफ़ोन की अनुमति नहीं माँगता।",
+    "Guided breathing": "निर्देशित श्वास",
+    "Optional system voice says when to breathe in and out, even with the picture off.": "वैकल्पिक सिस्टम आवाज़ साँस अंदर लेने और बाहर छोड़ने का समय बताती है, चित्र बंद होने पर भी।"
   },
   "zh-Hant": {
     "Privacy policy · Nightfall TV": "隱私政策 · Nightfall Sleep",
@@ -1917,6 +1972,11 @@ const websiteTranslations = {
     "Optional downloads come directly from public GitHub Releases. GitHub and its delivery providers receive ordinary connection information such as IP address, time and user agent. tvOS may clear cached media; downloading again is free.": "選用下載直接來自公開的 GitHub Releases。GitHub 及其傳送服務會收到 IP 位址、時間及使用者代理程式等一般連線資訊。tvOS 可能清除快取，重新下載免費。",
     "Remove downloads or reset local data in Settings. Uninstalling removes local app data, subject to Apple backups. Clear this website’s language choice in your browser’s site-data settings. Apple and GitHub manage their own records.": "可在設定中刪除下載或重設本機資料。解除安裝會移除本機 App 資料，Apple 備份規則仍適用。網站語言偏好可在瀏覽器的網站資料設定中清除。Apple 和 GitHub 各自管理其紀錄。",
     "Effective October 17, 2026 · Developer: ZanwingMak": "生效日期：2026 年 10 月 17 日 · 開發者：ZanwingMak",
-    "Downloads": "下載"
+    "Downloads": "下載",
+    "Choose a sound to start audio and real footage. Controls hide after 10 seconds; Select shows them again. Picture off keeps audio playing. Stop sound ends the session. There is no idle auto-play, standalone scenery playback, photo gallery or clock mode.": "選擇聲景即播放聲音與實拍畫面。控制項在 10 秒後隱藏，確認鍵重新顯示。關閉畫面後聲音繼續；停止聲景即結束工作階段。不提供閒置自動播放、獨立景色播放、照片圖庫或時鐘模式。",
+    "Guided breathing for 5, 10 or 20 minutes. Follow the circle, choose a sound and enable optional spoken rhythm cues. Pause, resume or continue listening with the picture off.": "5、10 或 20 分鐘呼吸引導。跟隨圓環、選擇聲景，可開啟語音節奏提示。支援暫停、繼續，以及關閉畫面聆聽。",
+    "Optional breathing cues use the device’s system voice. The app never records your voice or requests microphone access.": "可選呼吸提示使用裝置的系統語音。App 不錄製你的聲音，也不要求麥克風權限。",
+    "Guided breathing": "呼吸引導",
+    "Optional system voice says when to breathe in and out, even with the picture off.": "可選系統語音提示吸氣與呼氣，關閉畫面後也能跟隨。"
   }
 };

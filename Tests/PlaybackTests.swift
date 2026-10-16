@@ -80,4 +80,51 @@ final class PlaybackTests: XCTestCase {
         XCTAssertTrue(restored.value.favorites.contains(.clouds))
         XCTAssertTrue(restored.value.favorites.contains(.aurora))
     }
+    /// 呼吸阶段、轮次和缩放来自同一时间源；边界和异常时长不产生错误倒计时。
+    func testGuidedBreathingRhythmAndPauseClock() {
+        let session = MeditationSession(minutes: 5, rhythm: .gentle)
+        XCTAssertTrue(session.inhaling(elapsed: 0))
+        XCTAssertTrue(session.inhaling(elapsed: 3.99))
+        XCTAssertFalse(session.inhaling(elapsed: 4))
+        XCTAssertTrue(session.inhaling(elapsed: 10))
+        XCTAssertEqual(session.cueIndex(elapsed: 4), 1)
+        XCTAssertEqual(session.cueIndex(elapsed: 10), 2)
+        XCTAssertEqual(session.phaseRemaining(elapsed: 4), 6)
+        XCTAssertEqual(session.circleScale(elapsed: 0), 0.68, accuracy: 0.001)
+        XCTAssertEqual(session.circleScale(elapsed: 4), 1, accuracy: 0.001)
+        XCTAssertEqual(session.remaining(elapsed: 301), 0)
+        XCTAssertEqual(MeditationSession(minutes: -1, rhythm: .balanced).minutes, 10)
+        let date = Date(timeIntervalSince1970: 1000)
+        var clock = PlaybackTimeline(now: date)
+        clock.togglePause(now: date.addingTimeInterval(3))
+        XCTAssertEqual(session.remaining(elapsed: clock.elapsed(at: date.addingTimeInterval(33))), 297)
+        clock.togglePause(now: date.addingTimeInterval(33))
+        XCTAssertEqual(session.remaining(elapsed: clock.elapsed(at: date.addingTimeInterval(35))), 295)
+    }
+
+    /// 引导练习使用真实声景；暂停停止声音但保留阶段，退出彻底释放会话。
+    func testGuidedMeditationAudioLifecycle() {
+        let (playback, defaults, domain) = controller()
+        defer { playback.stop(); defaults.removePersistentDomain(forName: domain) }
+        playback.settings.value.sleepMinutes = 30
+        playback.startMeditation(minutes: 10, rhythm: .balanced, sound: .stream)
+        XCTAssertTrue(playback.isPlaying)
+        XCTAssertTrue(playback.sound.isPlaying)
+        XCTAssertEqual(playback.meditation?.minutes, 10)
+        XCTAssertFalse(playback.meditation?.voiceEnabled ?? true)
+        XCTAssertNil(playback.timeline.deadline)
+        XCTAssertEqual(playback.settings.value.sleepMinutes, 30)
+        playback.togglePause()
+        XCTAssertFalse(playback.sound.isPlaying)
+        playback.blackNow()
+        XCTAssertEqual(playback.effectiveScene, .black)
+        playback.togglePause()
+        XCTAssertTrue(playback.sound.isPlaying)
+        playback.toggleVisuals()
+        XCTAssertNotEqual(playback.effectiveScene, .black)
+        playback.stop()
+        XCTAssertNil(playback.meditation)
+        XCTAssertFalse(playback.sound.isPlaying)
+    }
+
 }

@@ -1,8 +1,12 @@
 import UIKit
 import Combine
+import AVFoundation
 
 @MainActor
 final class PlaybackController: ObservableObject {
+    @Published private(set) var meditation: MeditationSession?
+    private let speech = AVSpeechSynthesizer()
+    private var lastMeditationCue: Int?
     @Published var mediaMissing = false
     @Published private(set) var isPlaying = false
     @Published private(set) var scene: SceneKind = .aurora
@@ -33,7 +37,7 @@ final class PlaybackController: ObservableObject {
         ticker = Timer.publish(every: 1, on: .main, in: .common).autoconnect().sink { [weak self] date in self?.tick(date) }
     }
 
-    /// 用户主动启动音频会话；画面只是常驻音频播放器内的背景预览，不支持静音视频播放。
+    /// 用户主动启动带画面的音频会话，停止声音会结束会话，不支持独立静音景色播放。
     func start(_ selected: SceneKind, layers: [SoundLayer]? = nil) {
         guard selected != .clock, selected != .gallery, selected.isAvailable else { mediaMissing = true; return }
         let fallback = selected.suggestedSound.flatMap { $0.isAvailable ? $0 : nil } ?? .rain
@@ -41,6 +45,8 @@ final class PlaybackController: ObservableObject {
         sound.playMix(mix, volume: settings.value.soundVolume)
         sound.setPaused(false)
         guard sound.isPlaying else { return }
+        meditation = nil
+        speech.stopSpeaking(at: .immediate)
         now = Date()
         scene = selected
         settings.value.lastScene = selected
@@ -58,6 +64,52 @@ final class PlaybackController: ObservableObject {
     func startWithSound(_ selected: SceneKind, sound selectedSound: SoundKind) {
         guard selected.isAvailable, selectedSound.isAvailable else { mediaMissing = true; return }
         start(selected, layers: [SoundLayer(sound: selectedSound)])
+    }
+
+    /// 设备已安装的系统语音决定提示是否可用；不请求麦克风，也不录制语音。
+    var meditationVoiceAvailable: Bool { meditationVoice != nil }
+
+    /// 按实际语言选择系统语音，缺失时不以其他语言假装提供提示。
+    private var meditationVoice: AVSpeechSynthesisVoice? {
+        let codes: [AppLanguage: String] = [.zhHans: "zh-CN", .zhHant: "zh-TW", .en: "en-US", .ja: "ja-JP", .ko: "ko-KR", .fr: "fr-FR", .de: "de-DE", .es: "es-ES", .it: "it-IT", .pt: "pt-BR", .ru: "ru-RU", .ar: "ar-SA", .hi: "hi-IN"]
+        return codes[settings.language.resolved].flatMap(AVSpeechSynthesisVoice.init(language:))
+    }
+
+    /// 用户确认后开始带呼吸节奏的音频练习；有效练习计时独立于普通睡眠定时。
+    func startMeditation(minutes: Int, rhythm: BreathingRhythm, sound selected: SoundKind, voice: Bool = false) {
+        startWithSound(selected.visualScene, sound: selected)
+        guard isPlaying else { return }
+        timeline.setSleep(minutes: 0, now: now)
+        meditation = MeditationSession(minutes: minutes, rhythm: rhythm, voiceEnabled: voice && meditationVoiceAvailable)
+        lastMeditationCue = nil
+        controlsVisible = effectiveScene != .black
+        announceMeditationPhase(force: true)
+    }
+
+    /// 主动切换节奏语音；关闭、暂停、退出或切后台时立即停止讲话。
+    func toggleMeditationVoice() {
+        guard meditation?.finished == false, meditationVoiceAvailable else { return }
+        meditation?.voiceEnabled.toggle()
+        speech.stopSpeaking(at: .immediate)
+        announceMeditationPhase(force: true)
+        interaction()
+    }
+
+    /// 只在新呼吸阶段播一次系统语音，使用本应用音频会话，不排队堆积过期指令。
+    private func announceMeditationPhase(force: Bool = false) {
+        guard active, !paused, let session = meditation, !session.finished, session.voiceEnabled,
+              let voice = meditationVoice else { return }
+        let elapsed = timeline.elapsed(at: now)
+        let cue = session.cueIndex(elapsed: elapsed)
+        guard force || cue != lastMeditationCue else { return }
+        lastMeditationCue = cue
+        speech.stopSpeaking(at: .immediate)
+        let utterance = AVSpeechUtterance(string: session.inhaling(elapsed: elapsed) ? settings.l("吸气", "Breathe in") : settings.l("呼气", "Breathe out"))
+        utterance.voice = voice
+        utterance.rate = 0.4
+        utterance.volume = Float(settings.value.soundVolume * min(1, Double(session.remaining(elapsed: elapsed)) / 10))
+        speech.usesApplicationAudioSession = true
+        speech.speak(utterance)
     }
 
     /// 只有已选择声音才能关闭画面；没有独立黑屏入口，也不代替系统屏保。
@@ -91,6 +143,8 @@ final class PlaybackController: ObservableObject {
     /// 回到浏览界面并恢复系统闲置行为，结束当前睡眠会话。
     func stop() {
         isPlaying = false
+        meditation = nil
+        speech.stopSpeaking(at: .immediate)
         paused = false
         controlsVisible = false
         choosingOptions = false
@@ -105,18 +159,30 @@ final class PlaybackController: ObservableObject {
 
     /// 返回键优先隐藏控制层，再退出播放器，保留系统 Home 按钮行为。
     func back() {
-        if controlsVisible && effectiveScene == .black { controlsVisible = false }
+        if controlsVisible { controlsVisible = false }
         else { stop() }
         interaction()
     }
 
     /// 同时暂停音频与背景预览，遥控器播放键恢复全部声层，睡眠计时仍按真实时间前进。
     func togglePause() {
-        timeline.togglePause(now: Date())
+        now = Date()
+        timeline.togglePause(now: now)
         paused.toggle()
         sound.setPaused(paused)
+        if paused { speech.stopSpeaking(at: .immediate) } else { announceMeditationPhase(force: true) }
         interaction()
         updateIdleTimer()
+    }
+
+    /// 在同一音频会话切换已下载背景，保留混音和睡眠计时，取消本次关闭画面计时。
+    func changeBackground(_ selected: SceneKind) {
+        guard isPlaying, !sound.layers.isEmpty, !selected.isPlayerMode, selected.isAvailable else { return }
+        scene = selected
+        visualsHidden = false
+        timeline.setPictureOff(minutes: 0, now: Date())
+        controlsVisible = true
+        interaction()
     }
 
     /// 立即隐藏画面，保留声音、倒计时及原场景，稍后可恢复。
@@ -176,7 +242,7 @@ final class PlaybackController: ObservableObject {
         active = value
         updateIdleTimer()
         if value { tick(Date()) }
-        else { sound.stop(); controlsVisible = false; choosingOptions = false }
+        else { speech.stopSpeaking(at: .immediate); sound.stop(); controlsVisible = false; choosingOptions = false }
     }
 
     /// 仅在前台实际播放媒体时保持亮屏；静音黑屏、暂停或定时结束交还系统闲置行为。
@@ -189,8 +255,29 @@ final class PlaybackController: ObservableObject {
         now = date
         defer { updateIdleTimer() }
         guard active, isPlaying else { return }
-        sound.setVolume(settings.value.soundVolume, gain: timeline.audioGain(at: date))
-        if effectiveScene == .black && controlsVisible && !choosingOptions && date.timeIntervalSince(lastInteraction) >= 10 { controlsVisible = false }
+        let gain = meditation.map { min(1, Double($0.remaining(elapsed: timeline.elapsed(at: date))) / 10) } ?? timeline.audioGain(at: date)
+        sound.setVolume(settings.value.soundVolume, gain: gain)
+        if controlsVisible && !choosingOptions && date.timeIntervalSince(lastInteraction) >= 10 { controlsVisible = false }
+        if var session = meditation {
+            let remaining = session.remaining(elapsed: timeline.elapsed(at: date))
+            if remaining == 0 {
+                if !session.finished {
+                    session.finished = true
+                    meditation = session
+                    speech.stopSpeaking(at: .immediate)
+                    sound.stop()
+                }
+            } else {
+                announceMeditationPhase()
+                if sound.layers.isEmpty { stop() }
+            }
+            if timeline.pictureExpired(at: date) && !choosingOptions {
+                visualsHidden = true
+                controlsVisible = false
+                timeline.setPictureOff(minutes: 0, now: date)
+            }
+            return
+        }
         if timeline.expired(at: date) {
             if !finishedSleep {
                 sound.stop()
