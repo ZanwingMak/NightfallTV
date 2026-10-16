@@ -19,8 +19,9 @@ struct MeditationSetupView: View {
                          options: [(.gentle, settings.l("吸气 4 秒 · 呼气 6 秒", "In 4s · out 6s")), (.balanced, settings.l("吸气 4 秒 · 呼气 4 秒", "In 4s · out 4s"))]).accessibilityIdentifier("meditation-rhythm")
             ChoicePicker(title: settings.l("声景", "Soundscapes"), selection: $selectedSound,
                          options: SoundKind.available.map { ($0, $0.title(settings.language)) }).accessibilityIdentifier("meditation-sound")
-            Toggle(settings.l("语音节奏提示", "Spoken rhythm cues"), isOn: $voice).disabled(!playback.meditationVoiceAvailable)
-                .accessibilityIdentifier("meditation-voice")
+            ChoicePicker(title: settings.l("语音节奏提示", "Spoken rhythm cues"), selection: $voice,
+                         options: [(false, settings.l("关闭", "Off")), (true, settings.l("开启", "On"))])
+                .disabled(!playback.meditationVoiceAvailable).accessibilityIdentifier("meditation-voice")
             Text(playback.meditationVoiceAvailable ? settings.l("可选系统语音提示吸气与呼气，关闭画面后也能跟随。", "Optional system voice says when to breathe in and out, even with the picture off.") : settings.l("此设备暂未提供所选语言的系统语音。", "A system voice for this language is unavailable on this device."))
                 .font(.caption).foregroundStyle(Palette.muted)
             HStack(spacing: 24) {

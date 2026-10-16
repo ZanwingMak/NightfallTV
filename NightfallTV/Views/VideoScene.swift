@@ -11,7 +11,7 @@ struct VideoScene: UIViewRepresentable {
     let paused: Bool
     let speed: Double
 
-    /// 创建无控件、无焦点的原生视频层，遥控器统一由屏保界面处理。
+    /// 创建无控件、无焦点的原生视频层，遥控器统一由音频会话界面处理。
     func makeUIView(context: Context) -> UIView {
         let view = VideoSurface()
         view.backgroundColor = .clear
@@ -28,7 +28,7 @@ struct VideoScene: UIViewRepresentable {
     /// 将播放器与视图生命周期绑定，不为库内预览启动解码。
     func makeCoordinator() -> Coordinator { Coordinator() }
 
-    /// 离开屏保或切入纯黑时立即释放解码队列。
+    /// 离开音频会话或切入纯黑时立即释放解码队列。
     static func dismantleUIView(_ uiView: UIView, coordinator: Coordinator) {
         coordinator.stop()
         (uiView as? VideoSurface)?.playerLayer.player = nil

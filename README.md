@@ -48,7 +48,7 @@ An open-source Apple TV app for white noise, nature sounds, self-led meditation 
 
 启动 Nightfall → 选择声景或混音 → 选择「关闭画面 · 继续听」，或开始 10/20 分钟自主静心。播放开始显示控制，十秒后隐藏；纯音频时确认键显示控制、返回键先隐藏控制再退出。退出或停止声音即结束会话。无本应用媒体播放时遵循 tvOS 的闲置设置；不保证只播放外部音乐时能无限维持静音黑屏。
 
-当前修复构建为 **1.4.0（13）**，针对 2.5.8 拒审移除了独立景色播放功能。商店是否可用以 Apple 审核结果为准。[公开 TestFlight 邀请](https://testflight.apple.com/join/FS1H6N5w)保留；外部可安装构建取决于 Apple Beta 审核。真机听感、背光和长时间播放由用户验收。
+当前修复构建为 **1.4.0（14）**，针对 2.5.8 拒审移除了独立景色播放功能。商店是否可用以 Apple 审核结果为准。[公开 TestFlight 邀请](https://testflight.apple.com/join/FS1H6N5w)保留；外部可安装构建取决于 Apple Beta 审核。真机听感、背光和长时间播放由用户验收。
 
 [Apple 当前 TestFlight 安装指南](https://beta.itunes.apple.com/)要求 Apple TV 运行 tvOS 18 或以上（应用自身最低 tvOS 17）。邮件邀请需在手机或电脑打开取得兑换码，再到电视上的 TestFlight → Redeem 输入代码；详细安装和配对步骤见[回归文档](docs/回归测试.md#testflight-真机验收)。
 
