@@ -1,8 +1,8 @@
-# Nightfall TV · 夜幕
+# Nightfall · 白噪音与助眠
 
-An open-source, native Apple TV screensaver player for a calmer living room and a darker bedroom. Built with SwiftUI and AVFoundation. Free, offline-first, no account, no ads.
+An open-source Apple TV app for white noise, nature sounds, self-led meditation and bedtime listening. Mix up to three sounds, start a timed session, and listen with an optional nature background or a black screen. Built with SwiftUI and AVFoundation. Free, offline-first, no account, no ads.
 
-原生 Apple TV 屏保播放器：17 种屏保模式，包含 14 个真实拍摄场景、完全黑屏、个人照片画廊、收藏轮播、14 种声景（含 4 种按需下载）、三层混音、个人睡前方案与独立自动黑屏。免费开源，没有广告或订阅。
+原生 Apple TV 白噪音与助眠声音应用：15 种声音（11 种内置、4 种按需下载），含白噪音、粉噪音、棕噪音与真实自然录音。声景首页提供主动黑屏聆听、三层混音和 10/20 分钟自主静心；14 项实拍视频及个人照片作为可选背景。全部功能与下载免费，无广告、无订阅。不提供语音课程、医疗诊断治疗或睡眠监测。
 
 ![Nightfall TV 实际首页](docs/screens/library.png)
 
@@ -14,17 +14,18 @@ An open-source, native Apple TV screensaver player for a calmer living room and 
 
 ## 功能
 
-- **17 种场景**：纯黑、实拍极光、夜空、海浪、炉火、沙漠落日、树林、雨窗、庭园瀑布、飘雪、云海、漂移时钟、照片画廊，以及按需下载的雨后海岸、山间清风、碧谷流云与莱茵瀑布。
+- **声音优先**：打开应用进入声景首页，主动选择声音、黑屏模式或 10 分钟自主静心。静心页另有 20 分钟入口；以溪流录音陪伴休息，没有语音引导课程。
+- **可选风景背景**：14 项实拍视频与个人照片画廊。听声音不需要下载视频，不提供独立时钟或黑屏屏保内容。
 - **真实景色**：10 个有免费再分发许可的摄影视频，离线静音循环；预览为真实视频帧，最高 1080p，部分为 720p。
-- **为卧室设计的全黑**：屏幕输出 RGB 0/0/0，无提示、时钟或焦点边框；启动即黑屏可选。
+- **为卧室设计的全黑**：用户主动开启后输出 RGB 0/0/0，无提示、时钟或焦点边框；保留当前混音，尚未选声音时启动细雨。不会在启动或闲置时自动进入。
 - **私人收藏**：顺序 / 随机轮播、切换间隔、场景收藏。
-- **柔和声景**：雨、海浪、溪流、炉火、林间鸟鸣、夏夜虫鸣、风过树叶、瀑布、粉噪音、棕噪音；八种自然声为实录、两种有色噪音为合成，立体声离线循环，主动选择后才发声。
-- **有声屏保与画面开关**：场景详情可带推荐录音启动；声景页可自由搭配画面或纯黑；播放中可换声景、调音量、关画面和恢复，保留睡眠计时。默认不自动发声。
+- **柔和声景**：雨、海浪、溪流、炉火、林间鸟鸣、夏夜虫鸣、风过树叶、瀑布、粉噪音、棕噪音；另有白噪音；八种内置自然声为实录、三种噪音为频谱合成，立体声离线循环，主动选择后才发声。
+- **聆听背景与画面开关**：场景详情可带推荐录音启动；声景页可自由搭配画面或纯黑；播放中可换声景、调音量、关画面和恢复，保留睡眠计时。默认不自动发声。
 - **三层声景混音**：最多同时搭配三种声音，调整每层相对音量；共有录音持续播放，不因增减声层而重新开始。主音量限制整体增益，睡眠淡出作用于全部声层。
-- **个人睡前方案**：最多十二个命名方案，保存画面、纯黑状态、声层、音量、亮度和两种定时；在「夜间 → 我的睡前方案」播放、纯黑听或移除，本地保存，重启后仍在。
+- **个人睡前方案**：最多十二个命名方案，保存画面、纯黑状态、声层、音量、亮度和两种定时；在「静心 → 我的睡前方案」播放、纯黑听或移除，本地保存，重启后仍在。
 - **先看风景，再关画面**：1／5／10／15／30 分钟后自动黑屏，最后十秒渐暗；声音和睡眠计时继续。画面暂停不延长亮屏时间，手动恢复取消本次画面计时。
 - **睡前快捷方案**：30 分钟细雨、60 分钟棕噪音，一键纯黑入眠。
-- **睡眠与夜间**：15–120 分钟定时，结束保持黑屏；画面和本应用声音最后 30 秒一起淡出；自定义跨午夜规则。
+- **睡眠与静心**：5、10、15、20、30、60、90 或 120 分钟定时，结束后本应用呈黑色并恢复系统闲置；画面和本应用声音最后 30 秒一起淡出；自定义跨午夜规则。
 - **你的照片**：最多 30 张 HTTPS 图片直链；内存缓存、下载与解码限制；加载失败保持暗色。
 - **显示偏好**：亮度、速度、漂移时钟、24 小时制、减少动态效果、13 种主流语言与跟随系统；阿拉伯语支持从右到左布局。
 
@@ -46,9 +47,9 @@ An open-source, native Apple TV screensaver player for a calmer living room and 
 
 ## 使用
 
-在音乐应用里开始播放 → 返回桌面 → 启动 Nightfall TV → 选择屏保，或「一键黑屏」。主动选择声景会与其他应用音频混音，默认没有声音。不同播放器的后台音乐兼容性需要在真实 Apple TV 验证。
+启动 Nightfall → 选择声景或混音 → 主动开启「黑屏模式」，或开始 10/20 分钟自主静心。确认键显示播放控制，返回键先隐藏控制再回到应用。无本应用媒体播放时遵循 tvOS 的闲置设置；不保证只播放外部音乐时能无限维持静音黑屏。
 
-维护者的 TestFlight 内部构建为 **1.3.0（7）**，已完成 Apple 处理并加入 Nightfall Internal。收到邀请的 Apple ID 可在 Apple TV 安装 TestFlight，再接受邀请并安装；目前采用内部测试，不提供公开兑换链接。旧1.0.2（4）已有 Apple TV 4K（第三代，tvOS26.6）安装记录；新版真机安装、听感、音乐兼容和长时间播放由用户自行验收；开发交付以模拟器回归通过为准，详见回归记录。
+当前构建为 **1.4.0（10）**，已加入内部 TestFlight。新版 App 与四档赞助内购已重新提交商店，等待 Apple 审核，通过后自动发布。[公开 TestFlight 邀请](https://testflight.apple.com/join/FS1H6N5w)保留；外部测试可安装的构建取决于 Apple Beta 审核，不能将内部构建可用视为外部审核通过。真机听感、背光、外部音乐兼容和长时间播放由用户验收。
 
 [Apple 当前 TestFlight 安装指南](https://beta.itunes.apple.com/)要求 Apple TV 运行 tvOS 18 或以上（应用自身最低 tvOS 17）。邮件邀请需在手机或电脑打开取得兑换码，再到电视上的 TestFlight → Redeem 输入代码；详细安装和配对步骤见[回归文档](docs/回归测试.md#testflight-真机验收)。
 
@@ -78,13 +79,13 @@ xcodebuild -project NightfallTV.xcodeproj -scheme NightfallTV \
   CODE_SIGNING_ALLOWED=YES CODE_SIGN_IDENTITY=- DEVELOPMENT_TEAM= test
 ```
 
-1.3.0（7）已在 Apple TV4K 模拟器完成 **32 个单元测试＋19 个遥控器 UI 测试的联合验收，51 项均有通过记录，0 未解决失败、0 跳过**（2026-10-13）。[云端完整运行](https://github.com/ZanwingMak/NightfallTV/actions/runs/38275774332)为 50 通过、1 个下载瞬态按钮时序失败；修正测试后，[云端下载专项](https://github.com/ZanwingMak/NightfallTV/actions/runs/38287433450)及本地同一专项均 5/5 通过。这是分次联合覆盖，不是一次连续 51/51 记录。测试包括十三语言遥控导航、纯黑逐像素检查、画面定时、三层混音与方案、视频循环、真实 4K／无损资源下载播放删除，以及四档 StoreKit 模拟交易状态。测试详情与实际截图见[回归记录](docs/回归测试.md)。真机听感与长时间播放由用户验收。其中照片网络专项访问本仓库的公开截图，离线执行可追加 `-skip-testing:NightfallTVTests/PersistenceTests/testRemotePhotosAndCache`。
+1.4.0（10）在本地与[独立云端回归](https://github.com/ZanwingMak/NightfallTV/actions/runs/38837932194)均完成连续 51/51 测试，0 失败、0 跳过，覆盖全部 13 种语言、15 种声音的资源与遥控器操作。以下为历史回归记录：1.3.0（7）已在 Apple TV4K 模拟器完成 **32 个单元测试＋19 个遥控器 UI 测试的联合验收，51 项均有通过记录，0 未解决失败、0 跳过**（2026-10-13）。[云端完整运行](https://github.com/ZanwingMak/NightfallTV/actions/runs/38275774332)为 50 通过、1 个下载瞬态按钮时序失败；修正测试后，[云端下载专项](https://github.com/ZanwingMak/NightfallTV/actions/runs/38287433450)及本地同一专项均 5/5 通过。这是分次联合覆盖，不是一次连续 51/51 记录。测试包括十三语言遥控导航、纯黑逐像素检查、画面定时、三层混音与方案、视频循环、真实 4K／无损资源下载播放删除，以及四档 StoreKit 模拟交易状态。测试详情与实际截图见[回归记录](docs/回归测试.md)。真机听感与长时间播放由用户验收。其中照片网络专项访问本仓库的公开截图，离线执行可追加 `-skip-testing:NightfallTVTests/PersistenceTests/testRemotePhotosAndCache`。
 
 如需修改工程配置，安装 XcodeGen 后执行 `xcodegen generate`。实拍视频可用 `python3 scripts/import_media.py` 重新导入（需 FFmpeg，遵守来源网站限流）。自然录音可用 `python3 scripts/import_audio.py` 重新导入，有色噪音可用 `python3 scripts/generate_audio.py` 生成（两者需要 FFmpeg，以及 `python3 -m pip install -r scripts/requirements-audio.txt` 安装的 NumPy）；图标用 `swift scripts/generate_assets.swift` 生成。安装到自己的真机或发布时，请在 Xcode Signing 中替换为自己的 Team 和 Bundle ID；`ExportOptions.plist` 是本项目维护者的发布配置示例，其他开发者需替换对应值。
 
 ## 平台边界
 
-这是需手动启动的独立应用，不能成为 tvOS 的系统屏保插件，不能在其他应用上盖黑屏，也不能控制电视背光、关电视或停止外部音乐。LCD 即使输出全黑仍可能有背光；系统音量、Siri 等覆盖层不受应用控制。内置自然景色均为实拍视频；时钟使用暗色背景，私人画廊显示用户照片。
+这是需手动启动的独立应用，不能成为 tvOS 的系统屏保插件，不能在其他应用上盖黑屏，也不能控制电视背光、关电视或停止外部音乐。LCD 即使输出全黑仍可能有背光；系统音量、Siri 等覆盖层不受应用控制。自然风景是可选实拍背景，私人画廊显示用户照片。黑屏聆听不会改变电视硬件背光。
 
 ## 文档与开源
 
