@@ -1,10 +1,10 @@
 import SwiftUI
 
 private enum AppPage: String, CaseIterable {
-    case explore, collection, sounds, night, settings
+    case sounds, night, explore, collection, settings
     /// 返回顶部导航标题。
     func title(_ language: AppLanguage) -> String {
-        let titles = [("风景视频", "Videos"), ("收藏", "Collection"), ("声景", "Soundscapes"), ("夜间", "Nightfall"), ("设置", "Settings")]
+        let titles = [("声景", "Soundscapes"), ("静心", "Unwind"), ("风景视频", "Videos"), ("收藏", "Collection"), ("设置", "Settings")]
         let pair = titles[Self.allCases.firstIndex(of: self)!]
         return Localizer.text(pair.1, chinese: pair.0, language: language)
     }
@@ -15,7 +15,7 @@ struct RootView: View {
     @EnvironmentObject private var downloads: DownloadStore
     @EnvironmentObject private var playback: PlaybackController
     @Environment(\.scenePhase) private var scenePhase
-    @State private var page: AppPage = .explore
+    @State private var page: AppPage = .sounds
     @State private var detail: SceneKind?
     @State private var category = SceneCategory.all
     @State private var launched = false
@@ -68,7 +68,7 @@ struct RootView: View {
         HStack(spacing: 24) {
             HStack(spacing: 12) {
                 Image(systemName: "moonphase.waning.crescent").font(.title2).foregroundStyle(Palette.accent)
-                Text("nightfall").font(.system(size: 30, weight: .medium, design: .rounded)).tracking(2)
+                Text("nightfall sleep").font(.system(size: 28, weight: .medium, design: .rounded)).tracking(1)
             }
             Spacer()
             ForEach(AppPage.allCases, id: \.self) { item in
@@ -136,7 +136,7 @@ struct LibraryView: View {
                 Text(settings.l("真实自然视频，搭配你喜欢的声景。", "Real nature videos. Soundscapes you choose.")).font(.callout).foregroundStyle(.white.opacity(0.65))
                 HStack(spacing: 24) {
                     QuietButton(title: settings.l("探索极光", "Explore aurora"), symbol: "play.fill", id: "hero-aurora") { open(.aurora) }
-                    QuietButton(title: settings.l("只听细雨", "Listen to rain"), symbol: "headphones", id: "quick-black") { playback.startWithSound(.black, sound: .rain) }
+                    QuietButton(title: settings.l("黑屏模式", "Black screen mode"), symbol: "headphones", id: "quick-black") { playback.startDarkListening() }
                 }.frame(maxWidth: .infinity, alignment: .leading).padding(.top, 16).focusSection()
             }.padding(48)
         }.frame(height: 560).clipShape(RoundedRectangle(cornerRadius: 28))

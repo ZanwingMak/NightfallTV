@@ -60,6 +60,13 @@ final class PlaybackController: ObservableObject {
         selectSound(selectedSound)
     }
 
+    /// 主动开始黑屏聆听，保留已有混音；尚未选声音时使用细雨，绝不在应用启动或闲置时调用。
+    func startDarkListening() {
+        if isPlaying { blackNow() } else { start(.black) }
+        if sound.layers.isEmpty { selectSound(.rain) }
+        updateIdleTimer()
+    }
+
     /// 在当前会话更换或停止声景，不重置画面、暂停状态和睡眠截止时间。
     func selectSound(_ selected: SoundKind?) {
         interaction()

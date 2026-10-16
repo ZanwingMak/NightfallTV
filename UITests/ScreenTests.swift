@@ -68,7 +68,7 @@ final class ScreenTests: XCTestCase {
         activate("nav-sounds", in: app)
         focus("sound-wind", in: app)
         XCUIRemote.shared.press(.down)
-        XCTAssertTrue(app.buttons["sound-waterfall"].hasFocus)
+        XCTAssertTrue(app.buttons["sound-white"].hasFocus)
         capture("18-single-card-row-focus")
     }
 
@@ -76,7 +76,7 @@ final class ScreenTests: XCTestCase {
     func testAllSoundSelectionsAndUpNavigation() throws {
         let app = launch()
         activate("nav-sounds", in: app)
-        let names = [("rain", "细雨"), ("ocean", "潮汐"), ("stream", "溪流"), ("fire", "炉火"), ("pink", "粉噪音"), ("brown", "棕噪音"), ("birds", "林间鸟鸣"), ("crickets", "夏夜虫鸣"), ("wind", "风过树叶"), ("waterfall", "瀑布")]
+        let names = [("rain", "细雨"), ("ocean", "潮汐"), ("stream", "溪流"), ("fire", "炉火"), ("pink", "粉噪音"), ("brown", "棕噪音"), ("birds", "林间鸟鸣"), ("crickets", "夏夜虫鸣"), ("wind", "风过树叶"), ("waterfall", "瀑布"), ("white", "白噪音")]
         for (id, name) in names {
             activate("sound-\(id)", in: app)
             XCTAssertTrue(app.staticTexts["sound-status"].label.contains(name))
@@ -92,7 +92,7 @@ final class ScreenTests: XCTestCase {
         try assertBlack()
         XCUIRemote.shared.press(.menu)
         XCTAssertTrue(app.staticTexts["sound-status"].waitForExistence(timeout: 5))
-        XCTAssertTrue(app.staticTexts["sound-status"].label.contains("瀑布"))
+        XCTAssertTrue(app.staticTexts["sound-status"].label.contains("白噪音"))
         activate("stop-sound", in: app)
         XCTAssertTrue(app.staticTexts["sound-status"].label.contains("静音"))
     }
@@ -102,6 +102,7 @@ final class ScreenTests: XCTestCase {
         let app = XCUIApplication()
         app.launchArguments = ["--uitesting"] + extra
         app.launch()
+        if !extra.contains(where: { $0.hasPrefix("--scene=") }) { activate("nav-explore", in: app) }
         return app
     }
 

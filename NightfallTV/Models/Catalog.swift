@@ -11,7 +11,7 @@ enum SceneKind: String, Codable, CaseIterable, Identifiable {
     /// 返回场景的中英文名称。
     func title(_ english: Bool) -> String {
         let names: [SceneKind: (String, String)] = [
-            .black: ("只听声音", "Audio only"), .aurora: ("极光之境", "Northern lights"),
+            .black: ("黑屏聆听", "Dark listening"), .aurora: ("极光之境", "Northern lights"),
             .stars: ("漫游星河", "Stellar drift"), .ocean: ("静海潮汐", "Ocean tides"),
             .ember: ("余烬炉火", "Quiet embers"), .dunes: ("沙漠落日", "Desert sunset"),
             .prism: ("林间树影", "Forest light"), .rain: ("雨落窗前", "Rain on glass"),
@@ -26,7 +26,7 @@ enum SceneKind: String, Codable, CaseIterable, Identifiable {
     /// 提供简短、真实的场景描述。
     func subtitle(_ english: Bool) -> String {
         let values: [SceneKind: (String, String)] = [
-            .black: ("没有一点亮光，留音乐陪你入眠", "No glow. Just you and your music."),
+            .black: ("关掉画面，让声音陪你休息", "Picture off. Sound for your moment of rest."),
             .aurora: ("拉普兰的真实极光，静静流动", "Real northern lights, filmed in Lapland."),
             .stars: ("真实夜空，星轨缓行", "A time-lapse of the real night sky."),
             .ocean: ("曼利海滩的潮汐，真实俯拍", "Waves filmed above Manly Beach."),
@@ -104,21 +104,21 @@ enum SceneCategory: String, CaseIterable, Identifiable {
 }
 
 enum SoundKind: String, CaseIterable, Codable, Identifiable {
-    case rain, ocean, stream, fire, pink, brown, birds, crickets, wind, waterfall, thunder, parkbirds, parkriver, parkwind
+    case rain, ocean, stream, fire, pink, brown, birds, crickets, wind, waterfall, thunder, parkbirds, parkriver, parkwind, white
     var id: String { rawValue }
     /// 返回声景的本地化标题。
     func title(_ english: Bool) -> String {
-        let values = [("细雨", "Soft rain"), ("潮汐", "Ocean tide"), ("溪流", "Forest stream"), ("炉火", "Fireplace"), ("粉噪音", "Pink noise"), ("棕噪音", "Brown noise"), ("林间鸟鸣", "Forest birds"), ("夏夜虫鸣", "Summer crickets"), ("风过树叶", "Rustling leaves"), ("瀑布", "Waterfall"), ("远雷细雨", "Distant thunder"), ("公园晨鸟", "Park birds"), ("河畔水声", "Riverside"), ("旷野轻风", "Open-field wind")]
+        let values = [("细雨", "Soft rain"), ("潮汐", "Ocean tide"), ("溪流", "Forest stream"), ("炉火", "Fireplace"), ("粉噪音", "Pink noise"), ("棕噪音", "Brown noise"), ("林间鸟鸣", "Forest birds"), ("夏夜虫鸣", "Summer crickets"), ("风过树叶", "Rustling leaves"), ("瀑布", "Waterfall"), ("远雷细雨", "Distant thunder"), ("公园晨鸟", "Park birds"), ("河畔水声", "Riverside"), ("旷野轻风", "Open-field wind"), ("白噪音", "White noise")]
         let pair = values[Self.allCases.firstIndex(of: self)!]
         return english ? pair.1 : pair.0
     }
     var symbol: String {
-        ["cloud.rain.fill", "water.waves", "drop.fill", "flame.fill", "waveform", "waveform.path", "bird.fill", "moon.stars.fill", "wind", "water.waves", "cloud.bolt.rain.fill", "bird.fill", "water.waves", "wind"][Self.allCases.firstIndex(of: self)!]
+        ["cloud.rain.fill", "water.waves", "drop.fill", "flame.fill", "waveform", "waveform.path", "bird.fill", "moon.stars.fill", "wind", "water.waves", "cloud.bolt.rain.fill", "bird.fill", "water.waves", "wind", "waveform"][Self.allCases.firstIndex(of: self)!]
     }
     var isDownload: Bool { [.thunder, .parkbirds, .parkriver, .parkwind].contains(self) }
     var isAvailable: Bool { !isDownload || DownloadAsset.sound(self).flatMap(DownloadStore.fileURL) != nil }
     static var available: [SoundKind] { allCases.filter(\.isAvailable) }
-    var isRecording: Bool { self != .pink && self != .brown }
+    var isRecording: Bool { self != .pink && self != .brown && self != .white }
 
     var visualScene: SceneKind {
         switch self {
@@ -128,7 +128,7 @@ enum SoundKind: String, CaseIterable, Codable, Identifiable {
         case .stream, .birds, .wind, .parkbirds, .parkriver, .parkwind: return .prism
         case .crickets: return .stars
         case .waterfall: return .waterfall
-        case .pink, .brown: return .clouds
+        case .pink, .brown, .white: return .clouds
         }
     }
 

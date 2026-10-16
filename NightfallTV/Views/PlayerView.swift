@@ -115,7 +115,7 @@ struct PlayerView: View {
                 if let error = sound.error { Text(error).font(.caption).foregroundStyle(.orange) }
                 HStack(spacing: 24) {
                     ChoicePicker(title: settings.l("睡眠定时", "Sleep timer"), selection: Binding(get: { settings.value.sleepMinutes }, set: { playback.setSleep($0) }),
-                                 options: [(0, settings.l("关闭", "Off"))] + [15, 30, 60, 90, 120].map { ($0, settings.l("\($0) 分钟", "\($0) min")) })
+                                 options: [(0, settings.l("关闭", "Off"))] + [5, 10, 15, 20, 30, 60, 90, 120].map { ($0, settings.l("\($0) 分钟", "\($0) min")) })
                         .frame(width: 480).accessibilityIdentifier("player-timer")
                     QuietButton(title: settings.value.favorites.contains(playback.scene) ? settings.l("移除收藏", "Unsave") : settings.l("收藏", "Save"), symbol: "heart", id: "player-favorite") { settings.toggleFavorite(playback.scene); playback.interaction() }
                     if sound.selected != nil {

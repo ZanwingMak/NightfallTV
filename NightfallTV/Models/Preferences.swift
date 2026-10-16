@@ -30,7 +30,7 @@ struct Preferences: Codable, Equatable {
         soundVolume = soundVolume.isFinite ? min(1, max(0, soundVolume)) : 0.25
         rotationSeconds = [60, 180, 300, 600, 900].contains(rotationSeconds) ? rotationSeconds : 300
         photoSeconds = [10, 30, 60, 120].contains(photoSeconds) ? photoSeconds : 30
-        sleepMinutes = [0, 15, 30, 60, 90, 120].contains(sleepMinutes) ? sleepMinutes : 0
+        sleepMinutes = [0, 5, 10, 15, 20, 30, 60, 90, 120].contains(sleepMinutes) ? sleepMinutes : 0
         pictureOffMinutes = [0, 1, 5, 10, 15, 30].contains(pictureOffMinutes ?? 0) ? pictureOffMinutes ?? 0 : 0
         // 旧配置仅用于解码兼容；新版必须由用户明确开始播放。
         idleSeconds = 0

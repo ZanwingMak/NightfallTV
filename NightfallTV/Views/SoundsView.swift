@@ -12,8 +12,16 @@ struct SoundsView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 36) {
-                PageHeading(eyebrow: "SOUND, SOFTLY", title: settings.l("让世界，慢一点。", "Let the world slow down."), subtitle: settings.l("真实自然录音与柔和噪音。可搭配风景，或纯黑听。", "Nature recordings and gentle noise. Watch a scene or listen in black."))
-                QuietButton(title: settings.l("下载更多高音质录音", "Download more lossless recordings"), symbol: "arrow.down.circle", id: "sound-downloads") { downloadID = nil; showingDownloads = true }
+                PageHeading(eyebrow: "SOUND, SOFTLY", title: settings.l("让世界，慢一点。", "Let the world slow down."), subtitle: settings.l("白噪音、自然声景与睡前片刻。选择声音，放松下来。", "White noise, nature sounds and a moment to unwind. Choose your quiet."))
+                HStack(spacing: 24) {
+                    QuietButton(title: settings.l("黑屏模式", "Black screen mode"), symbol: "moon.zzz.fill", id: "home-black") { playback.startDarkListening() }
+                    QuietButton(title: settings.l("静心 · 10 分钟", "Unwind · 10 min"), symbol: "leaf", id: "home-meditation") {
+                        playback.startWithSound(.black, sound: .stream)
+                        playback.setSleep(10)
+                    }
+                    QuietButton(title: settings.l("下载更多高音质录音", "Download more lossless recordings"), symbol: "arrow.down.circle", id: "sound-downloads") { downloadID = nil; showingDownloads = true }
+                    Spacer()
+                }.focusSection()
                 HStack(spacing: 32) {
                     QuietButton(title: settings.l("停止声景", "Stop sound"), symbol: "speaker.slash.fill", id: "stop-sound") { sound.stop() }
                     ChoicePicker(title: settings.l("声景音量", "Sound volume"), selection: $settings.value.soundVolume,
@@ -32,8 +40,7 @@ struct SoundsView: View {
                         guard let selected = sound.selected else { return }
                         playback.start(picture ?? selected.visualScene)
                     }.disabled(sound.selected == nil)
-                    QuietButton(title: settings.l("关闭画面 · 继续听", "Picture off · keep listening"), symbol: "moon.zzz.fill", id: "sound-black") { playback.start(.black) }
-                        .disabled(sound.selected == nil)
+                    QuietButton(title: settings.l("关闭画面 · 继续听", "Picture off · keep listening"), symbol: "moon.zzz.fill", id: "sound-black") { playback.startDarkListening() }
                     Spacer()
                 }.focusSection()
                 if let error = sound.error { Text(error).font(.callout).foregroundStyle(.orange) }
@@ -92,7 +99,7 @@ struct SoundsView: View {
         case .birds, .wind, .parkbirds, .parkwind: SceneArtwork(kind: .prism).opacity(0.5)
         case .crickets: SceneArtwork(kind: .stars).opacity(0.6)
         case .waterfall: SceneArtwork(kind: .waterfall).opacity(0.6)
-        case .stream, .pink, .brown, .parkriver:
+        case .stream, .pink, .brown, .white, .parkriver:
             ZStack(alignment: .topTrailing) {
                 LinearGradient(colors: [(sound == .stream || sound == .parkriver) ? Color(red: 0.04, green: 0.2, blue: 0.2) : Palette.accent.opacity(0.12), .black], startPoint: .topLeading, endPoint: .bottomTrailing)
                 Image(systemName: (sound == .stream || sound == .parkriver) ? "water.waves" : "waveform")

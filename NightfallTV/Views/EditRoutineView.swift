@@ -51,7 +51,7 @@ struct EditRoutineView: View {
                 }
                 Section(settings.l("睡眠定时", "Sleep timer")) {
                     ChoicePicker(title: settings.l("睡眠定时", "Sleep timer"), selection: $draft.sleepMinutes,
-                                 options: [(0, settings.l("关闭", "Off"))] + [15, 30, 60, 90, 120].map { ($0, settings.l("\($0) 分钟", "\($0) min")) })
+                                 options: [(0, settings.l("关闭", "Off"))] + [5, 10, 15, 20, 30, 60, 90, 120].map { ($0, settings.l("\($0) 分钟", "\($0) min")) })
                         .accessibilityIdentifier("edit-routine-timer")
                     ChoicePicker(title: settings.l("自动黑屏", "Picture timer"), selection: $draft.pictureOffMinutes,
                                  options: [(0, settings.l("关闭", "Off"))] + [1, 5, 10, 15, 30].map { ($0, settings.l("\($0) 分钟后", "After \($0) min")) })

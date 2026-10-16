@@ -8,7 +8,7 @@ final class RulesTests: XCTestCase {
     /// 验证所有屏保和全部离线声音都有独立的标识与文案。
     func testCatalogIsComplete() {
         XCTAssertEqual(SceneKind.allCases.count, 17)
-        XCTAssertEqual(SoundKind.allCases.count, 14)
+        XCTAssertEqual(SoundKind.allCases.count, 15)
         for scene in SceneKind.allCases {
             XCTAssertFalse(scene.title(false).isEmpty)
             XCTAssertFalse(scene.title(true).isEmpty)

@@ -80,7 +80,9 @@
 		F1EF47CF4B88903AE6601356 /* clouds.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 3262837C04B3CA40BCFA2EEC /* clouds.mp4 */; };
 		F214A1CF57438CA828C0C75D /* aurora.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 6712338DFCB250EAD5906089 /* aurora.mp4 */; };
 		F42B78977CF13C9DED3A090D /* stars-poster.png in Resources */ = {isa = PBXBuildFile; fileRef = 648C579E62D62564E1B90D13 /* stars-poster.png */; };
+		F783CE7C0A02229B94E0034F /* white.m4a in Resources */ = {isa = PBXBuildFile; fileRef = DF710FE4005C0A91E120E6C9 /* white.m4a */; };
 		FDDD6CEF1898832BE8497F55 /* snow-poster.png in Resources */ = {isa = PBXBuildFile; fileRef = EA748E82AD307C31CB34326B /* snow-poster.png */; };
+		FDE6E867CC8E64686DE570AC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4F2D6745176D2C9415778EA5 /* InfoPlist.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -101,6 +103,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		040CD2E226C26A4D9EFCAA76 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0A2EE51414623981FF2DD267 /* stream.m4a */ = {isa = PBXFileReference; path = stream.m4a; sourceTree = "<group>"; };
 		0A5AF0BC923C00E9734CD27B /* AudioTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioTests.swift; sourceTree = "<group>"; };
 		0D0E8FDDC1A58933DC3FBF18 /* SoundsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundsView.swift; sourceTree = "<group>"; };
@@ -113,15 +116,19 @@
 		21366E54F0DE12130F20697C /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		234CB69FD797ED67249EEA04 /* rain-poster.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rain-poster.png"; sourceTree = "<group>"; };
 		24EFF258CCCAA7B2A83D3507 /* mountains-poster.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "mountains-poster.jpg"; sourceTree = "<group>"; };
+		253D5F0EDDE0CC226328141A /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		316078FEEDBDC0813028CB1B /* Debug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Debug.entitlements; sourceTree = "<group>"; };
 		317A74405FCB8B19A57C1BF0 /* translations.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = translations.json; sourceTree = "<group>"; };
 		3262837C04B3CA40BCFA2EEC /* clouds.mp4 */ = {isa = PBXFileReference; path = clouds.mp4; sourceTree = "<group>"; };
 		348B3C0AFB53A4A3A1AAE2A3 /* NightfallTVApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NightfallTVApp.swift; sourceTree = "<group>"; };
+		35AF15AD65257494E36AB55F /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		360A9637B961A709E5AB1925 /* aurora-poster.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "aurora-poster.png"; sourceTree = "<group>"; };
 		38D83115CFF05A9653C98ABC /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		3AA3175915B69CD77E6DA513 /* fire.m4a */ = {isa = PBXFileReference; path = fire.m4a; sourceTree = "<group>"; };
 		3C317AFF15429BCD32B90DE1 /* downloads.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = downloads.json; sourceTree = "<group>"; };
+		3C5B596DAA07988CBEA76587 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		423851ED3375324A31ADAAE8 /* snow.mp4 */ = {isa = PBXFileReference; path = snow.mp4; sourceTree = "<group>"; };
+		430B449DAACA92D396F664DE /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		45061786A75CA26D2C06E225 /* DownloadAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadAsset.swift; sourceTree = "<group>"; };
 		4A89A37F4C1F73BB5812EF4E /* stars.mp4 */ = {isa = PBXFileReference; path = stars.mp4; sourceTree = "<group>"; };
 		4CD255A54552EF0322BF742C /* AppLanguage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLanguage.swift; sourceTree = "<group>"; };
@@ -132,6 +139,7 @@
 		5FE68E63C3A9645AFC5C5438 /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Components.swift; sourceTree = "<group>"; };
 		648C579E62D62564E1B90D13 /* stars-poster.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stars-poster.png"; sourceTree = "<group>"; };
 		6712338DFCB250EAD5906089 /* aurora.mp4 */ = {isa = PBXFileReference; path = aurora.mp4; sourceTree = "<group>"; };
+		690412B413B14144AA2430E8 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		698322FE419AD650781FB0A0 /* DownloadsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadsView.swift; sourceTree = "<group>"; };
 		6B467C5D72A6CDF50777DFF2 /* brown.m4a */ = {isa = PBXFileReference; path = brown.m4a; sourceTree = "<group>"; };
 		6FBAD3E95CA1123C6FC17991 /* TipTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipTests.swift; sourceTree = "<group>"; };
@@ -143,6 +151,8 @@
 		8989B93FDB44AE3E99D29684 /* birds.m4a */ = {isa = PBXFileReference; path = birds.m4a; sourceTree = "<group>"; };
 		8E62F34BDA26487D7C50F515 /* ocean.m4a */ = {isa = PBXFileReference; path = ocean.m4a; sourceTree = "<group>"; };
 		8E649DAE7B41285EF06E3D89 /* waterfall.mp4 */ = {isa = PBXFileReference; path = waterfall.mp4; sourceTree = "<group>"; };
+		953AAA1340C8278BEA108448 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		97CAAC9361378780DC661D55 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		981FEB23BAFE9530902C90E0 /* dunes-poster.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dunes-poster.png"; sourceTree = "<group>"; };
 		9978FA54C59433C492650BFA /* MediaCreditsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaCreditsView.swift; sourceTree = "<group>"; };
 		9DACF57696C47D4B848904E4 /* rhine-poster.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "rhine-poster.jpg"; sourceTree = "<group>"; };
@@ -164,13 +174,18 @@
 		C7D306CDDFF2A11C57BF01CE /* DownloadStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadStore.swift; sourceTree = "<group>"; };
 		C83D74D4D8F6D03C996DB5ED /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		CCDB8DE562C4141D577C3F83 /* SupportViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportViews.swift; sourceTree = "<group>"; };
+		CED45B1B39C758AF2DE30E2C /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		CF72B201B7120740E628885B /* MediaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaTests.swift; sourceTree = "<group>"; };
 		D23AA86138CC42571110123F /* ScreenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenTests.swift; sourceTree = "<group>"; };
 		D321F54A30A3D9A01D3B65C5 /* EditRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRoutineView.swift; sourceTree = "<group>"; };
+		D50C8354C655F71E80525687 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D59283210094FE4950CD164C /* prism-poster.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "prism-poster.png"; sourceTree = "<group>"; };
+		D9873DC726C767E679CE17DA /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		DB599F17FFF15EFCBD0D9097 /* ocean.mp4 */ = {isa = PBXFileReference; path = ocean.mp4; sourceTree = "<group>"; };
+		DF710FE4005C0A91E120E6C9 /* white.m4a */ = {isa = PBXFileReference; path = white.m4a; sourceTree = "<group>"; };
 		E30A969E749122E9F2564E13 /* audio-credits.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "audio-credits.json"; sourceTree = "<group>"; };
 		E4C76CB7E55392BE7BDC79DD /* NightfallTips.storekit */ = {isa = PBXFileReference; path = NightfallTips.storekit; sourceTree = "<group>"; };
+		E4DE986C1E6F7145034376B7 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E6FA8DC48B998C7D9EB01B43 /* VideoCredit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCredit.swift; sourceTree = "<group>"; };
 		E9BED498D6BB24318318E6D3 /* waterfall.m4a */ = {isa = PBXFileReference; path = waterfall.m4a; sourceTree = "<group>"; };
 		EA748E82AD307C31CB34326B /* snow-poster.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "snow-poster.png"; sourceTree = "<group>"; };
@@ -178,6 +193,7 @@
 		ECDF5BD64ADBB86FE15075C5 /* SceneArtwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneArtwork.swift; sourceTree = "<group>"; };
 		EF1F72426F0D54802D643BB6 /* ember-poster.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ember-poster.png"; sourceTree = "<group>"; };
 		F64F35F30C8A8599E17E4152 /* rain.mp4 */ = {isa = PBXFileReference; path = rain.mp4; sourceTree = "<group>"; };
+		FF0E4A82079FC6EC760F2D13 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		FF4637D001A3884313A6DF7E /* wind.m4a */ = {isa = PBXFileReference; path = wind.m4a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -215,6 +231,7 @@
 				38D83115CFF05A9653C98ABC /* PrivacyInfo.xcprivacy */,
 				317A74405FCB8B19A57C1BF0 /* translations.json */,
 				8976FA4F90BFE7D47ABD0F32 /* Audio */,
+				4F2D6745176D2C9415778EA5 /* InfoPlist.strings */,
 				A240C4F66C1F168EC81D5253 /* Media */,
 			);
 			path = Resources;
@@ -267,6 +284,7 @@
 				B55C151A8A12B5F7294B777E /* rain.m4a */,
 				0A2EE51414623981FF2DD267 /* stream.m4a */,
 				E9BED498D6BB24318318E6D3 /* waterfall.m4a */,
+				DF710FE4005C0A91E120E6C9 /* white.m4a */,
 				FF4637D001A3884313A6DF7E /* wind.m4a */,
 			);
 			path = Audio;
@@ -433,7 +451,19 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				Base,
+				ar,
+				de,
 				en,
+				es,
+				fr,
+				hi,
+				it,
+				ja,
+				ko,
+				"pt-BR",
+				ru,
+				"zh-Hans",
+				"zh-Hant",
 			);
 			mainGroup = 716F531AFF5C03E678016C49;
 			minimizedProjectReferenceProxies = 1;
@@ -455,6 +485,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				694C769F118122BD315DBE06 /* Assets.xcassets in Resources */,
+				FDE6E867CC8E64686DE570AC /* InfoPlist.strings in Resources */,
 				10860D17681DBFFF450624BF /* PrivacyInfo.xcprivacy in Resources */,
 				054950D138E5E7AACEB5BE7F /* audio-credits.json in Resources */,
 				112F771F20D6B548B6281A75 /* aurora-poster.png in Resources */,
@@ -493,6 +524,7 @@
 				83DE2D2E9D572F1A5D784601 /* waterfall-poster.png in Resources */,
 				755C1B9C8D8655FF1EDC2B0B /* waterfall.m4a in Resources */,
 				DD4520030F4B9D3AF21B9878 /* waterfall.mp4 in Resources */,
+				F783CE7C0A02229B94E0034F /* white.m4a in Resources */,
 				C39C26F18C5935565433C5BA /* wind.m4a in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -577,6 +609,29 @@
 		};
 /* End PBXTargetDependency section */
 
+/* Begin PBXVariantGroup section */
+		4F2D6745176D2C9415778EA5 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E4DE986C1E6F7145034376B7 /* ar */,
+				430B449DAACA92D396F664DE /* de */,
+				3C5B596DAA07988CBEA76587 /* en */,
+				D50C8354C655F71E80525687 /* es */,
+				253D5F0EDDE0CC226328141A /* fr */,
+				D9873DC726C767E679CE17DA /* hi */,
+				040CD2E226C26A4D9EFCAA76 /* it */,
+				FF0E4A82079FC6EC760F2D13 /* ja */,
+				CED45B1B39C758AF2DE30E2C /* ko */,
+				953AAA1340C8278BEA108448 /* pt-BR */,
+				690412B413B14144AA2430E8 /* ru */,
+				97CAAC9361378780DC661D55 /* zh-Hans */,
+				35AF15AD65257494E36AB55F /* zh-Hant */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
 		1F1FAC78A730E63AB7732CC4 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -647,7 +702,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 2Q2LMV7BR6;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -749,7 +804,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 2Q2LMV7BR6;
 				ENABLE_NS_ASSERTIONS = NO;

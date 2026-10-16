@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""生成有色噪音；自然声景由 import_audio.py 导入。需要 NumPy 和 FFmpeg。"""
+"""生成白、粉、棕噪音；自然声景由 import_audio.py 导入。需要 NumPy 和 FFmpeg。"""
 from pathlib import Path
 import subprocess
 import numpy as np
@@ -29,12 +29,12 @@ def write_audio(kind: str, samples: np.ndarray) -> dict:
 
 
 def generate(kind: str) -> dict:
-    """用周期频谱生成 60 秒立体声粉/棕噪音，保留频谱斜率并避免短周期听感。"""
+    """用周期频谱生成 60 秒立体声白/粉/棕噪音，保留频谱斜率并避免短周期听感。"""
     count = RATE * 60
-    rng = np.random.default_rng(417 if kind == 'pink' else 418)
+    rng = np.random.default_rng({'pink': 417, 'brown': 418, 'white': 419}[kind])
     frequencies = np.fft.rfftfreq(count, 1 / RATE)
     safe = np.maximum(frequencies, 20)
-    magnitude = safe ** (-0.5 if kind == 'pink' else -1)
+    magnitude = safe ** {'white': 0, 'pink': -0.5, 'brown': -1}[kind]
     magnitude[frequencies < 20] *= (frequencies[frequencies < 20] / 20) ** 2
     magnitude *= 1 / np.sqrt(1 + (frequencies / 12000) ** 8)
     spectrum = (rng.normal(size=(len(frequencies), 2)) + 1j * rng.normal(size=(len(frequencies), 2))) * magnitude[:, None]
@@ -45,5 +45,5 @@ def generate(kind: str) -> dict:
 
 
 if __name__ == '__main__':
-    for name in ['pink', 'brown']:
+    for name in ['white', 'pink', 'brown']:
         generate(name)

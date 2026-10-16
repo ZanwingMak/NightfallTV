@@ -8,19 +8,23 @@ struct NightView: View {
             VStack(alignment: .leading, spacing: 56) {
                 HStack(alignment: .top, spacing: 72) {
                     VStack(alignment: .leading, spacing: 40) {
-                        PageHeading(eyebrow: "GOOD NIGHT, NO GLOW", title: settings.l("只听音乐。\n不见亮光。", "Only the music.\nNone of the glow."), subtitle: settings.l("你的卧室，应该安静一点。", "Your bedroom deserves a softer night."))
+                        PageHeading(eyebrow: "GOOD NIGHT, NO GLOW", title: settings.l("给自己，\n一段静心时光。", "Take a moment.\nLet yourself unwind."), subtitle: settings.l("以自然声音陪伴冥想、放松与睡前习惯。", "Ambient sound for meditation, relaxation and bedtime."))
                         Image(systemName: "moon.zzz").font(.system(size: 140, weight: .ultraLight)).foregroundStyle(Palette.accent.opacity(0.4)).padding(.vertical, 32)
-                        QuietButton(title: settings.l("只听声景", "Listen without picture"), symbol: "headphones", id: "night-black") { playback.startWithSound(.black, sound: .rain) }
+                        QuietButton(title: settings.l("黑屏模式", "Black screen mode"), symbol: "headphones", id: "night-black") { playback.startDarkListening() }
                         HStack(spacing: 20) {
                             QuietButton(title: settings.l("细雨 · 30 分钟", "Rain · 30 min"), symbol: "cloud.rain.fill", id: "night-rain") { startRoutine(.rain) }
                             QuietButton(title: settings.l("棕噪 · 60 分钟", "Brown · 60 min"), symbol: "waveform.path", id: "night-brown") { startRoutine(.brown) }
+                        }.focusSection()
+                        HStack(spacing: 20) {
+                            QuietButton(title: settings.l("静心 · 10 分钟", "Unwind · 10 min"), symbol: "leaf", id: "meditate-10") { startMeditation(10) }
+                            QuietButton(title: settings.l("静心 · 20 分钟", "Unwind · 20 min"), symbol: "leaf.fill", id: "meditate-20") { startMeditation(20) }
                         }.focusSection()
                         Text(settings.l("确认键打开控制，返回键退出。\n电视背光与系统提示由设备控制。", "Select opens controls. Back exits.\nTV backlight and system overlays are controlled by your devices.")).font(.callout).foregroundStyle(Palette.muted)
                     }.frame(maxWidth: .infinity, alignment: .leading)
                     Form {
                         Section(settings.l("睡眠定时", "Sleep timer")) {
                             ChoicePicker(title: settings.l("开始播放后", "After starting"), selection: $settings.value.sleepMinutes,
-                                         options: [(0, settings.l("不设定时", "No timer"))] + [15, 30, 60, 90, 120].map { ($0, settings.l("\($0) 分钟", "\($0) minutes")) })
+                                         options: [(0, settings.l("不设定时", "No timer"))] + [5, 10, 15, 20, 30, 60, 90, 120].map { ($0, settings.l("\($0) 分钟", "\($0) minutes")) })
                                 .accessibilityIdentifier("sleep-minutes")
                             Text(settings.l("到期保持黑屏，最后 30 秒渐弱画面和本应用声景。不会停止其他应用音乐。", "Stays black at the end. Picture and our sounds fade during the last 30 seconds. Other apps' music is not stopped.")).font(.caption).foregroundStyle(Palette.muted)
                         }
@@ -42,6 +46,12 @@ struct NightView: View {
                 RoutineShelf()
             }.padding(.horizontal, 80).padding(.top, 48).padding(.bottom, 56)
         }
+    }
+
+    /// 以溪流录音开始自主静心，不包含语音指导，也不采集冥想或睡眠数据。
+    private func startMeditation(_ minutes: Int) {
+        playback.startWithSound(.black, sound: .stream)
+        playback.setSleep(minutes)
     }
 
     /// 一键启动明确标注时长的纯黑睡前声景，不改动亮度及用户自己的音乐。
@@ -118,9 +128,10 @@ struct SettingsView: View {
                     }
                 }
                 Section(settings.l("隐私", "Privacy")) {
+                    Text(settings.l("用于日常放松与自主冥想，不提供医疗诊断、治疗或睡眠监测。", "For relaxation and self-led meditation. No diagnosis, treatment or sleep tracking.")).font(.caption).foregroundStyle(Palette.muted)
                     Text(settings.l("没有统计、追踪或广告 SDK。不向开发者服务器上传数据。个人照片由你指定的地址提供，对方可能记录正常的网络访问。", "No analytics, tracking or advertising SDKs. Nothing is uploaded to developer servers. Photo hosts you choose may log normal network requests.")).font(.callout).foregroundStyle(Palette.muted)
                     Button(settings.l("视听素材来源与授权", "Media sources & licenses")) { showingCredits = true }.accessibilityIdentifier("media-credits")
-                    Text("Nightfall TV \(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "") · Code: MIT · github.com/ZanwingMak/NightfallTV").font(.caption).foregroundStyle(Palette.muted)
+                    Text("Nightfall Sleep \(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "") · Code: MIT · github.com/ZanwingMak/NightfallTV").font(.caption).foregroundStyle(Palette.muted)
                     Button(settings.l("重置设置、方案与照片", "Reset preferences, routines and photos"), role: .destructive) { confirmReset = true }.accessibilityIdentifier("reset-settings")
                 }
             }.padding(.horizontal, 80)

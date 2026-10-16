@@ -7,7 +7,7 @@ settings:
   base:
     SWIFT_VERSION: "5.0"
     MARKETING_VERSION: "1.4.0"
-    CURRENT_PROJECT_VERSION: "9"
+    CURRENT_PROJECT_VERSION: "10"
     DEVELOPMENT_TEAM: 2Q2LMV7BR6
     CODE_SIGN_STYLE: Automatic
 targets:
@@ -30,7 +30,7 @@ targets:
     info:
       path: NightfallTV/Resources/Info.plist
       properties:
-        CFBundleDisplayName: Nightfall TV
+        CFBundleDisplayName: Nightfall Sleep
         CFBundleLocalizations: [en, zh-Hans, zh-Hant, ja, ko, fr, de, es, it, pt-BR, ru, ar, hi]
         CFBundleShortVersionString: $(MARKETING_VERSION)
         CFBundleVersion: $(CURRENT_PROJECT_VERSION)
