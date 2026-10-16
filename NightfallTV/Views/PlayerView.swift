@@ -82,7 +82,7 @@ struct PlayerView: View {
                         .disabled(playback.timeline.expired(at: playback.now) || settings.value.isNight(at: playback.now))
                     if playback.effectiveScene == .black { QuietButton(title: settings.l("隐藏", "Hide"), symbol: "chevron.down", id: "hide-controls") { playback.controlsVisible = false } }
                     QuietButton(title: settings.l("退出", "Exit"), symbol: "xmark", id: "exit-player") { playback.stop() }
-                }
+                }.frame(maxWidth: .infinity, alignment: .leading).focusSection()
                 HStack(spacing: 24) {
                     ChoicePicker(title: sound.layers.count > 1 ? settings.l("切换为单声景", "Switch to one sound") : settings.l("搭配声景", "Soundscape"), selection: Binding(get: { sound.selected }, set: { playback.selectSound($0) }),
                                  options: SoundKind.available.map { (Optional($0), $0.title(settings.language)) })
@@ -107,7 +107,7 @@ struct PlayerView: View {
                     if sound.selected != nil {
                         QuietButton(title: settings.l("停止声景", "Stop sound"), symbol: "speaker.slash", id: "player-stop-sound") { playback.stop() }
                     }
-                }
+                }.frame(maxWidth: .infinity, alignment: .leading).focusSection()
                 HStack(spacing: 24) {
                     ChoicePicker(title: settings.l("自动黑屏", "Picture timer"), selection: Binding(
                         get: { playback.timeline.pictureDeadline == nil ? 0 : settings.value.pictureOffMinutes ?? 0 },
