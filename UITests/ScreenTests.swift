@@ -424,6 +424,7 @@ final class ScreenTests: XCTestCase {
     /// 通过遥控器下载、取消、播放及删除，确保可选媒体没有隐式自动下载。
     func testOptionalDownloadRemoteControlsAndPlayback() {
         let app = launch()
+        activate("sound-rain", in: app)
         activate("nav-settings", in: app)
         activate("open-downloads", in: app)
         XCTAssertTrue(app.buttons["download-valley"].waitForExistence(timeout: 5))

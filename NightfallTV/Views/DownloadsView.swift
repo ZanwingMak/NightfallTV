@@ -95,15 +95,19 @@ struct DownloadsView: View {
             Text(asset.size + " · " + asset.author + " · " + asset.license).font(.caption2).foregroundStyle(Palette.muted).lineLimit(2)
             if downloads.ready.contains(asset.id) {
                 HStack(spacing: 18) {
-                    QuietButton(title: settings.l("播放", "Play"), symbol: "play.fill", id: "play-download-\(asset.id)") {
+                    QuietButton(title: asset.scene == nil ? settings.l("播放", "Play") : settings.l("打开画面", "Picture on"), symbol: "play.fill", id: "play-download-\(asset.id)") {
                         dismiss()
                         if let scene = asset.scene { playback.start(scene) }
                         else if let recording = asset.sound { playback.startWithSound(recording.visualScene, sound: recording) }
                     }
+                    .disabled(asset.scene != nil && sound.selected == nil)
                     QuietButton(title: settings.l("删除下载", "Delete download"), symbol: "trash", id: "delete-\(asset.id)") {
                         if let recording = asset.sound, sound.layers.contains(where: { $0.sound == recording }) { playback.toggleSoundLayer(recording) }
                         downloads.remove(asset)
                     }
+                }
+                if asset.scene != nil && sound.selected == nil {
+                    Text(settings.l("选择声音开始试听", "Select sounds to preview")).font(.caption).foregroundStyle(Palette.muted)
                 }
             } else {
                 DownloadActionButton(asset: asset)
