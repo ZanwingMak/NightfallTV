@@ -1,6 +1,6 @@
 # Nightfall · 白噪音与助眠
 
-An open-source Apple TV app for white noise, nature sounds, self-led meditation and bedtime listening. Mix up to three sounds, start a timed session, and listen with an optional nature background or a black screen. Built with SwiftUI and AVFoundation. Free, offline-first, no account, no ads.
+An open-source Apple TV app for white noise, nature sounds, guided breathing, self-led meditation and bedtime listening. Mix up to three sounds, start a timed session, and listen with an optional nature background or a black screen. Built with SwiftUI and AVFoundation. Free, offline-first, no account, no ads.
 
 原生 Apple TV 白噪音与助眠声音应用：15 种声音（11 种内置、4 种按需下载），含白噪音、粉噪音、棕噪音与真实自然录音。声景首页提供三层混音和 10/20 分钟自主静心；选择环境音即播放声音和实拍背景，控件显示十秒后隐藏，可关闭画面继续聆听。新增 5/10/20 分钟呼吸引导与可选系统语音节奏提示。全部功能与下载免费，无广告、无订阅。不提供语音课程、医疗诊断治疗或睡眠监测。
 
@@ -78,7 +78,7 @@ xcodebuild -project NightfallTV.xcodeproj -scheme NightfallTV \
   CODE_SIGNING_ALLOWED=YES CODE_SIGN_IDENTITY=- DEVELOPMENT_TEAM= test
 ```
 
-1.4.0（10）在本地与[独立云端回归](https://github.com/ZanwingMak/NightfallTV/actions/runs/38837932194)均完成连续 51/51 测试，0 失败、0 跳过，覆盖全部 13 种语言、15 种声音的资源与遥控器操作。以下为历史回归记录：1.3.0（7）已在 Apple TV4K 模拟器完成 **32 个单元测试＋19 个遥控器 UI 测试的联合验收，51 项均有通过记录，0 未解决失败、0 跳过**（2026-10-13）。[云端完整运行](https://github.com/ZanwingMak/NightfallTV/actions/runs/38275774332)为 50 通过、1 个下载瞬态按钮时序失败；修正测试后，[云端下载专项](https://github.com/ZanwingMak/NightfallTV/actions/runs/38287433450)及本地同一专项均 5/5 通过。这是分次联合覆盖，不是一次连续 51/51 记录。测试包括十三语言遥控导航、纯黑逐像素检查、画面定时、三层混音与方案、视频循环、真实 4K／无损资源下载播放删除，以及四档 StoreKit 模拟交易状态。测试详情与实际截图见[回归记录](docs/回归测试.md)。真机听感与长时间播放由用户验收。其中照片网络专项访问本仓库的公开截图，离线执行可追加 `-skip-testing:NightfallTVTests/PersistenceTests/testRemotePhotosAndCache`。
+1.4.0（14）已在[最终源码云端回归](https://github.com/ZanwingMak/NightfallTV/actions/runs/38937349417)完成 **53/53（34 个单元测试＋19 个遥控器 UI 测试）**，0 失败；本地完整回归 53/53，语音选择器视觉调整后本地专项 35/35。覆盖默认声景画面、十秒隐藏、纯黑聆听、呼吸计时与暂停、下载和混音。以下为历史记录：1.4.0（10）在本地与[独立云端回归](https://github.com/ZanwingMak/NightfallTV/actions/runs/38837932194)均完成连续 51/51 测试，0 失败、0 跳过，覆盖全部 13 种语言、15 种声音的资源与遥控器操作。以下为历史回归记录：1.3.0（7）已在 Apple TV4K 模拟器完成 **32 个单元测试＋19 个遥控器 UI 测试的联合验收，51 项均有通过记录，0 未解决失败、0 跳过**（2026-10-13）。[云端完整运行](https://github.com/ZanwingMak/NightfallTV/actions/runs/38275774332)为 50 通过、1 个下载瞬态按钮时序失败；修正测试后，[云端下载专项](https://github.com/ZanwingMak/NightfallTV/actions/runs/38287433450)及本地同一专项均 5/5 通过。这是分次联合覆盖，不是一次连续 51/51 记录。测试包括十三语言遥控导航、纯黑逐像素检查、画面定时、三层混音与方案、视频循环、真实 4K／无损资源下载播放删除，以及四档 StoreKit 模拟交易状态。测试详情与实际截图见[回归记录](docs/回归测试.md)。真机听感与长时间播放由用户验收。其中照片网络专项访问本仓库的公开截图，离线执行可追加 `-skip-testing:NightfallTVTests/PersistenceTests/testRemotePhotosAndCache`。
 
 如需修改工程配置，安装 XcodeGen 后执行 `xcodegen generate`。实拍视频可用 `python3 scripts/import_media.py` 重新导入（需 FFmpeg，遵守来源网站限流）。自然录音可用 `python3 scripts/import_audio.py` 重新导入，有色噪音可用 `python3 scripts/generate_audio.py` 生成（两者需要 FFmpeg，以及 `python3 -m pip install -r scripts/requirements-audio.txt` 安装的 NumPy）；图标用 `swift scripts/generate_assets.swift` 生成。安装到自己的真机或发布时，请在 Xcode Signing 中替换为自己的 Team 和 Bundle ID；`ExportOptions.plist` 是本项目维护者的发布配置示例，其他开发者需替换对应值。
 
