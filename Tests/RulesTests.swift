@@ -127,7 +127,7 @@ final class PersistenceTests: XCTestCase {
         XCTAssertNotNil(store.addPhoto("https://example.com/a.png"))
         XCTAssertNotNil(store.addPhoto("http://example.com/a.png"))
         let restored = SettingsStore(defaults: defaults)
-        XCTAssertTrue(restored.value.favorites.contains(.gallery))
+        XCTAssertFalse(restored.value.favorites.contains(.gallery))
         XCTAssertFalse(restored.value.launchBlack)
         XCTAssertEqual(restored.value.photos, ["https://example.com/a.png"])
         restored.reset()

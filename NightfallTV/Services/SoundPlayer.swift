@@ -100,6 +100,14 @@ final class SoundPlayer: ObservableObject {
         if hadPlayer { try? AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation) }
     }
 
+    /// 暂停或继续全部声层，保留每段录音的位置；由用户主动恢复，不自动跨越系统中断。
+    func setPaused(_ paused: Bool) {
+        for player in players.values {
+            if paused { player.pause() }
+            else { player.play() }
+        }
+    }
+
     /// 根据睡眠计时的淡出比例调整本应用音量。
     func setVolume(_ volume: Double, gain: Double = 1) {
         masterVolume = Self.clamp(volume)

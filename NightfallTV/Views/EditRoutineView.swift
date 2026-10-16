@@ -71,6 +71,7 @@ struct EditRoutineView: View {
     /// 原位保存草稿并保留方案标识，混音中空的声层不会被写入。
     private func save() {
         draft.layers = sounds.indices.compactMap { index in sounds[index].map { SoundLayer(sound: $0, level: levels[index]) } }
+        guard !draft.layers.isEmpty else { error = settings.l("选择声音开始试听", "Select sounds to preview"); return }
         error = settings.updateRoutine(draft)
         if error == nil { dismiss() }
     }

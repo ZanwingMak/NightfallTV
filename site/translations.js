@@ -151,7 +151,13 @@ const websiteTranslations = {
     "Nightfall Sleep is an independent, open-source Apple TV app developed by ZanwingMak. We operate no account service or developer analytics server. The app and this website contain no advertising, analytics or tracking SDKs. We do not sell personal information.": "Nightfall Sleep 是 ZanwingMak 独立开发的开源 Apple TV 应用。我们不运营账号服务或开发者统计服务器，应用和官网不包含广告、统计或追踪 SDK，不出售个人信息。",
     "Nightfall Sleep home": "Nightfall Sleep 首页",
     "Nightfall Sleep plays nature videos, soundscapes and personal photos on Apple TV. Playback starts only when you choose it. Picture-off and sleep timers apply only to your playback session. The app does not replace the system Home screen or control TV backlight or another app’s music.": "Nightfall Sleep 在 Apple TV 上播放自然视频、声景和个人照片。只有你主动选择后才开始播放。关画面和睡眠定时只作用于当前播放会话。应用不替换系统主屏幕，不控制电视背光或其他应用音乐。",
-    "15": "15"
+    "15": "15",
+    "Choose a sound first. Picture on shows a small preview with playback controls. Picture off keeps the audio playing. Stopping sound ends the session. There is no standalone video, photo gallery or clock mode.": "请先选择声景。打开画面时，小窗预览旁始终显示播放控制；关闭画面后声音继续。停止声音即结束会话。不提供独立视频播放、照片画廊或时钟模式。",
+    "Language, audio preferences, saved routines and downloads stay on your Apple TV. This version does not load personal photos. Reset also clears photo URLs retained from earlier versions.": "语言、音频偏好、保存的方案和下载内容保存在你的 Apple TV。本版不加载个人照片。重置也会清除旧版留下的照片地址。",
+    "Optional downloads come directly from public GitHub Releases. GitHub and its delivery providers receive ordinary connection information such as IP address, time and user agent. tvOS may clear cached media; downloading again is free.": "可选下载直接来自公开的 GitHub Releases。GitHub 及其分发服务会收到 IP 地址、时间和用户代理等常规连接信息。tvOS 可能清理缓存，重新下载免费。",
+    "Remove downloads or reset local data in Settings. Uninstalling removes local app data, subject to Apple backups. Clear this website’s language choice in your browser’s site-data settings. Apple and GitHub manage their own records.": "可在设置中删除下载或重置本地数据。卸载应用会移除本地应用数据，Apple 备份规则仍适用。网站语言偏好可在浏览器的网站数据设置中清除。Apple 和 GitHub 各自管理其记录。",
+    "Effective October 17, 2026 · Developer: ZanwingMak": "生效日期：2026 年 10 月 17 日 · 开发者：ZanwingMak",
+    "Downloads": "下载"
   },
   "ja": {
     "00": "00",
@@ -305,7 +311,13 @@ const websiteTranslations = {
     "Nightfall Sleep is an independent, open-source Apple TV app developed by ZanwingMak. We operate no account service or developer analytics server. The app and this website contain no advertising, analytics or tracking SDKs. We do not sell personal information.": "Nightfall SleepはZanwingMakが開発する独立したオープンソースのApple TVアプリです。アカウントサービスや開発者の解析サーバーはありません。アプリとサイトには広告・解析・追跡SDKがなく、個人情報を販売しません。",
     "Nightfall Sleep home": "Nightfall Sleep ホーム",
     "Nightfall Sleep plays nature videos, soundscapes and personal photos on Apple TV. Playback starts only when you choose it. Picture-off and sleep timers apply only to your playback session. The app does not replace the system Home screen or control TV backlight or another app’s music.": "Nightfall Sleep は Apple TV で自然動画、サウンド、個人写真を再生します。再生はユーザーの選択後にのみ開始します。画面オフとスリープタイマーは再生中にのみ適用されます。システムのホーム画面、テレビのバックライト、他のアプリの音楽は変更しません。",
-    "15": "15"
+    "15": "15",
+    "Choose a sound first. Picture on shows a small preview with playback controls. Picture off keeps the audio playing. Stopping sound ends the session. There is no standalone video, photo gallery or clock mode.": "まず音を選択してください。画面をオンにすると、小さなプレビューと再生操作が常に表示されます。画面をオフにしても音は続きます。音を停止するとセッションが終了します。独立した動画再生、写真ギャラリー、時計モードはありません。",
+    "Language, audio preferences, saved routines and downloads stay on your Apple TV. This version does not load personal photos. Reset also clears photo URLs retained from earlier versions.": "言語、音声設定、保存したルーティン、ダウンロードは Apple TV に保存されます。このバージョンは個人の写真を読み込みません。リセットすると旧版の写真 URL も削除されます。",
+    "Optional downloads come directly from public GitHub Releases. GitHub and its delivery providers receive ordinary connection information such as IP address, time and user agent. tvOS may clear cached media; downloading again is free.": "追加ダウンロードは公開 GitHub Releases から直接取得します。GitHub と配信事業者は IP アドレス、時刻、ユーザーエージェントなどの接続情報を受信します。tvOS がキャッシュを削除しても再ダウンロードは無料です。",
+    "Remove downloads or reset local data in Settings. Uninstalling removes local app data, subject to Apple backups. Clear this website’s language choice in your browser’s site-data settings. Apple and GitHub manage their own records.": "設定でダウンロードの削除やローカルデータのリセットができます。アンインストールは Apple のバックアップ規則に従いローカルデータを削除します。サイトの言語はブラウザのサイトデータ設定で消去できます。Apple と GitHub は各自の記録を管理します。",
+    "Effective October 17, 2026 · Developer: ZanwingMak": "施行日：2026年10月17日 · 開発者：ZanwingMak",
+    "Downloads": "ダウンロード"
   },
   "ko": {
     "00": "00",
@@ -459,7 +471,13 @@ const websiteTranslations = {
     "Nightfall Sleep is an independent, open-source Apple TV app developed by ZanwingMak. We operate no account service or developer analytics server. The app and this website contain no advertising, analytics or tracking SDKs. We do not sell personal information.": "Nightfall Sleep는 ZanwingMak이 개발한 독립 오픈 소스 Apple TV 앱입니다. 계정 서비스나 개발자 분석 서버를 운영하지 않습니다. 앱과 사이트에 광고, 분석, 추적 SDK가 없으며 개인 정보를 판매하지 않습니다.",
     "Nightfall Sleep home": "Nightfall Sleep 홈",
     "Nightfall Sleep plays nature videos, soundscapes and personal photos on Apple TV. Playback starts only when you choose it. Picture-off and sleep timers apply only to your playback session. The app does not replace the system Home screen or control TV backlight or another app’s music.": "Nightfall Sleep는 Apple TV에서 자연 동영상, 소리와 개인 사진을 재생합니다. 사용자가 선택해야 재생이 시작됩니다. 화면 끄기와 수면 타이머는 재생 중에만 적용됩니다. 시스템 홈 화면, TV 백라이트나 다른 앱의 음악을 변경하지 않습니다.",
-    "15": "15"
+    "15": "15",
+    "Choose a sound first. Picture on shows a small preview with playback controls. Picture off keeps the audio playing. Stopping sound ends the session. There is no standalone video, photo gallery or clock mode.": "먼저 소리를 선택하세요. 화면을 켜면 작은 미리 보기와 재생 제어가 항상 표시됩니다. 화면을 꺼도 소리는 계속됩니다. 소리를 중지하면 세션이 끝납니다. 독립 동영상 재생, 사진 갤러리 또는 시계 모드는 없습니다.",
+    "Language, audio preferences, saved routines and downloads stay on your Apple TV. This version does not load personal photos. Reset also clears photo URLs retained from earlier versions.": "언어, 오디오 설정, 저장한 루틴과 다운로드는 Apple TV에 보관됩니다. 이 버전은 개인 사진을 불러오지 않습니다. 초기화하면 이전 버전의 사진 URL도 삭제됩니다.",
+    "Optional downloads come directly from public GitHub Releases. GitHub and its delivery providers receive ordinary connection information such as IP address, time and user agent. tvOS may clear cached media; downloading again is free.": "선택한 다운로드는 공개 GitHub Releases에서 직접 받습니다. GitHub와 배포 서비스는 IP 주소, 시간, 사용자 에이전트 등의 일반 연결 정보를 받습니다. tvOS가 캐시를 삭제해도 다시 다운로드하는 것은 무료입니다.",
+    "Remove downloads or reset local data in Settings. Uninstalling removes local app data, subject to Apple backups. Clear this website’s language choice in your browser’s site-data settings. Apple and GitHub manage their own records.": "설정에서 다운로드를 삭제하거나 로컬 데이터를 초기화할 수 있습니다. 앱 제거 시 Apple 백업 규칙에 따라 로컬 앱 데이터가 삭제됩니다. 사이트 언어는 브라우저의 사이트 데이터 설정에서 지울 수 있습니다. Apple과 GitHub는 각자의 기록을 관리합니다.",
+    "Effective October 17, 2026 · Developer: ZanwingMak": "시행일: 2026년 10월 17일 · 개발자: ZanwingMak",
+    "Downloads": "다운로드"
   },
   "fr": {
     "00": "00",
@@ -613,7 +631,13 @@ const websiteTranslations = {
     "Nightfall Sleep is an independent, open-source Apple TV app developed by ZanwingMak. We operate no account service or developer analytics server. The app and this website contain no advertising, analytics or tracking SDKs. We do not sell personal information.": "Nightfall Sleep est une app Apple TV indépendante et open source de ZanwingMak. Aucun service de compte ni serveur d’analyse du développeur. L’app et le site ne contiennent aucun SDK publicitaire, d’analyse ou de suivi. Nous ne vendons pas de données personnelles.",
     "Nightfall Sleep home": "Accueil Nightfall Sleep",
     "Nightfall Sleep plays nature videos, soundscapes and personal photos on Apple TV. Playback starts only when you choose it. Picture-off and sleep timers apply only to your playback session. The app does not replace the system Home screen or control TV backlight or another app’s music.": "Nightfall Sleep lit des vidéos de nature, des sons et des photos personnelles sur Apple TV. La lecture commence uniquement à votre demande. Les minuteries concernent seulement la lecture en cours. L’app ne remplace pas l’écran d’accueil et ne contrôle ni le rétroéclairage ni la musique d’autres apps.",
-    "15": "15"
+    "15": "15",
+    "Choose a sound first. Picture on shows a small preview with playback controls. Picture off keeps the audio playing. Stopping sound ends the session. There is no standalone video, photo gallery or clock mode.": "Choisissez d’abord un son. L’image affiche un petit aperçu avec des commandes toujours visibles. Sans image, le son continue. Arrêter le son termine la session. Aucun lecteur vidéo autonome, galerie photo ou mode horloge.",
+    "Language, audio preferences, saved routines and downloads stay on your Apple TV. This version does not load personal photos. Reset also clears photo URLs retained from earlier versions.": "Langue, préférences audio, routines et téléchargements restent sur votre Apple TV. Cette version ne charge pas de photos personnelles. Réinitialiser efface aussi les URL de photos des anciennes versions.",
+    "Optional downloads come directly from public GitHub Releases. GitHub and its delivery providers receive ordinary connection information such as IP address, time and user agent. tvOS may clear cached media; downloading again is free.": "Les téléchargements facultatifs viennent directement des Releases publiques GitHub. GitHub et ses diffuseurs reçoivent les informations de connexion ordinaires : IP, heure et agent utilisateur. tvOS peut vider le cache ; retélécharger est gratuit.",
+    "Remove downloads or reset local data in Settings. Uninstalling removes local app data, subject to Apple backups. Clear this website’s language choice in your browser’s site-data settings. Apple and GitHub manage their own records.": "Supprimez les téléchargements ou réinitialisez les données dans Réglages. Désinstaller efface les données locales, sous réserve des sauvegardes Apple. Effacez la langue du site dans les données du navigateur. Apple et GitHub gèrent leurs propres registres.",
+    "Effective October 17, 2026 · Developer: ZanwingMak": "En vigueur le 17 octobre 2026 · Développeur : ZanwingMak",
+    "Downloads": "Téléchargements"
   },
   "de": {
     "00": "00",
@@ -767,7 +791,13 @@ const websiteTranslations = {
     "Nightfall Sleep is an independent, open-source Apple TV app developed by ZanwingMak. We operate no account service or developer analytics server. The app and this website contain no advertising, analytics or tracking SDKs. We do not sell personal information.": "Nightfall Sleep ist eine unabhängige quelloffene Apple-TV-App von ZanwingMak. Kein Kontodienst oder Analyse-Server des Entwicklers. App und Website enthalten keine Werbe-, Analyse- oder Tracking-SDKs. Wir verkaufen keine personenbezogenen Daten.",
     "Nightfall Sleep home": "Nightfall-TV-Startseite",
     "Nightfall Sleep plays nature videos, soundscapes and personal photos on Apple TV. Playback starts only when you choose it. Picture-off and sleep timers apply only to your playback session. The app does not replace the system Home screen or control TV backlight or another app’s music.": "Nightfall Sleep spielt Naturvideos, Klänge und eigene Fotos auf Apple TV ab. Die Wiedergabe beginnt nur auf deine Auswahl hin. Bild- und Schlaftimer gelten nur für die laufende Wiedergabe. Die App ersetzt nicht den Home-Bildschirm und steuert weder TV-Hintergrundbeleuchtung noch Musik anderer Apps.",
-    "15": "15"
+    "15": "15",
+    "Choose a sound first. Picture on shows a small preview with playback controls. Picture off keeps the audio playing. Stopping sound ends the session. There is no standalone video, photo gallery or clock mode.": "Wähle zuerst einen Klang. Mit Bild erscheinen eine kleine Vorschau und dauerhaft sichtbare Wiedergaberegler. Ohne Bild läuft der Ton weiter. Ton stoppen beendet die Sitzung. Kein separater Videoplayer, keine Fotogalerie und kein Uhrmodus.",
+    "Language, audio preferences, saved routines and downloads stay on your Apple TV. This version does not load personal photos. Reset also clears photo URLs retained from earlier versions.": "Sprache, Audioeinstellungen, Routinen und Downloads bleiben auf deinem Apple TV. Diese Version lädt keine persönlichen Fotos. Zurücksetzen entfernt auch Foto-URLs aus früheren Versionen.",
+    "Optional downloads come directly from public GitHub Releases. GitHub and its delivery providers receive ordinary connection information such as IP address, time and user agent. tvOS may clear cached media; downloading again is free.": "Optionale Downloads kommen direkt aus öffentlichen GitHub Releases. GitHub und seine Auslieferungsdienste erhalten übliche Verbindungsdaten wie IP-Adresse, Uhrzeit und User-Agent. tvOS kann den Cache leeren; erneutes Herunterladen ist kostenlos.",
+    "Remove downloads or reset local data in Settings. Uninstalling removes local app data, subject to Apple backups. Clear this website’s language choice in your browser’s site-data settings. Apple and GitHub manage their own records.": "Entferne Downloads oder setze lokale Daten in den Einstellungen zurück. Deinstallation entfernt lokale App-Daten unter Berücksichtigung von Apple-Backups. Die Website-Sprache lässt sich in den Browser-Websitedaten löschen. Apple und GitHub verwalten ihre eigenen Aufzeichnungen.",
+    "Effective October 17, 2026 · Developer: ZanwingMak": "Gültig ab 17. Oktober 2026 · Entwickler: ZanwingMak",
+    "Downloads": "Downloads"
   },
   "es": {
     "00": "00",
@@ -921,7 +951,13 @@ const websiteTranslations = {
     "Nightfall Sleep is an independent, open-source Apple TV app developed by ZanwingMak. We operate no account service or developer analytics server. The app and this website contain no advertising, analytics or tracking SDKs. We do not sell personal information.": "Nightfall Sleep es una app independiente y de código abierto para Apple TV creada por ZanwingMak. No ofrecemos cuentas ni servidores de análisis del desarrollador. La app y el sitio no tienen SDK de anuncios, análisis o seguimiento. No vendemos información personal.",
     "Nightfall Sleep home": "Inicio de Nightfall Sleep",
     "Nightfall Sleep plays nature videos, soundscapes and personal photos on Apple TV. Playback starts only when you choose it. Picture-off and sleep timers apply only to your playback session. The app does not replace the system Home screen or control TV backlight or another app’s music.": "Nightfall Sleep reproduce vídeos de naturaleza, sonidos y fotos personales en Apple TV. La reproducción empieza solo cuando la eliges. Los temporizadores solo afectan a la sesión actual. La app no sustituye la pantalla de inicio ni controla la retroiluminación o la música de otras apps.",
-    "15": "15"
+    "15": "15",
+    "Choose a sound first. Picture on shows a small preview with playback controls. Picture off keeps the audio playing. Stopping sound ends the session. There is no standalone video, photo gallery or clock mode.": "Elige primero un sonido. Con imagen se muestra una vista pequeña y controles permanentes. Sin imagen, el audio continúa. Detener el sonido termina la sesión. No hay reproductor de vídeo independiente, galería de fotos ni modo reloj.",
+    "Language, audio preferences, saved routines and downloads stay on your Apple TV. This version does not load personal photos. Reset also clears photo URLs retained from earlier versions.": "Idioma, preferencias de audio, rutinas y descargas permanecen en tu Apple TV. Esta versión no carga fotos personales. Restablecer también borra las URL de fotos de versiones anteriores.",
+    "Optional downloads come directly from public GitHub Releases. GitHub and its delivery providers receive ordinary connection information such as IP address, time and user agent. tvOS may clear cached media; downloading again is free.": "Las descargas opcionales vienen directamente de GitHub Releases públicos. GitHub y sus distribuidores reciben datos de conexión normales, como IP, hora y agente de usuario. tvOS puede borrar la caché; descargar de nuevo es gratis.",
+    "Remove downloads or reset local data in Settings. Uninstalling removes local app data, subject to Apple backups. Clear this website’s language choice in your browser’s site-data settings. Apple and GitHub manage their own records.": "Elimina descargas o restablece datos locales en Ajustes. Desinstalar elimina los datos locales, según las copias de Apple. Borra el idioma del sitio en los datos del navegador. Apple y GitHub gestionan sus propios registros.",
+    "Effective October 17, 2026 · Developer: ZanwingMak": "Vigente desde el 17 de octubre de 2026 · Desarrollador: ZanwingMak",
+    "Downloads": "Descargas"
   },
   "it": {
     "00": "00",
@@ -1075,7 +1111,13 @@ const websiteTranslations = {
     "Nightfall Sleep is an independent, open-source Apple TV app developed by ZanwingMak. We operate no account service or developer analytics server. The app and this website contain no advertising, analytics or tracking SDKs. We do not sell personal information.": "Nightfall Sleep è un’app Apple TV indipendente e open source di ZanwingMak. Nessun servizio account o server di analisi dello sviluppatore. App e sito non contengono SDK pubblicitari, di analisi o tracciamento. Non vendiamo dati personali.",
     "Nightfall Sleep home": "Home di Nightfall Sleep",
     "Nightfall Sleep plays nature videos, soundscapes and personal photos on Apple TV. Playback starts only when you choose it. Picture-off and sleep timers apply only to your playback session. The app does not replace the system Home screen or control TV backlight or another app’s music.": "Nightfall Sleep riproduce video naturalistici, suoni e foto personali su Apple TV. La riproduzione inizia solo su tua scelta. I timer agiscono solo sulla sessione in corso. L’app non sostituisce la schermata Home e non controlla la retroilluminazione o la musica di altre app.",
-    "15": "15"
+    "15": "15",
+    "Choose a sound first. Picture on shows a small preview with playback controls. Picture off keeps the audio playing. Stopping sound ends the session. There is no standalone video, photo gallery or clock mode.": "Scegli prima un suono. Con l’immagine, una piccola anteprima affianca i controlli sempre visibili. Senza immagine l’audio continua. Fermare il suono termina la sessione. Nessun lettore video autonomo, galleria fotografica o modalità orologio.",
+    "Language, audio preferences, saved routines and downloads stay on your Apple TV. This version does not load personal photos. Reset also clears photo URLs retained from earlier versions.": "Lingua, preferenze audio, routine e download restano sulla tua Apple TV. Questa versione non carica foto personali. Il ripristino cancella anche gli URL di foto delle versioni precedenti.",
+    "Optional downloads come directly from public GitHub Releases. GitHub and its delivery providers receive ordinary connection information such as IP address, time and user agent. tvOS may clear cached media; downloading again is free.": "I download facoltativi provengono direttamente dalle GitHub Releases pubbliche. GitHub e i suoi distributori ricevono normali dati di connessione, come IP, ora e user agent. tvOS può cancellare la cache; riscaricare è gratuito.",
+    "Remove downloads or reset local data in Settings. Uninstalling removes local app data, subject to Apple backups. Clear this website’s language choice in your browser’s site-data settings. Apple and GitHub manage their own records.": "Elimina download o ripristina i dati locali in Impostazioni. Disinstallare elimina i dati locali, secondo le regole dei backup Apple. Cancella la lingua del sito nei dati del browser. Apple e GitHub gestiscono i propri registri.",
+    "Effective October 17, 2026 · Developer: ZanwingMak": "In vigore dal 17 ottobre 2026 · Sviluppatore: ZanwingMak",
+    "Downloads": "Download"
   },
   "pt-BR": {
     "00": "00",
@@ -1229,7 +1271,13 @@ const websiteTranslations = {
     "Nightfall Sleep is an independent, open-source Apple TV app developed by ZanwingMak. We operate no account service or developer analytics server. The app and this website contain no advertising, analytics or tracking SDKs. We do not sell personal information.": "Nightfall Sleep é um app Apple TV independente e de código aberto de ZanwingMak. Não operamos contas ou servidor de análise do desenvolvedor. App e site não contêm SDKs de anúncios, análise ou rastreamento. Não vendemos informações pessoais.",
     "Nightfall Sleep home": "Página inicial do Nightfall Sleep",
     "Nightfall Sleep plays nature videos, soundscapes and personal photos on Apple TV. Playback starts only when you choose it. Picture-off and sleep timers apply only to your playback session. The app does not replace the system Home screen or control TV backlight or another app’s music.": "Nightfall Sleep reproduz vídeos da natureza, sons e fotos pessoais no Apple TV. A reprodução só começa quando você escolhe. Os temporizadores afetam apenas a sessão atual. O app não substitui a tela inicial nem controla a iluminação da TV ou músicas de outros apps.",
-    "15": "15"
+    "15": "15",
+    "Choose a sound first. Picture on shows a small preview with playback controls. Picture off keeps the audio playing. Stopping sound ends the session. There is no standalone video, photo gallery or clock mode.": "Escolha primeiro um som. Com imagem, uma prévia pequena aparece com controles sempre visíveis. Sem imagem, o áudio continua. Parar o som encerra a sessão. Não há reprodutor de vídeo independente, galeria de fotos ou modo relógio.",
+    "Language, audio preferences, saved routines and downloads stay on your Apple TV. This version does not load personal photos. Reset also clears photo URLs retained from earlier versions.": "Idioma, preferências de áudio, rotinas e downloads ficam na sua Apple TV. Esta versão não carrega fotos pessoais. Redefinir também apaga URLs de fotos de versões anteriores.",
+    "Optional downloads come directly from public GitHub Releases. GitHub and its delivery providers receive ordinary connection information such as IP address, time and user agent. tvOS may clear cached media; downloading again is free.": "Downloads opcionais vêm diretamente das GitHub Releases públicas. GitHub e seus distribuidores recebem dados comuns de conexão, como IP, horário e agente do usuário. O tvOS pode limpar o cache; baixar novamente é grátis.",
+    "Remove downloads or reset local data in Settings. Uninstalling removes local app data, subject to Apple backups. Clear this website’s language choice in your browser’s site-data settings. Apple and GitHub manage their own records.": "Remova downloads ou redefina dados locais em Ajustes. Desinstalar remove os dados locais, conforme os backups da Apple. Apague o idioma do site nos dados do navegador. Apple e GitHub gerenciam seus próprios registros.",
+    "Effective October 17, 2026 · Developer: ZanwingMak": "Em vigor em 17 de outubro de 2026 · Desenvolvedor: ZanwingMak",
+    "Downloads": "Downloads"
   },
   "ru": {
     "00": "00",
@@ -1383,7 +1431,13 @@ const websiteTranslations = {
     "Nightfall Sleep is an independent, open-source Apple TV app developed by ZanwingMak. We operate no account service or developer analytics server. The app and this website contain no advertising, analytics or tracking SDKs. We do not sell personal information.": "Nightfall Sleep — независимое открытое приложение Apple TV от ZanwingMak. Нет сервиса аккаунтов или аналитического сервера разработчика. Приложение и сайт не содержат рекламных, аналитических или отслеживающих SDK. Мы не продаём личные данные.",
     "Nightfall Sleep home": "Главная Nightfall Sleep",
     "Nightfall Sleep plays nature videos, soundscapes and personal photos on Apple TV. Playback starts only when you choose it. Picture-off and sleep timers apply only to your playback session. The app does not replace the system Home screen or control TV backlight or another app’s music.": "Nightfall Sleep воспроизводит видео природы, звуки и личные фото на Apple TV. Воспроизведение начинается только по вашему выбору. Таймеры действуют только в текущем сеансе. Приложение не заменяет главный экран и не управляет подсветкой или музыкой других приложений.",
-    "15": "15"
+    "15": "15",
+    "Choose a sound first. Picture on shows a small preview with playback controls. Picture off keeps the audio playing. Stopping sound ends the session. There is no standalone video, photo gallery or clock mode.": "Сначала выберите звук. При включённом изображении небольшое превью сопровождается постоянными элементами управления. Без изображения звук продолжается. Остановка звука завершает сеанс. Отдельного видеоплеера, фотогалереи и режима часов нет.",
+    "Language, audio preferences, saved routines and downloads stay on your Apple TV. This version does not load personal photos. Reset also clears photo URLs retained from earlier versions.": "Язык, настройки звука, сохранённые сценарии и загрузки остаются на Apple TV. Эта версия не загружает личные фотографии. Сброс удаляет и адреса фотографий из прежних версий.",
+    "Optional downloads come directly from public GitHub Releases. GitHub and its delivery providers receive ordinary connection information such as IP address, time and user agent. tvOS may clear cached media; downloading again is free.": "Дополнительные файлы загружаются напрямую из публичных GitHub Releases. GitHub и службы доставки получают обычные сведения о соединении: IP, время и user agent. tvOS может очистить кэш; повторная загрузка бесплатна.",
+    "Remove downloads or reset local data in Settings. Uninstalling removes local app data, subject to Apple backups. Clear this website’s language choice in your browser’s site-data settings. Apple and GitHub manage their own records.": "Удаляйте загрузки или сбрасывайте локальные данные в настройках. Удаление приложения очищает локальные данные с учётом резервных копий Apple. Язык сайта можно удалить в данных сайта браузера. Apple и GitHub управляют собственными записями.",
+    "Effective October 17, 2026 · Developer: ZanwingMak": "Действует с 17 октября 2026 г. · Разработчик: ZanwingMak",
+    "Downloads": "Загрузки"
   },
   "ar": {
     "00": "00",
@@ -1537,7 +1591,13 @@ const websiteTranslations = {
     "Nightfall Sleep is an independent, open-source Apple TV app developed by ZanwingMak. We operate no account service or developer analytics server. The app and this website contain no advertising, analytics or tracking SDKs. We do not sell personal information.": "Nightfall Sleep تطبيق Apple TV مستقل ومفتوح المصدر من ZanwingMak. لا ندير حسابات أو خادم تحليلات للمطور. التطبيق والموقع بلا أدوات إعلانات أو تحليل أو تتبع. لا نبيع معلومات شخصية.",
     "Nightfall Sleep home": "الصفحة الرئيسية لـ Nightfall Sleep",
     "Nightfall Sleep plays nature videos, soundscapes and personal photos on Apple TV. Playback starts only when you choose it. Picture-off and sleep timers apply only to your playback session. The app does not replace the system Home screen or control TV backlight or another app’s music.": "يشغّل Nightfall Sleep فيديوهات الطبيعة والأصوات والصور الشخصية على Apple TV. يبدأ التشغيل باختيارك فقط. تطبّق مؤقتات الصورة والنوم على جلسة التشغيل الحالية فقط. لا يستبدل التطبيق الشاشة الرئيسية ولا يتحكم بإضاءة التلفاز أو موسيقى التطبيقات الأخرى.",
-    "15": "15"
+    "15": "15",
+    "Choose a sound first. Picture on shows a small preview with playback controls. Picture off keeps the audio playing. Stopping sound ends the session. There is no standalone video, photo gallery or clock mode.": "اختر صوتًا أولًا. عند تشغيل الصورة تظهر معاينة صغيرة مع عناصر تحكم ثابتة. عند إطفاء الصورة يستمر الصوت. إيقاف الصوت ينهي الجلسة. لا يوجد مشغل فيديو مستقل أو معرض صور أو وضع ساعة.",
+    "Language, audio preferences, saved routines and downloads stay on your Apple TV. This version does not load personal photos. Reset also clears photo URLs retained from earlier versions.": "تبقى اللغة وتفضيلات الصوت والروتينات والتنزيلات على Apple TV. لا يحمّل هذا الإصدار صورًا شخصية. تؤدي إعادة الضبط أيضًا إلى مسح روابط الصور المحفوظة من الإصدارات السابقة.",
+    "Optional downloads come directly from public GitHub Releases. GitHub and its delivery providers receive ordinary connection information such as IP address, time and user agent. tvOS may clear cached media; downloading again is free.": "تأتي التنزيلات الاختيارية مباشرة من GitHub Releases العامة. يتلقى GitHub ومزودو التوزيع معلومات الاتصال المعتادة مثل عنوان IP والوقت ووكيل المستخدم. قد يمسح tvOS الذاكرة المؤقتة؛ وإعادة التنزيل مجانية.",
+    "Remove downloads or reset local data in Settings. Uninstalling removes local app data, subject to Apple backups. Clear this website’s language choice in your browser’s site-data settings. Apple and GitHub manage their own records.": "احذف التنزيلات أو أعد ضبط البيانات المحلية في الإعدادات. تؤدي إزالة التطبيق إلى حذف بياناته المحلية وفق قواعد نسخ Apple الاحتياطية. امسح لغة الموقع من إعدادات بيانات المواقع في المتصفح. تدير Apple وGitHub سجلاتهما الخاصة.",
+    "Effective October 17, 2026 · Developer: ZanwingMak": "يسري من 17 أكتوبر 2026 · المطور: ZanwingMak",
+    "Downloads": "التنزيلات"
   },
   "hi": {
     "00": "00",
@@ -1691,7 +1751,13 @@ const websiteTranslations = {
     "Nightfall Sleep is an independent, open-source Apple TV app developed by ZanwingMak. We operate no account service or developer analytics server. The app and this website contain no advertising, analytics or tracking SDKs. We do not sell personal information.": "Nightfall Sleep, ZanwingMak का स्वतंत्र ओपन सोर्स Apple TV ऐप है। हम खाता सेवा या डेवलपर विश्लेषण सर्वर नहीं चलाते। ऐप और साइट में विज्ञापन, विश्लेषण या ट्रैकिंग SDK नहीं हैं। हम निजी जानकारी नहीं बेचते।",
     "Nightfall Sleep home": "Nightfall Sleep मुख्य पृष्ठ",
     "Nightfall Sleep plays nature videos, soundscapes and personal photos on Apple TV. Playback starts only when you choose it. Picture-off and sleep timers apply only to your playback session. The app does not replace the system Home screen or control TV backlight or another app’s music.": "Nightfall Sleep Apple TV पर प्रकृति के वीडियो, ध्वनियाँ और निजी फ़ोटो चलाता है। प्लेबैक केवल आपके चयन से शुरू होता है। चित्र और स्लीप टाइमर केवल वर्तमान सत्र पर लागू होते हैं। ऐप सिस्टम की होम स्क्रीन, टीवी की बैकलाइट या दूसरे ऐप का संगीत नहीं बदलता।",
-    "15": "15"
+    "15": "15",
+    "Choose a sound first. Picture on shows a small preview with playback controls. Picture off keeps the audio playing. Stopping sound ends the session. There is no standalone video, photo gallery or clock mode.": "पहले एक ध्वनि चुनें। चित्र चालू होने पर छोटा पूर्वावलोकन और स्थायी प्लेबैक नियंत्रण दिखते हैं। चित्र बंद होने पर ऑडियो चलता रहता है। ध्वनि रोकने पर सत्र समाप्त होता है। अलग वीडियो प्लेयर, फ़ोटो गैलरी या घड़ी मोड नहीं है।",
+    "Language, audio preferences, saved routines and downloads stay on your Apple TV. This version does not load personal photos. Reset also clears photo URLs retained from earlier versions.": "भाषा, ऑडियो प्राथमिकताएँ, सहेजे गए रूटीन और डाउनलोड आपके Apple TV पर रहते हैं। यह संस्करण निजी फ़ोटो लोड नहीं करता। रीसेट करने पर पुराने संस्करणों के फ़ोटो URL भी हटते हैं।",
+    "Optional downloads come directly from public GitHub Releases. GitHub and its delivery providers receive ordinary connection information such as IP address, time and user agent. tvOS may clear cached media; downloading again is free.": "वैकल्पिक डाउनलोड सीधे सार्वजनिक GitHub Releases से आते हैं। GitHub और उसके वितरण प्रदाता IP पता, समय और यूज़र एजेंट जैसी सामान्य कनेक्शन जानकारी पाते हैं। tvOS कैश हटा सकता है; दोबारा डाउनलोड मुफ़्त है।",
+    "Remove downloads or reset local data in Settings. Uninstalling removes local app data, subject to Apple backups. Clear this website’s language choice in your browser’s site-data settings. Apple and GitHub manage their own records.": "सेटिंग्स में डाउनलोड हटाएँ या स्थानीय डेटा रीसेट करें। ऐप हटाने पर Apple बैकअप नियमों के अनुसार स्थानीय डेटा हटता है। ब्राउज़र के साइट डेटा में वेबसाइट की भाषा मिटाएँ। Apple और GitHub अपने रिकॉर्ड स्वयं सँभालते हैं।",
+    "Effective October 17, 2026 · Developer: ZanwingMak": "17 अक्टूबर 2026 से लागू · डेवलपर: ZanwingMak",
+    "Downloads": "डाउनलोड"
   },
   "zh-Hant": {
     "Privacy policy · Nightfall TV": "隱私政策 · Nightfall Sleep",
@@ -1845,6 +1911,12 @@ const websiteTranslations = {
     "Media credits · Nightfall Sleep": "素材署名 · Nightfall Sleep",
     "A quieter evening · Nightfall Sleep": "讓夜晚安靜一點 · Nightfall Sleep",
     "Nightfall Sleep plays nature videos, soundscapes and personal photos on Apple TV. Playback starts only when you choose it. Picture-off and sleep timers apply only to your playback session. The app does not replace the system Home screen or control TV backlight or another app’s music.": "Nightfall Sleep 在 Apple TV 播放自然影片、聲景和個人照片。只有主動選擇後才開始播放。關畫面與睡眠定時僅作用於目前播放工作階段。應用程式不替換系統主畫面、不控制電視背光或其他應用程式音樂。",
-    "15": "15"
+    "15": "15",
+    "Choose a sound first. Picture on shows a small preview with playback controls. Picture off keeps the audio playing. Stopping sound ends the session. There is no standalone video, photo gallery or clock mode.": "請先選擇聲景。開啟畫面時，小視窗預覽旁始終顯示播放控制；關閉畫面後聲音繼續。停止聲音即結束工作階段。不提供獨立影片播放、照片圖庫或時鐘模式。",
+    "Language, audio preferences, saved routines and downloads stay on your Apple TV. This version does not load personal photos. Reset also clears photo URLs retained from earlier versions.": "語言、音訊偏好、儲存的方案及下載內容保存在你的 Apple TV。本版不載入個人照片。重設也會清除舊版留下的照片網址。",
+    "Optional downloads come directly from public GitHub Releases. GitHub and its delivery providers receive ordinary connection information such as IP address, time and user agent. tvOS may clear cached media; downloading again is free.": "選用下載直接來自公開的 GitHub Releases。GitHub 及其傳送服務會收到 IP 位址、時間及使用者代理程式等一般連線資訊。tvOS 可能清除快取，重新下載免費。",
+    "Remove downloads or reset local data in Settings. Uninstalling removes local app data, subject to Apple backups. Clear this website’s language choice in your browser’s site-data settings. Apple and GitHub manage their own records.": "可在設定中刪除下載或重設本機資料。解除安裝會移除本機 App 資料，Apple 備份規則仍適用。網站語言偏好可在瀏覽器的網站資料設定中清除。Apple 和 GitHub 各自管理其紀錄。",
+    "Effective October 17, 2026 · Developer: ZanwingMak": "生效日期：2026 年 10 月 17 日 · 開發者：ZanwingMak",
+    "Downloads": "下載"
   }
 };

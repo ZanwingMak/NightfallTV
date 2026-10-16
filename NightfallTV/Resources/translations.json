@@ -3890,5 +3890,47 @@
     "ru": "Белый шум",
     "ar": "ضوضاء بيضاء",
     "hi": "सफ़ेद शोर"
+  },
+  "Pause": {
+    "zh-Hant": "暫停",
+    "ja": "一時停止",
+    "ko": "일시 정지",
+    "fr": "Pause",
+    "de": "Pause",
+    "es": "Pausar",
+    "it": "Pausa",
+    "pt-BR": "Pausar",
+    "ru": "Пауза",
+    "ar": "إيقاف مؤقت",
+    "hi": "रोकें",
+    "zh-Hans": "暂停"
+  },
+  "Choose a sound first. Picture on shows a small preview with playback controls. Picture off keeps the audio playing. Stopping sound ends the session. There is no standalone video, photo gallery or clock mode.": {
+    "zh-Hant": "請先選擇聲景。開啟畫面時，小視窗預覽旁始終顯示播放控制；關閉畫面後聲音繼續。停止聲音即結束工作階段。不提供獨立影片播放、照片圖庫或時鐘模式。",
+    "ja": "まず音を選択してください。画面をオンにすると、小さなプレビューと再生操作が常に表示されます。画面をオフにしても音は続きます。音を停止するとセッションが終了します。独立した動画再生、写真ギャラリー、時計モードはありません。",
+    "ko": "먼저 소리를 선택하세요. 화면을 켜면 작은 미리 보기와 재생 제어가 항상 표시됩니다. 화면을 꺼도 소리는 계속됩니다. 소리를 중지하면 세션이 끝납니다. 독립 동영상 재생, 사진 갤러리 또는 시계 모드는 없습니다.",
+    "fr": "Choisissez d’abord un son. L’image affiche un petit aperçu avec des commandes toujours visibles. Sans image, le son continue. Arrêter le son termine la session. Aucun lecteur vidéo autonome, galerie photo ou mode horloge.",
+    "de": "Wähle zuerst einen Klang. Mit Bild erscheinen eine kleine Vorschau und dauerhaft sichtbare Wiedergaberegler. Ohne Bild läuft der Ton weiter. Ton stoppen beendet die Sitzung. Kein separater Videoplayer, keine Fotogalerie und kein Uhrmodus.",
+    "es": "Elige primero un sonido. Con imagen se muestra una vista pequeña y controles permanentes. Sin imagen, el audio continúa. Detener el sonido termina la sesión. No hay reproductor de vídeo independiente, galería de fotos ni modo reloj.",
+    "it": "Scegli prima un suono. Con l’immagine, una piccola anteprima affianca i controlli sempre visibili. Senza immagine l’audio continua. Fermare il suono termina la sessione. Nessun lettore video autonomo, galleria fotografica o modalità orologio.",
+    "pt-BR": "Escolha primeiro um som. Com imagem, uma prévia pequena aparece com controles sempre visíveis. Sem imagem, o áudio continua. Parar o som encerra a sessão. Não há reprodutor de vídeo independente, galeria de fotos ou modo relógio.",
+    "ru": "Сначала выберите звук. При включённом изображении небольшое превью сопровождается постоянными элементами управления. Без изображения звук продолжается. Остановка звука завершает сеанс. Отдельного видеоплеера, фотогалереи и режима часов нет.",
+    "ar": "اختر صوتًا أولًا. عند تشغيل الصورة تظهر معاينة صغيرة مع عناصر تحكم ثابتة. عند إطفاء الصورة يستمر الصوت. إيقاف الصوت ينهي الجلسة. لا يوجد مشغل فيديو مستقل أو معرض صور أو وضع ساعة.",
+    "hi": "पहले एक ध्वनि चुनें। चित्र चालू होने पर छोटा पूर्वावलोकन और स्थायी प्लेबैक नियंत्रण दिखते हैं। चित्र बंद होने पर ऑडियो चलता रहता है। ध्वनि रोकने पर सत्र समाप्त होता है। अलग वीडियो प्लेयर, फ़ोटो गैलरी या घड़ी मोड नहीं है।",
+    "zh-Hans": "请先选择声景。打开画面时，小窗预览旁始终显示播放控制；关闭画面后声音继续。停止声音即结束会话。不提供独立视频播放、照片画廊或时钟模式。"
+  },
+  "No analytics, tracking or advertising SDKs. Nothing is uploaded to developer servers.": {
+    "zh-Hant": "沒有分析、追蹤或廣告 SDK。不會上傳資料至開發者伺服器。",
+    "ja": "解析・追跡・広告 SDK はありません。開発者サーバーへのアップロードはありません。",
+    "ko": "분석, 추적, 광고 SDK가 없습니다. 개발자 서버에 업로드하지 않습니다.",
+    "fr": "Aucun SDK d’analyse, de suivi ou de publicité. Aucun envoi vers les serveurs du développeur.",
+    "de": "Keine Analyse-, Tracking- oder Werbe-SDKs. Keine Uploads auf Entwicklerserver.",
+    "es": "Sin SDK de análisis, seguimiento o publicidad. No se sube nada a servidores del desarrollador.",
+    "it": "Nessun SDK di analisi, tracciamento o pubblicità. Nessun invio ai server dello sviluppatore.",
+    "pt-BR": "Sem SDKs de análise, rastreamento ou publicidade. Nada é enviado a servidores do desenvolvedor.",
+    "ru": "Без SDK аналитики, отслеживания и рекламы. Данные не загружаются на серверы разработчика.",
+    "ar": "لا توجد حزم تحليل أو تتبع أو إعلانات. لا يُرفع شيء إلى خوادم المطوّر.",
+    "hi": "कोई विश्लेषण, ट्रैकिंग या विज्ञापन SDK नहीं। डेवलपर सर्वर पर कुछ अपलोड नहीं होता।",
+    "zh-Hans": "没有统计、追踪或广告 SDK。不向开发者服务器上传数据。"
   }
 }

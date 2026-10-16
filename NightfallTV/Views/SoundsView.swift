@@ -14,7 +14,6 @@ struct SoundsView: View {
             VStack(alignment: .leading, spacing: 36) {
                 PageHeading(eyebrow: "SOUND, SOFTLY", title: settings.l("让世界，慢一点。", "Let the world slow down."), subtitle: settings.l("白噪音、自然声景与睡前片刻。选择声音，放松下来。", "White noise, nature sounds and a moment to unwind. Choose your quiet."))
                 HStack(spacing: 24) {
-                    QuietButton(title: settings.l("黑屏模式", "Black screen mode"), symbol: "moon.zzz.fill", id: "home-black") { playback.startDarkListening() }
                     QuietButton(title: settings.l("静心 · 10 分钟", "Unwind · 10 min"), symbol: "leaf", id: "home-meditation") {
                         playback.startWithSound(.black, sound: .stream)
                         playback.setSleep(10)
@@ -40,14 +39,14 @@ struct SoundsView: View {
                         guard let selected = sound.selected else { return }
                         playback.start(picture ?? selected.visualScene)
                     }.disabled(sound.selected == nil)
-                    QuietButton(title: settings.l("关闭画面 · 继续听", "Picture off · keep listening"), symbol: "moon.zzz.fill", id: "sound-black") { playback.startDarkListening() }
+                    QuietButton(title: settings.l("关闭画面 · 继续听", "Picture off · keep listening"), symbol: "moon.zzz.fill", id: "sound-black") { playback.startDarkListening() }.disabled(sound.selected == nil)
                     Spacer()
                 }.focusSection()
                 if let error = sound.error { Text(error).font(.callout).foregroundStyle(.orange) }
                 FocusGrid(SoundKind.allCases.filter { !$0.isDownload }) { kind in soundCard(kind) }
                 PageHeading(eyebrow: "A WIDER WORLD", title: settings.l("更多无损录音", "More lossless recordings"), subtitle: settings.l("先选喜欢的，再免费下载。", "Choose a favorite, then download it free."))
                 FocusGrid(SoundKind.allCases.filter(\.isDownload)) { kind in soundCard(kind) }
-                Text(settings.l("选择声景开始试听，再打开或关闭画面。画面与录音为独立素材；纯黑模式不显示时钟或提示。", "Select a sound to preview, then turn the picture on or off. Footage and recordings are separate assets. Black mode has no clock or overlays.")).font(.caption).foregroundStyle(Palette.muted)
+                Text(settings.l("请先选择声景。打开画面时，小窗预览旁始终显示播放控制；关闭画面后声音继续。停止声音即结束会话。不提供独立视频播放、照片画廊或时钟模式。", "Choose a sound first. Picture on shows a small preview with playback controls. Picture off keeps the audio playing. Stopping sound ends the session. There is no standalone video, photo gallery or clock mode.")).font(.caption).foregroundStyle(Palette.muted)
             }.padding(80)
         }.onChange(of: settings.value.soundVolume) { _, volume in sound.setVolume(volume) }
             .sheet(isPresented: $showingDownloads) { DownloadsView(filter: .audio, assetID: downloadID) }

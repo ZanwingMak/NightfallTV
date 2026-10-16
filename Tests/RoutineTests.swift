@@ -99,8 +99,7 @@ final class RoutineTests: XCTestCase {
         let sound = SoundPlayer()
         defer { sound.stop() }
         let playback = PlaybackController(settings: settings, sound: sound)
-        playback.start(.clouds)
-        playback.toggleSoundLayer(.rain)
+        playback.startWithSound(.clouds, sound: .rain)
         playback.toggleSoundLayer(.ocean)
         playback.setSleep(60)
         playback.setPictureOff(5)

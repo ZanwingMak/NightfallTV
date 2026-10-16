@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct NightView: View {
+    @EnvironmentObject private var sound: SoundPlayer
     @EnvironmentObject private var settings: SettingsStore
     @EnvironmentObject private var playback: PlaybackController
     var body: some View {
@@ -10,7 +11,7 @@ struct NightView: View {
                     VStack(alignment: .leading, spacing: 40) {
                         PageHeading(eyebrow: "GOOD NIGHT, NO GLOW", title: settings.l("给自己，\n一段静心时光。", "Take a moment.\nLet yourself unwind."), subtitle: settings.l("以自然声音陪伴冥想、放松与睡前习惯。", "Ambient sound for meditation, relaxation and bedtime."))
                         Image(systemName: "moon.zzz").font(.system(size: 140, weight: .ultraLight)).foregroundStyle(Palette.accent.opacity(0.4)).padding(.vertical, 32)
-                        QuietButton(title: settings.l("黑屏模式", "Black screen mode"), symbol: "headphones", id: "night-black") { playback.startDarkListening() }
+                        QuietButton(title: settings.l("关闭画面 · 继续听", "Picture off · keep listening"), symbol: "headphones", id: "night-black") { playback.startDarkListening() }.disabled(sound.selected == nil)
                         HStack(spacing: 20) {
                             QuietButton(title: settings.l("细雨 · 30 分钟", "Rain · 30 min"), symbol: "cloud.rain.fill", id: "night-rain") { startRoutine(.rain) }
                             QuietButton(title: settings.l("棕噪 · 60 分钟", "Brown · 60 min"), symbol: "waveform.path", id: "night-brown") { startRoutine(.brown) }
@@ -65,8 +66,6 @@ struct SettingsView: View {
     @EnvironmentObject private var settings: SettingsStore
     @EnvironmentObject private var playback: PlaybackController
     @EnvironmentObject private var sound: SoundPlayer
-    @State private var address = ""
-    @State private var photoError: String?
     @State private var confirmReset = false
     @State private var showingCredits = false
     @State private var showingDownloads = false
@@ -86,38 +85,7 @@ struct SettingsView: View {
                                  options: [0.1, 0.2, 0.4, 0.6, 0.8, 1].map { ($0, "\(Int($0 * 100))%") }).accessibilityIdentifier("brightness")
                     ChoicePicker(title: settings.l("动画速度", "Animation speed"), selection: $settings.value.speed,
                                  options: [(0.25, settings.l("很慢", "Very slow")), (0.5, settings.l("舒缓", "Gentle")), (1, settings.l("标准", "Normal"))])
-                    Toggle(settings.l("叠加漂移时钟（纯黑除外）", "Floating clock (except black)"), isOn: $settings.value.showClock).accessibilityIdentifier("show-clock")
-                    Toggle(settings.l("24 小时时钟", "24-hour clock"), isOn: $settings.value.clock24Hour)
                     Text(settings.l("亮度仅调整本应用画面，不改变电视背光。系统减少动态效果会冻结装饰动画。", "Brightness adjusts our picture, not your TV backlight. Reduce Motion freezes decorative animation.")).font(.caption).foregroundStyle(Palette.muted)
-                }
-                Section(settings.l("播放列表", "Playlist playback")) {
-                    ChoicePicker(title: settings.l("收藏切换间隔", "Collection interval"), selection: $settings.value.rotationSeconds,
-                                 options: [60, 180, 300, 600, 900].map { ($0, settings.l("\($0 / 60) 分钟", "\($0 / 60) minutes")) })
-                    Toggle(settings.l("收藏随机播放", "Shuffle collection"), isOn: $settings.value.shuffle)
-                }
-                Section(settings.l("私人照片画廊", "Personal photo gallery")) {
-                    Text(settings.l("添加 HTTPS 图片直链，最多 30 张。可使用 iPhone 的 Apple TV 遥控键盘输入。仅访问你添加的网站。", "Add up to 30 direct HTTPS image URLs. Use the Apple TV Remote keyboard on iPhone. Only your chosen websites are contacted.")).font(.caption).foregroundStyle(Palette.muted)
-                    NightTextField(title: settings.l("HTTPS 图片地址", "HTTPS image URL"), text: $address).accessibilityIdentifier("photo-url")
-                    Button(settings.l("添加照片", "Add photo")) {
-                        photoError = settings.addPhoto(address)
-                        if photoError == nil { address = "" }
-                    }.accessibilityIdentifier("add-photo")
-                    if let photoError { Text(photoError).foregroundStyle(.orange).font(.callout) }
-                    ChoicePicker(title: settings.l("照片停留时间", "Photo interval"), selection: $settings.value.photoSeconds,
-                                 options: [10, 30, 60, 120].map { ($0, settings.l("\($0) 秒", "\($0) seconds")) })
-                    ForEach(Array(settings.value.photos.enumerated()), id: \.element) { index, photo in
-                        Button {
-                            settings.value.photos.removeAll { $0 == photo }
-                        } label: {
-                            HStack {
-                                Text(settings.l("照片 \(index + 1)", "Photo \(index + 1)"))
-                                Text(URL(string: photo)?.host ?? "").foregroundStyle(Palette.muted).lineLimit(1)
-                                Spacer()
-                                Label(settings.l("移除", "Remove"), systemImage: "trash")
-                            }
-                        }.accessibilityIdentifier("remove-photo-\(index)")
-                    }
-                    Text(settings.l("照片加载失败时保持暗色空白，可随时返回。照片需有使用授权。", "Failed photos remain dark; you can always go back. Use photographs you have permission to display.")).font(.caption).foregroundStyle(Palette.muted)
                 }
                 Section(settings.l("支持与帮助", "Support and help")) {
                     Button(settings.l("下载更多 4K 风景与原生录音", "Download more 4K films and field recordings")) { showingDownloads = true }.accessibilityIdentifier("open-downloads")
@@ -129,10 +97,10 @@ struct SettingsView: View {
                 }
                 Section(settings.l("隐私", "Privacy")) {
                     Text(settings.l("用于日常放松与自主冥想，不提供医疗诊断、治疗或睡眠监测。", "For relaxation and self-led meditation. No diagnosis, treatment or sleep tracking.")).font(.caption).foregroundStyle(Palette.muted)
-                    Text(settings.l("没有统计、追踪或广告 SDK。不向开发者服务器上传数据。个人照片由你指定的地址提供，对方可能记录正常的网络访问。", "No analytics, tracking or advertising SDKs. Nothing is uploaded to developer servers. Photo hosts you choose may log normal network requests.")).font(.callout).foregroundStyle(Palette.muted)
+                    Text(settings.l("没有统计、追踪或广告 SDK。不向开发者服务器上传数据。", "No analytics, tracking or advertising SDKs. Nothing is uploaded to developer servers.")).font(.callout).foregroundStyle(Palette.muted)
                     Button(settings.l("视听素材来源与授权", "Media sources & licenses")) { showingCredits = true }.accessibilityIdentifier("media-credits")
                     Text("Nightfall Sleep \(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "") · Code: MIT · github.com/ZanwingMak/NightfallTV").font(.caption).foregroundStyle(Palette.muted)
-                    Button(settings.l("重置设置、方案与照片", "Reset preferences, routines and photos"), role: .destructive) { confirmReset = true }.accessibilityIdentifier("reset-settings")
+                    Button(settings.l("恢复默认设置？", "Reset to defaults?"), role: .destructive) { confirmReset = true }.accessibilityIdentifier("reset-settings")
                 }
             }.padding(.horizontal, 80)
         }
@@ -142,7 +110,7 @@ struct SettingsView: View {
         .sheet(item: $sitePage) { SiteLinkView(page: $0) }
         .alert(settings.l("恢复默认设置？", "Reset to defaults?"), isPresented: $confirmReset) {
             Button(settings.l("取消", "Cancel"), role: .cancel) { }
-            Button(settings.l("重置", "Reset"), role: .destructive) { sound.stop(); settings.reset(); playback.interaction(); address = ""; photoError = nil }
+            Button(settings.l("重置", "Reset"), role: .destructive) { sound.stop(); settings.reset(); playback.interaction() }
         } message: { Text(settings.l("会清空照片地址、收藏、睡前方案和个人偏好。", "This removes photo URLs, favorites, routines and preferences.")) }
     }
 }

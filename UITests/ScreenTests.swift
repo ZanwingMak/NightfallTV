@@ -41,31 +41,23 @@ final class ScreenTests: XCTestCase {
         XCTFail("Unable to focus \(identifier): \(app.debugDescription)", file: file, line: line)
     }
 
-    /// 首排三个卡片都能直接向上进入分类，再向上进入精选按钮和顶部导航。
+    /// 首排任意声景都能向上进入播放设置，首页没有独立视频或照片入口。
     func testFirstRowMovesUpToCategories() {
         let app = launch()
-        for scene in ["aurora", "stars", "ocean"] {
-            focus("scene-\(scene)", in: app)
-            XCTAssertTrue(app.buttons["scene-\(scene)"].hasFocus)
+        XCTAssertFalse(app.buttons["nav-explore"].exists)
+        XCTAssertFalse(app.buttons["nav-collection"].exists)
+        XCTAssertFalse(app.buttons["sound-black"].isEnabled)
+        for sound in ["rain", "ocean", "stream"] {
+            focus("sound-\(sound)", in: app)
             XCUIRemote.shared.press(.up)
-            let categories = app.buttons.matching(NSPredicate(format: "identifier BEGINSWITH 'category-' AND hasFocus == true"))
-            XCTAssertTrue(categories.firstMatch.waitForExistence(timeout: 3), "Up from \(scene) must reach a category")
+            XCTAssertTrue(app.buttons.matching(NSPredicate(format: "(identifier == 'sound-picture' OR identifier == 'sound-visual') AND hasFocus == true")).firstMatch.waitForExistence(timeout: 3))
         }
-        XCUIRemote.shared.press(.up)
-        let hero = app.buttons.matching(NSPredicate(format: "(identifier == 'hero-aurora' OR identifier == 'quick-black') AND hasFocus == true"))
-        XCTAssertTrue(hero.firstMatch.waitForExistence(timeout: 3))
-        XCUIRemote.shared.press(.up)
-        XCTAssertTrue(app.buttons.matching(NSPredicate(format: "identifier BEGINSWITH 'nav-' AND hasFocus == true")).firstMatch.waitForExistence(timeout: 3))
         capture("14-first-row-up-navigation")
     }
 
-    /// 最后一排仅有一张卡片时，从上一排右侧按一次向下也必须能到达。
+    /// 最后一排仅有一张声景卡片时，从上一排右侧仍能用向下键到达。
     func testLastRowReachableFromRightColumn() {
         let app = launch()
-        focus("scene-snow", in: app)
-        XCUIRemote.shared.press(.down)
-        XCTAssertTrue(app.buttons["scene-clouds"].hasFocus)
-        activate("nav-sounds", in: app)
         focus("sound-wind", in: app)
         XCUIRemote.shared.press(.down)
         XCTAssertTrue(app.buttons["sound-white"].hasFocus)
@@ -92,7 +84,7 @@ final class ScreenTests: XCTestCase {
         try assertBlack()
         XCUIRemote.shared.press(.menu)
         XCTAssertTrue(app.staticTexts["sound-status"].waitForExistence(timeout: 5))
-        XCTAssertTrue(app.staticTexts["sound-status"].label.contains("白噪音"))
+        XCTAssertTrue(app.staticTexts["sound-status"].label.contains("静音"))
         activate("stop-sound", in: app)
         XCTAssertTrue(app.staticTexts["sound-status"].label.contains("静音"))
     }
@@ -102,7 +94,6 @@ final class ScreenTests: XCTestCase {
         let app = XCUIApplication()
         app.launchArguments = ["--uitesting"] + extra
         app.launch()
-        if !extra.contains(where: { $0.hasPrefix("--scene=") }) { activate("nav-explore", in: app) }
         return app
     }
 
@@ -137,9 +128,10 @@ final class ScreenTests: XCTestCase {
     /// 完整通过首屏按钮进入黑屏，验证控制层显示、隐藏与返回。
     func testBlackScreenRemoteFlow() throws {
         let app = launch()
-        XCTAssertTrue(app.buttons["quick-black"].waitForExistence(timeout: 15))
-        capture("01-library")
-        activate("quick-black", in: app)
+        XCTAssertTrue(app.buttons["sound-black"].waitForExistence(timeout: 15))
+        capture("01-sounds")
+        activate("sound-rain", in: app)
+        activate("sound-black", in: app)
         XCTAssertTrue(app.descendants(matching: .any)["black-screen"].waitForExistence(timeout: 10))
         try assertBlack()
         capture("02-absolute-black")
@@ -151,31 +143,32 @@ final class ScreenTests: XCTestCase {
         XCTAssertEqual(XCTWaiter.wait(for: [hidden], timeout: 5), .completed)
         try assertBlack()
         XCUIRemote.shared.press(.menu)
-        XCTAssertTrue(app.buttons["quick-black"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons["sound-black"].waitForExistence(timeout: 5))
     }
 
     /// 已移除启动即黑屏；旧启动参数不能再自动开始会话，仍可手动播放纯音频。
     func testLaunchBlack() throws {
         let app = launch(["--launch-black", "--clock-overlay"])
-        XCTAssertTrue(app.buttons["quick-black"].waitForExistence(timeout: 10))
+        XCTAssertTrue(app.buttons["sound-black"].waitForExistence(timeout: 10))
         XCTAssertFalse(app.descendants(matching: .any)["black-screen"].exists)
-        activate("quick-black", in: app)
+        XCTAssertFalse(app.buttons["sound-black"].isEnabled)
+        activate("sound-rain", in: app)
+        activate("sound-black", in: app)
         XCTAssertTrue(app.descendants(matching: .any)["black-screen"].waitForExistence(timeout: 10))
         try assertBlack()
         XCUIRemote.shared.press(.select)
         XCTAssertTrue(app.buttons["exit-player"].waitForExistence(timeout: 5))
         activate("exit-player", in: app)
-        XCTAssertTrue(app.buttons["quick-black"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons["sound-black"].waitForExistence(timeout: 5))
     }
 
-    /// 检查所有场景可独立启动，保存每种场景的真实渲染截图。
+    /// 每种可用背景均以实际音频会话启动，控件常驻，不能独立静音播放。
     func testEverySceneRenders() {
-        for scene in ["aurora", "stars", "ocean", "ember", "dunes", "prism", "rain", "gallery", "waterfall", "snow", "clouds"] {
+        for scene in ["aurora", "stars", "ocean", "ember", "dunes", "prism", "rain", "waterfall", "snow", "clouds"] {
             let app = launch(["--scene=\(scene)"])
             XCTAssertTrue(app.descendants(matching: .any)["playing-\(scene)"].waitForExistence(timeout: 10), scene)
             settle(3)
             capture("scene-\(scene)")
-            XCUIRemote.shared.press(.select)
             XCTAssertTrue(app.buttons["exit-player"].waitForExistence(timeout: 5), scene)
             app.terminate()
         }
@@ -191,7 +184,6 @@ final class ScreenTests: XCTestCase {
         activate("云海漫行", in: app)
         activate("sound-visual", in: app)
         XCTAssertTrue(app.descendants(matching: .any)["playing-clouds"].waitForExistence(timeout: 5))
-        XCUIRemote.shared.press(.select)
         activate("player-timer", in: app)
         activate("30 分钟", in: app)
         XCTAssertTrue(app.buttons["player-timer"].label.contains("30 分钟"))
@@ -207,26 +199,23 @@ final class ScreenTests: XCTestCase {
         XCTAssertTrue(app.descendants(matching: .any)["player-sound-status"].firstMatch.label.contains("林间鸟鸣"))
         activate("player-black", in: app)
         XCTAssertTrue(app.descendants(matching: .any)["playing-clouds"].waitForExistence(timeout: 5))
-        XCUIRemote.shared.press(.select)
         activate("player-sound", in: app)
         activate("夏夜虫鸣", in: app)
         XCTAssertTrue(app.descendants(matching: .any)["player-sound-status"].firstMatch.label.contains("夏夜虫鸣"))
         activate("player-stop-sound", in: app)
-        XCTAssertFalse(app.descendants(matching: .any)["player-sound-status"].firstMatch.exists)
+        XCTAssertTrue(app.staticTexts["sound-status"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.staticTexts["sound-status"].label.contains("静音"))
     }
 
-    /// 场景详情的有声入口和睡前快捷方案均经过真实遥控器选择，纯黑快捷方案无亮像素。
+    /// 声景搭配背景和睡前快捷方案均经过真实遥控器选择，纯音频会话无亮像素。
     func testAudibleSceneAndBedtimeRoutine() throws {
         let app = launch()
-        activate("scene-waterfall", in: app)
-        activate("start-scene-sound", in: app)
+        activate("sound-waterfall", in: app)
+        activate("sound-visual", in: app)
         XCTAssertTrue(app.descendants(matching: .any)["playing-waterfall"].waitForExistence(timeout: 5))
-        XCUIRemote.shared.press(.select)
         XCTAssertTrue(app.descendants(matching: .any)["player-sound-status"].firstMatch.label.contains("瀑布"))
         activate("exit-player", in: app)
-        XCTAssertTrue(app.buttons["start-scene-sound"].waitForExistence(timeout: 5))
-        settle(1)
-        XCUIRemote.shared.press(.menu)
+        XCTAssertTrue(app.buttons["sound-waterfall"].waitForExistence(timeout: 5))
         activate("nav-night", in: app)
         activate("night-rain", in: app)
         XCTAssertTrue(app.descendants(matching: .any)["black-screen"].waitForExistence(timeout: 5))
@@ -237,18 +226,23 @@ final class ScreenTests: XCTestCase {
         capture("17-bedtime-routine")
     }
 
-    /// 收藏详情操作和播放列表启动经过实际焦点与选择流程。
+    /// 亮屏时常驻播放器控件，暂停后可继续，停止会结束会话而非留下无声视频。
     func testFavoritesAndCollection() {
         let app = launch()
-        activate("hero-aurora", in: app)
-        XCTAssertTrue(app.buttons["favorite-scene"].waitForExistence(timeout: 5))
-        activate("favorite-scene", in: app)
-        XCUIRemote.shared.press(.menu)
-        activate("nav-collection", in: app)
-        XCTAssertFalse(app.buttons["scene-aurora"].exists)
-        capture("04-collection")
-        activate("play-collection", in: app)
-        XCTAssertTrue(app.descendants(matching: .any)["playing-stars"].waitForExistence(timeout: 5))
+        activate("sound-ocean", in: app)
+        activate("sound-visual", in: app)
+        XCTAssertTrue(app.buttons["player-pause"].waitForExistence(timeout: 5))
+        settle(12)
+        XCTAssertTrue(app.buttons["player-pause"].exists)
+        XCTAssertFalse(app.buttons["hide-controls"].exists)
+        XCTAssertFalse(app.buttons["player-next"].exists)
+        activate("player-pause", in: app)
+        XCTAssertTrue(app.buttons["player-pause"].label.contains("继续"))
+        activate("player-pause", in: app)
+        activate("player-stop-sound", in: app)
+        XCTAssertTrue(app.staticTexts["sound-status"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.staticTexts["sound-status"].label.contains("静音"))
+        capture("04-audio-session-stopped")
     }
 
     /// 声景播放、停止、夜间设置和主设置页面均可使用遥控器访问。
@@ -271,7 +265,7 @@ final class ScreenTests: XCTestCase {
         activate("20%", in: app)
         XCTAssertTrue(app.buttons["brightness"].firstMatch.label.contains("20%"))
     }
-    /// 确认真实视频持续运动、遥控器暂停确实冻结像素，且纯黑不会被方向键误亮。
+    /// 嵌入式背景随音频暂停或恢复，纯黑不会被方向键误亮。
     func testVideoPauseAndRemoteSwitching() throws {
         let app = launch(["--scene=ocean"])
         XCTAssertTrue(app.descendants(matching: .any)["playing-ocean"].waitForExistence(timeout: 10))
@@ -285,18 +279,11 @@ final class ScreenTests: XCTestCase {
         settle(2)
         XCTAssertEqual(frozen, XCUIScreen.main.screenshot().pngRepresentation)
         capture("08-real-video-paused")
-        XCUIRemote.shared.press(.select)
         XCTAssertTrue(app.buttons["player-pause"].waitForExistence(timeout: 5))
         XCTAssertTrue(app.buttons["player-pause"].label.contains("继续"))
-        XCUIRemote.shared.press(.menu)
         XCUIRemote.shared.press(.playPause)
         settle(2)
         XCTAssertNotEqual(frozen, XCUIScreen.main.screenshot().pngRepresentation)
-        XCUIRemote.shared.press(.right)
-        XCTAssertTrue(app.descendants(matching: .any)["playing-ember"].waitForExistence(timeout: 5))
-        XCUIRemote.shared.press(.left)
-        XCTAssertTrue(app.descendants(matching: .any)["playing-ocean"].waitForExistence(timeout: 5))
-        XCUIRemote.shared.press(.select)
         activate("player-black", in: app)
         for direction in [XCUIRemote.Button.left, .right, .up, .down, .playPause] { XCUIRemote.shared.press(direction) }
         try assertBlack()
@@ -305,7 +292,6 @@ final class ScreenTests: XCTestCase {
     /// 选择框允许慢慢操作，取消保持原值，结束操作后控制层才开始自动隐藏。
     func testTimerPickerAndControlAutoHide() throws {
         let app = launch(["--scene=ocean"])
-        XCUIRemote.shared.press(.select)
         activate("player-black", in: app)
         XCUIRemote.shared.press(.select)
         XCTAssertTrue(app.buttons["player-timer"].waitForExistence(timeout: 5))
@@ -334,11 +320,9 @@ final class ScreenTests: XCTestCase {
     /// 混音的三层限制、相对音量、保存、重启恢复和删除均经过实际遥控器流程。
     func testSoundMixAndSavedRoutineLifecycle() {
         let app = launch(["--scene=clouds"])
-        XCUIRemote.shared.press(.select)
         activate("player-mixer", in: app)
         activate("mix-rain", in: app)
         activate("mix-ocean", in: app)
-        activate("mix-wind", in: app)
         XCTAssertFalse(app.buttons["mix-birds"].isEnabled)
         activate("mix-level-ocean", in: app)
         activate("25%", in: app)
@@ -383,16 +367,13 @@ final class ScreenTests: XCTestCase {
     /// 等待真实一分钟验证自动黑屏独立于睡眠计时，恢复后保留混音并取消亮屏截止时间。
     func testAutomaticPictureOffKeepsMixAndSleep() throws {
         let app = launch(["--scene=ocean"])
-        XCUIRemote.shared.press(.select)
         activate("player-mixer", in: app)
         activate("mix-rain", in: app)
-        activate("mix-ocean", in: app)
         activate("close-mixer", in: app)
         activate("player-timer", in: app)
         activate("30 分钟", in: app)
         activate("player-picture-timer", in: app)
         activate("1 分钟后", in: app)
-        activate("hide-controls", in: app)
         XCUIRemote.shared.press(.playPause)
         settle(62)
         try assertBlack()
@@ -402,7 +383,6 @@ final class ScreenTests: XCTestCase {
         XCTAssertTrue(app.buttons["player-timer"].label.contains("30 分钟"))
         activate("player-black", in: app)
         XCTAssertTrue(app.descendants(matching: .any)["playing-ocean"].waitForExistence(timeout: 5))
-        XCUIRemote.shared.press(.select)
         XCTAssertTrue(app.buttons["player-picture-timer"].label.contains("关闭"))
         capture("21-picture-timer-restored")
     }
@@ -414,15 +394,9 @@ final class ScreenTests: XCTestCase {
         wait(for: [elapsed], timeout: seconds + 3)
     }
 
-    /// 分类在详情返回后保留，语言选择可取消，授权页可由遥控器关闭。
+    /// 语言选择可取消，授权页可由遥控器关闭，已移除的时钟不再出现在设置。
     func testCategoryReturnLanguageAndCredits() {
         let app = launch()
-        activate("category-personal", in: app)
-        activate("scene-gallery", in: app)
-        XCTAssertTrue(app.buttons["close-detail"].waitForExistence(timeout: 5))
-        activate("close-detail", in: app)
-        XCTAssertFalse(app.buttons["scene-aurora"].exists, "Returning should preserve the chosen filter")
-        capture("10-night-category")
         activate("nav-settings", in: app)
         activate("language", in: app)
         activate("English", in: app)
@@ -486,8 +460,9 @@ final class ScreenTests: XCTestCase {
         XCTAssertTrue(app.staticTexts["tip-status"].exists)
         capture("28-support-development")
         activate("close-support", in: app)
-        activate("nav-explore", in: app)
-        activate("quick-black", in: app)
+        activate("nav-sounds", in: app)
+        activate("sound-rain", in: app)
+        activate("sound-black", in: app)
         XCTAssertTrue(app.descendants(matching: .any)["black-screen"].waitForExistence(timeout: 5))
     }
 
@@ -501,7 +476,7 @@ final class ScreenTests: XCTestCase {
             activate("language", in: app)
             XCTAssertTrue(app.buttons["English"].waitForExistence(timeout: 5))
             XCUIRemote.shared.press(.menu)
-            activate("nav-explore", in: app)
+            activate("nav-sounds", in: app)
             if ["de", "ar", "ja", "zh-Hant"].contains(code) { capture("29-language-\(code)") }
             app.terminate()
         }

@@ -5,7 +5,7 @@ enum SceneKind: String, Codable, CaseIterable, Identifiable {
     var id: String { rawValue }
     var isDownload: Bool { [.coast, .mountains, .valley, .rhine].contains(self) }
     var isAvailable: Bool { !isDownload || DownloadAsset.scene(self).flatMap(DownloadStore.fileURL) != nil }
-    var isPlayerMode: Bool { self == .black || self == .clock }
+    var isPlayerMode: Bool { self == .black || self == .clock || self == .gallery }
     static var available: [SceneKind] { allCases.filter { !$0.isPlayerMode && $0.isAvailable } }
 
     /// 返回场景的中英文名称。

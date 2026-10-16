@@ -12,40 +12,42 @@ final class PlaybackTests: XCTestCase {
         return (PlaybackController(settings: settings, sound: sound), defaults, domain)
     }
 
-    /// 关画面和恢复不能重启声音、重设截止时间或丢失暂停和收藏轮播状态。
+    /// 关画面和恢复保留音频暂停、原声景与截止时间，停止声音必须结束会话。
     func testPictureTogglePreservesSessionAndPlayingAudio() {
         let (playback, defaults, domain) = controller()
         defer { playback.sound.stop(); defaults.removePersistentDomain(forName: domain) }
         playback.settings.value.sleepMinutes = 30
-        playback.start(.ocean, playlist: [.ocean, .waterfall])
+        playback.start(.ocean)
         playback.selectSound(.ocean)
         playback.togglePause()
         let deadline = playback.timeline.deadline
-        XCTAssertTrue(playback.sound.isPlaying)
+        XCTAssertFalse(playback.sound.isPlaying)
         playback.toggleVisuals()
         XCTAssertEqual(playback.effectiveScene, .black)
         XCTAssertEqual(playback.scene, .ocean)
         XCTAssertTrue(playback.paused)
-        XCTAssertEqual(playback.playlist, [.ocean, .waterfall])
         XCTAssertEqual(playback.timeline.deadline, deadline)
-        XCTAssertTrue(playback.sound.isPlaying)
+        XCTAssertFalse(playback.sound.isPlaying)
         playback.toggleVisuals()
         XCTAssertEqual(playback.effectiveScene, .ocean)
         XCTAssertEqual(playback.sound.selected, .ocean)
         XCTAssertEqual(playback.timeline.deadline, deadline)
         playback.selectSound(.birds)
+        XCTAssertFalse(playback.sound.isPlaying)
+        playback.togglePause()
         XCTAssertTrue(playback.sound.isPlaying)
         XCTAssertEqual(playback.timeline.deadline, deadline)
         playback.selectSound(nil)
         XCTAssertFalse(playback.sound.isPlaying)
+        XCTAssertFalse(playback.isPlaying)
     }
 
-    /// 由纯黑声景启动恢复对应画面，后台停止声音，普通屏保不会自动发声。
+    /// 所有播放均有明确音频，纯音频恢复对应背景，后台停止声音。
     func testBlackSoundRestoresSuggestedPictureAndBackgroundStopsAudio() {
         let (playback, defaults, domain) = controller()
         defer { playback.sound.stop(); defaults.removePersistentDomain(forName: domain) }
         playback.start(.waterfall)
-        XCTAssertNil(playback.sound.selected)
+        XCTAssertEqual(playback.sound.selected, .waterfall)
         playback.startWithSound(.black, sound: .crickets)
         XCTAssertTrue(playback.sound.isPlaying)
         playback.toggleVisuals()
@@ -68,7 +70,6 @@ final class PlaybackTests: XCTestCase {
         playback.settings.value.nightEndHour = 0
         playback.start(.snow)
         playback.toggleVisuals()
-        playback.step(forward: true)
         XCTAssertEqual(playback.scene, .snow)
         XCTAssertEqual(playback.effectiveScene, .black)
         playback.settings.value.nightEnabled = false

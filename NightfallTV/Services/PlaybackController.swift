@@ -12,8 +12,6 @@ final class PlaybackController: ObservableObject {
     var choosingOptions = false
     @Published private(set) var now = Date()
     @Published private(set) var timeline = PlaybackTimeline(now: Date())
-    @Published private(set) var playlist: [SceneKind] = []
-    private var lastRotation: TimeInterval = 0
     private var lastInteraction = Date()
     private var ticker: AnyCancellable?
     private var active = true
@@ -28,51 +26,54 @@ final class PlaybackController: ObservableObject {
     var secondsRemaining: Int? { timeline.deadline.map { max(0, Int(ceil($0.timeIntervalSince(now)))) } }
     var pictureSecondsRemaining: Int? { timeline.pictureDeadline.map { max(0, Int(ceil($0.timeIntervalSince(now)))) } }
 
-    /// 创建控制器，并定期维护定时、自动隐藏与轮播状态。
+    /// 创建音频会话控制器，维护睡眠定时与黑屏聆听控制层。
     init(settings: SettingsStore, sound: SoundPlayer) {
         self.settings = settings
         self.sound = sound
         ticker = Timer.publish(every: 1, on: .main, in: .common).autoconnect().sink { [weak self] date in self?.tick(date) }
     }
 
-    /// 用户主动启动媒体或播放列表，纯黑仅作为播放器的关闭画面状态。
-    func start(_ selected: SceneKind, playlist: [SceneKind] = []) {
-        guard selected != .clock, selected.isAvailable else { mediaMissing = true; return }
+    /// 用户主动启动音频会话；画面只是常驻音频播放器内的背景预览，不支持静音视频播放。
+    func start(_ selected: SceneKind, layers: [SoundLayer]? = nil) {
+        guard selected != .clock, selected != .gallery, selected.isAvailable else { mediaMissing = true; return }
+        let fallback = selected.suggestedSound.flatMap { $0.isAvailable ? $0 : nil } ?? .rain
+        let mix = layers ?? (sound.layers.isEmpty ? [SoundLayer(sound: fallback)] : sound.layers)
+        sound.playMix(mix, volume: settings.value.soundVolume)
+        sound.setPaused(false)
+        guard sound.isPlaying else { return }
         now = Date()
         scene = selected
         settings.value.lastScene = selected
-        self.playlist = playlist.filter { !$0.isPlayerMode && $0.isAvailable }
         timeline = PlaybackTimeline(now: now, sleepMinutes: settings.value.sleepMinutes, pictureOffMinutes: settings.value.pictureOffMinutes ?? 0)
         paused = false
         visualsHidden = false
         finishedSleep = false
-        lastRotation = 0
-        controlsVisible = false
+        controlsVisible = effectiveScene != .black
         choosingOptions = false
         isPlaying = true
         updateIdleTimer()
     }
 
-    /// 用户明确选择有声播放时，启动画面并搭配独立录音；普通启动仍保持现有声音状态。
+    /// 以指定录音开始会话，避免先播默认声景再切换的短暂错音。
     func startWithSound(_ selected: SceneKind, sound selectedSound: SoundKind) {
         guard selected.isAvailable, selectedSound.isAvailable else { mediaMissing = true; return }
-        start(selected)
-        selectSound(selectedSound)
+        start(selected, layers: [SoundLayer(sound: selectedSound)])
     }
 
-    /// 主动开始黑屏聆听，保留已有混音；尚未选声音时使用细雨，绝不在应用启动或闲置时调用。
+    /// 只有已选择声音才能关闭画面；没有独立黑屏入口，也不代替系统屏保。
     func startDarkListening() {
+        guard !sound.layers.isEmpty else { return }
         if isPlaying { blackNow() } else { start(.black) }
-        if sound.layers.isEmpty { selectSound(.rain) }
         updateIdleTimer()
     }
 
     /// 在当前会话更换或停止声景，不重置画面、暂停状态和睡眠截止时间。
     func selectSound(_ selected: SoundKind?) {
         interaction()
-        guard let selected else { sound.stop(); return }
+        guard let selected else { stop(); return }
         guard !timeline.expired(at: Date()) else { return }
         sound.play(selected, volume: settings.value.soundVolume * timeline.audioGain(at: Date()))
+        sound.setPaused(paused)
     }
 
     /// 保留当前画面和倒计时，仅切换画面可见性；直接黑屏启动可从所选声景恢复对应画面。
@@ -83,19 +84,19 @@ final class PlaybackController: ObservableObject {
             visualsHidden = false
         } else { visualsHidden.toggle() }
         timeline.setPictureOff(minutes: 0, now: Date())
-        lastRotation = timeline.elapsed(at: Date())
-        controlsVisible = false
+        controlsVisible = effectiveScene != .black
         interaction()
     }
 
     /// 回到浏览界面并恢复系统闲置行为，结束当前睡眠会话。
     func stop() {
         isPlaying = false
+        paused = false
         controlsVisible = false
         choosingOptions = false
         timeline.setSleep(minutes: 0, now: Date())
         timeline.setPictureOff(minutes: 0, now: Date())
-        sound.setVolume(settings.value.soundVolume)
+        sound.stop()
         UIApplication.shared.isIdleTimerDisabled = false
     }
 
@@ -104,24 +105,18 @@ final class PlaybackController: ObservableObject {
 
     /// 返回键优先隐藏控制层，再退出播放器，保留系统 Home 按钮行为。
     func back() {
-        if controlsVisible { controlsVisible = false }
+        if controlsVisible && effectiveScene == .black { controlsVisible = false }
         else { stop() }
         interaction()
     }
 
-    /// 暂停动画和轮播，睡眠倒计时仍按真实时间前进。
-    func togglePause() { timeline.togglePause(now: Date()); paused.toggle(); interaction() }
-
-    /// 遥控器手动切换场景；纯黑模式不显示自动提示。
-    func step(forward: Bool) {
-        guard !timeline.expired(at: Date()), !settings.value.isNight(at: Date()) else { return }
-        let scenes = (playlist.isEmpty ? SceneKind.available : playlist).filter(\.isAvailable)
-        guard let index = scenes.firstIndex(of: scene), !scenes.isEmpty else { return }
-        scene = scenes[(index + (forward ? 1 : scenes.count - 1)) % scenes.count]
-        visualsHidden = false
-        settings.value.lastScene = scene
-        lastRotation = timeline.elapsed(at: Date())
+    /// 同时暂停音频与背景预览，遥控器播放键恢复全部声层，睡眠计时仍按真实时间前进。
+    func togglePause() {
+        timeline.togglePause(now: Date())
+        paused.toggle()
+        sound.setPaused(paused)
         interaction()
+        updateIdleTimer()
     }
 
     /// 立即隐藏画面，保留声音、倒计时及原场景，稍后可恢复。
@@ -159,15 +154,17 @@ final class PlaybackController: ObservableObject {
         settings.value.brightness = safe.brightness
         settings.value.sleepMinutes = safe.sleepMinutes
         settings.value.pictureOffMinutes = safe.pictureOffMinutes
-        start(safe.scene)
+        start(safe.scene, layers: safe.layers)
         visualsHidden = safe.pictureOff || black
-        sound.playMix(safe.layers, volume: safe.volume)
+        controlsVisible = effectiveScene != .black
     }
 
     /// 播放中混音选择保留会话时限，结束后的计时不能通过混音重新发声。
     func toggleSoundLayer(_ kind: SoundKind) {
         guard !isPlaying || !timeline.expired(at: Date()) else { return }
         sound.toggleLayer(kind, volume: settings.value.soundVolume, gain: isPlaying ? timeline.audioGain(at: Date()) : 1)
+        sound.setPaused(paused)
+        if isPlaying && sound.layers.isEmpty { stop() }
         interaction()
     }
 
@@ -184,8 +181,7 @@ final class PlaybackController: ObservableObject {
 
     /// 仅在前台实际播放媒体时保持亮屏；静音黑屏、暂停或定时结束交还系统闲置行为。
     private func updateIdleTimer() {
-        let playingVideo = effectiveScene != .black && !paused && (effectiveScene != .gallery || !settings.value.photos.isEmpty)
-        UIApplication.shared.isIdleTimerDisabled = active && isPlaying && !timeline.expired(at: now) && (playingVideo || sound.isPlaying)
+        UIApplication.shared.isIdleTimerDisabled = active && isPlaying && !timeline.expired(at: now) && sound.isPlaying
     }
 
     /// 每秒推进控制状态；到期时静默纯黑并停止本应用声音。
@@ -194,7 +190,7 @@ final class PlaybackController: ObservableObject {
         defer { updateIdleTimer() }
         guard active, isPlaying else { return }
         sound.setVolume(settings.value.soundVolume, gain: timeline.audioGain(at: date))
-        if controlsVisible && !choosingOptions && date.timeIntervalSince(lastInteraction) >= 10 { controlsVisible = false }
+        if effectiveScene == .black && controlsVisible && !choosingOptions && date.timeIntervalSince(lastInteraction) >= 10 { controlsVisible = false }
         if timeline.expired(at: date) {
             if !finishedSleep {
                 sound.stop()
@@ -208,10 +204,7 @@ final class PlaybackController: ObservableObject {
             controlsVisible = false
             timeline.setPictureOff(minutes: 0, now: date)
         }
-        let elapsed = timeline.elapsed(at: date)
-        if !paused && !visualsHidden && !settings.value.isNight(at: date) && !playlist.isEmpty && elapsed - lastRotation >= Double(settings.value.rotationSeconds) {
-            if let next = PlaybackTimeline.next(in: playlist.filter(\.isAvailable), current: scene, shuffle: settings.value.shuffle) { scene = next }
-            lastRotation = elapsed
-        }
+        // 中断、停止全部混音或解码失败时结束会话，不能留下无声的独立景色播放器。
+        if sound.layers.isEmpty { stop() }
     }
 }

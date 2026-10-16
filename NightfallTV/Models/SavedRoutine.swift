@@ -27,12 +27,13 @@ struct SavedRoutine: Codable, Equatable, Identifiable {
     var sleepMinutes: Int
     var pictureOffMinutes: Int
 
-    /// 收敛个人方案参数；照片仅引用画廊，不复制用户的照片地址。
+    /// 兼容旧方案并迁移已移除的时钟和照片背景；空混音明确恢复为细雨。
     mutating func normalize() {
         name = String(name.trimmingCharacters(in: .whitespacesAndNewlines).prefix(40))
         if scene == .black { scene = .aurora; pictureOff = true }
-        if scene == .clock { scene = .aurora }
+        if scene == .clock || scene == .gallery { scene = .aurora }
         layers = SoundLayer.normalized(layers)
+        if layers.isEmpty { layers = [SoundLayer(sound: .rain)] }
         var preferences = Preferences()
         preferences.soundVolume = volume
         preferences.brightness = brightness
