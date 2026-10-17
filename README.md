@@ -4,6 +4,8 @@ An open-source Apple TV app for white noise, nature sounds, guided breathing, se
 
 原生 Apple TV 白噪音与助眠声音应用：15 种声音（11 种内置、4 种按需下载），含白噪音、粉噪音、棕噪音与真实自然录音。声景首页提供三层混音和 10/20 分钟自主静心；选择环境音即播放声音和实拍背景，控件显示十秒后隐藏，可关闭画面继续聆听。新增 5/10/20 分钟呼吸引导与可选系统语音节奏提示。全部功能与下载免费，无广告、无订阅。不提供语音课程、医疗诊断治疗或睡眠监测。
 
+[在 App Store 下载正式版](https://apps.apple.com/app/id6821692076) · [官方网站](https://zanwingmak.github.io/NightfallTV/) · [TestFlight 测试版](https://testflight.apple.com/join/FS1H6N5w)
+
 ![Nightfall TV 实际首页](docs/screens/library.png)
 
 实拍视频、预览与自然录音的作者、来源及许可见[完整素材署名](MEDIA_LICENSES.md)。
@@ -48,7 +50,7 @@ An open-source Apple TV app for white noise, nature sounds, guided breathing, se
 
 启动 Nightfall → 选择声景或混音 → 选择「关闭画面 · 继续听」，或开始 10/20 分钟自主静心。播放开始显示控制，十秒后隐藏；纯音频时确认键显示控制、返回键先隐藏控制再退出。退出或停止声音即结束会话。无本应用媒体播放时遵循 tvOS 的闲置设置；不保证只播放外部音乐时能无限维持静音黑屏。
 
-当前修复构建为 **1.4.0（14）**，针对 2.5.8 拒审移除了独立景色播放功能。商店是否可用以 Apple 审核结果为准。[公开 TestFlight 邀请](https://testflight.apple.com/join/FS1H6N5w)保留；外部可安装构建取决于 Apple Beta 审核。真机听感、背光和长时间播放由用户验收。
+**1.4.0 正式版已于 2026 年 10 月 17 日上架 App Store**（中国区和美国区已核实）。在 Apple TV 的 App Store 搜索「Nightfall：白噪音与助眠」或「Nightfall: Sleep & Sounds」，也可打开[正式商店链接](https://apps.apple.com/app/id6821692076)。需要 tvOS 17 或以上。[TestFlight](https://testflight.apple.com/join/FS1H6N5w)继续作为测试版入口。真机听感、背光和长时间播放由用户验收。
 
 [Apple 当前 TestFlight 安装指南](https://beta.itunes.apple.com/)要求 Apple TV 运行 tvOS 18 或以上（应用自身最低 tvOS 17）。邮件邀请需在手机或电脑打开取得兑换码，再到电视上的 TestFlight → Redeem 输入代码；详细安装和配对步骤见[回归文档](docs/回归测试.md#testflight-真机验收)。
 

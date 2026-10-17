@@ -162,7 +162,10 @@ const websiteTranslations = {
     "Guided breathing for 5, 10 or 20 minutes. Follow the circle, choose a sound and enable optional spoken rhythm cues. Pause, resume or continue listening with the picture off.": "5、10 或 20 分钟呼吸引导。跟随圆环、选择声景，可开启语音节奏提示。支持暂停、继续，以及关闭画面聆听。",
     "Optional breathing cues use the device’s system voice. The app never records your voice or requests microphone access.": "可选呼吸提示使用设备的系统语音。应用不录制你的声音，也不请求麦克风权限。",
     "Guided breathing": "呼吸引导",
-    "Optional system voice says when to breathe in and out, even with the picture off.": "可选系统语音提示吸气与呼气，关闭画面后也能跟随。"
+    "Optional system voice says when to breathe in and out, even with the picture off.": "可选系统语音提示吸气与呼气，关闭画面后也能跟随。",
+    "Download on the App Store ↗": "在 App Store 下载 ↗",
+    "For Apple TV · Free & open source · Now on the App Store": "为 Apple TV 而作 · 免费开源 · 已在 App Store 上架",
+    "Download Nightfall from the App Store on Apple TV. Open the link below or search for Nightfall: Sleep & Sounds on your TV. Requires tvOS 17 or later. TestFlight remains available for beta testing; developers can also build from GitHub.": "在 Apple TV 的 App Store 下载 Nightfall。打开下方链接，或在电视上搜索 Nightfall：白噪音与助眠。需要 tvOS 17 或以上。TestFlight 继续提供测试版，开发者也可从 GitHub 获取源码自行构建。"
   },
   "ja": {
     "00": "00",
@@ -327,7 +330,10 @@ const websiteTranslations = {
     "Guided breathing for 5, 10 or 20 minutes. Follow the circle, choose a sound and enable optional spoken rhythm cues. Pause, resume or continue listening with the picture off.": "5・10・20分の呼吸ガイド。円に合わせて呼吸し、音を選び、任意でリズムの音声案内を有効にできます。一時停止、再開、画面を消しての聴取に対応します。",
     "Optional breathing cues use the device’s system voice. The app never records your voice or requests microphone access.": "任意の呼吸案内にはデバイスのシステム音声を使います。声を録音せず、マイク権限も求めません。",
     "Guided breathing": "呼吸ガイド",
-    "Optional system voice says when to breathe in and out, even with the picture off.": "任意のシステム音声が吸う・吐くタイミングを案内します。画面を消しても続きます。"
+    "Optional system voice says when to breathe in and out, even with the picture off.": "任意のシステム音声が吸う・吐くタイミングを案内します。画面を消しても続きます。",
+    "Download on the App Store ↗": "App Store でダウンロード ↗",
+    "For Apple TV · Free & open source · Now on the App Store": "Apple TV 向け · 無料・オープンソース · App Store で配信中",
+    "Download Nightfall from the App Store on Apple TV. Open the link below or search for Nightfall: Sleep & Sounds on your TV. Requires tvOS 17 or later. TestFlight remains available for beta testing; developers can also build from GitHub.": "Apple TV の App Store で Nightfall をダウンロードできます。下のリンクを開くか、テレビで「Nightfall: Sleep & Sounds」を検索してください。tvOS 17 以降が必要です。ベータ版は引き続き TestFlight で利用でき、開発者は GitHub のソースからビルドできます。"
   },
   "ko": {
     "00": "00",
@@ -492,7 +498,10 @@ const websiteTranslations = {
     "Guided breathing for 5, 10 or 20 minutes. Follow the circle, choose a sound and enable optional spoken rhythm cues. Pause, resume or continue listening with the picture off.": "5분, 10분 또는 20분 호흡 안내. 원을 따라 호흡하고 소리를 선택하며 음성 리듬 안내를 켤 수 있습니다. 일시 정지, 계속하기, 화면 없이 듣기를 지원합니다.",
     "Optional breathing cues use the device’s system voice. The app never records your voice or requests microphone access.": "선택한 호흡 안내는 기기의 시스템 음성을 사용합니다. 앱은 목소리를 녹음하거나 마이크 권한을 요청하지 않습니다.",
     "Guided breathing": "호흡 안내",
-    "Optional system voice says when to breathe in and out, even with the picture off.": "선택한 시스템 음성이 들이쉬고 내쉴 때를 알려줍니다. 화면을 꺼도 계속됩니다."
+    "Optional system voice says when to breathe in and out, even with the picture off.": "선택한 시스템 음성이 들이쉬고 내쉴 때를 알려줍니다. 화면을 꺼도 계속됩니다.",
+    "Download on the App Store ↗": "App Store에서 다운로드 ↗",
+    "For Apple TV · Free & open source · Now on the App Store": "Apple TV용 · 무료 오픈 소스 · App Store 출시",
+    "Download Nightfall from the App Store on Apple TV. Open the link below or search for Nightfall: Sleep & Sounds on your TV. Requires tvOS 17 or later. TestFlight remains available for beta testing; developers can also build from GitHub.": "Apple TV의 App Store에서 Nightfall을 다운로드하세요. 아래 링크를 열거나 TV에서 Nightfall: Sleep & Sounds를 검색하세요. tvOS 17 이상이 필요합니다. TestFlight 베타도 계속 이용할 수 있으며 개발자는 GitHub 소스로 빌드할 수 있습니다."
   },
   "fr": {
     "00": "00",
@@ -657,7 +666,10 @@ const websiteTranslations = {
     "Guided breathing for 5, 10 or 20 minutes. Follow the circle, choose a sound and enable optional spoken rhythm cues. Pause, resume or continue listening with the picture off.": "Respiration guidée de 5, 10 ou 20 minutes. Suivez le cercle, choisissez un son et activez les repères vocaux facultatifs. Pause, reprise et écoute sans image sont disponibles.",
     "Optional breathing cues use the device’s system voice. The app never records your voice or requests microphone access.": "Les repères respiratoires facultatifs utilisent la voix système de l’appareil. L’app n’enregistre pas votre voix et ne demande pas l’accès au microphone.",
     "Guided breathing": "Respiration guidée",
-    "Optional system voice says when to breathe in and out, even with the picture off.": "La voix système facultative indique quand inspirer et expirer, même sans image."
+    "Optional system voice says when to breathe in and out, even with the picture off.": "La voix système facultative indique quand inspirer et expirer, même sans image.",
+    "Download on the App Store ↗": "Télécharger sur l’App Store ↗",
+    "For Apple TV · Free & open source · Now on the App Store": "Pour Apple TV · Gratuit et open source · Disponible sur l’App Store",
+    "Download Nightfall from the App Store on Apple TV. Open the link below or search for Nightfall: Sleep & Sounds on your TV. Requires tvOS 17 or later. TestFlight remains available for beta testing; developers can also build from GitHub.": "Téléchargez Nightfall sur l’App Store de votre Apple TV. Ouvrez le lien ci-dessous ou recherchez Nightfall: Sleep & Sounds sur votre téléviseur. Nécessite tvOS 17 ou ultérieur. La bêta reste disponible sur TestFlight ; les développeurs peuvent aussi compiler le code sur GitHub."
   },
   "de": {
     "00": "00",
@@ -822,7 +834,10 @@ const websiteTranslations = {
     "Guided breathing for 5, 10 or 20 minutes. Follow the circle, choose a sound and enable optional spoken rhythm cues. Pause, resume or continue listening with the picture off.": "Geführtes Atmen für 5, 10 oder 20 Minuten. Folge dem Kreis, wähle einen Klang und aktiviere auf Wunsch gesprochene Atemhinweise. Pausieren, fortsetzen und ohne Bild weiterhören sind möglich.",
     "Optional breathing cues use the device’s system voice. The app never records your voice or requests microphone access.": "Optionale Atemhinweise verwenden die Systemstimme des Geräts. Die App nimmt deine Stimme nicht auf und fordert keinen Mikrofonzugriff an.",
     "Guided breathing": "Geführtes Atmen",
-    "Optional system voice says when to breathe in and out, even with the picture off.": "Eine optionale Systemstimme begleitet Ein- und Ausatmen, auch bei ausgeschaltetem Bild."
+    "Optional system voice says when to breathe in and out, even with the picture off.": "Eine optionale Systemstimme begleitet Ein- und Ausatmen, auch bei ausgeschaltetem Bild.",
+    "Download on the App Store ↗": "Im App Store laden ↗",
+    "For Apple TV · Free & open source · Now on the App Store": "Für Apple TV · Kostenlos und quelloffen · Jetzt im App Store",
+    "Download Nightfall from the App Store on Apple TV. Open the link below or search for Nightfall: Sleep & Sounds on your TV. Requires tvOS 17 or later. TestFlight remains available for beta testing; developers can also build from GitHub.": "Lade Nightfall im App Store auf Apple TV. Öffne den Link unten oder suche auf deinem Fernseher nach Nightfall: Sleep & Sounds. Erfordert tvOS 17 oder neuer. TestFlight bleibt für Betatests verfügbar; Entwickler können den Quellcode von GitHub selbst kompilieren."
   },
   "es": {
     "00": "00",
@@ -987,7 +1002,10 @@ const websiteTranslations = {
     "Guided breathing for 5, 10 or 20 minutes. Follow the circle, choose a sound and enable optional spoken rhythm cues. Pause, resume or continue listening with the picture off.": "Respiración guiada de 5, 10 o 20 minutos. Sigue el círculo, elige un sonido y activa indicaciones de voz opcionales. Puedes pausar, reanudar o escuchar sin imagen.",
     "Optional breathing cues use the device’s system voice. The app never records your voice or requests microphone access.": "Las indicaciones opcionales usan la voz del sistema del dispositivo. La app no graba tu voz ni solicita acceso al micrófono.",
     "Guided breathing": "Respiración guiada",
-    "Optional system voice says when to breathe in and out, even with the picture off.": "La voz opcional del sistema indica cuándo inspirar y espirar, incluso sin imagen."
+    "Optional system voice says when to breathe in and out, even with the picture off.": "La voz opcional del sistema indica cuándo inspirar y espirar, incluso sin imagen.",
+    "Download on the App Store ↗": "Descargar en el App Store ↗",
+    "For Apple TV · Free & open source · Now on the App Store": "Para Apple TV · Gratis y de código abierto · Ya en el App Store",
+    "Download Nightfall from the App Store on Apple TV. Open the link below or search for Nightfall: Sleep & Sounds on your TV. Requires tvOS 17 or later. TestFlight remains available for beta testing; developers can also build from GitHub.": "Descarga Nightfall en el App Store de Apple TV. Abre el enlace o busca Nightfall: Sleep & Sounds en tu televisor. Requiere tvOS 17 o posterior. La beta sigue disponible en TestFlight; los desarrolladores también pueden compilar el código de GitHub."
   },
   "it": {
     "00": "00",
@@ -1152,7 +1170,10 @@ const websiteTranslations = {
     "Guided breathing for 5, 10 or 20 minutes. Follow the circle, choose a sound and enable optional spoken rhythm cues. Pause, resume or continue listening with the picture off.": "Respiro guidato per 5, 10 o 20 minuti. Segui il cerchio, scegli un suono e attiva le indicazioni vocali facoltative. Puoi mettere in pausa, riprendere o ascoltare senza immagine.",
     "Optional breathing cues use the device’s system voice. The app never records your voice or requests microphone access.": "Le indicazioni facoltative usano la voce di sistema del dispositivo. L’app non registra la tua voce e non richiede accesso al microfono.",
     "Guided breathing": "Respiro guidato",
-    "Optional system voice says when to breathe in and out, even with the picture off.": "La voce di sistema facoltativa indica quando inspirare ed espirare, anche senza immagine."
+    "Optional system voice says when to breathe in and out, even with the picture off.": "La voce di sistema facoltativa indica quando inspirare ed espirare, anche senza immagine.",
+    "Download on the App Store ↗": "Scarica su App Store ↗",
+    "For Apple TV · Free & open source · Now on the App Store": "Per Apple TV · Gratuito e open source · Ora su App Store",
+    "Download Nightfall from the App Store on Apple TV. Open the link below or search for Nightfall: Sleep & Sounds on your TV. Requires tvOS 17 or later. TestFlight remains available for beta testing; developers can also build from GitHub.": "Scarica Nightfall dall’App Store su Apple TV. Apri il link qui sotto o cerca Nightfall: Sleep & Sounds sul televisore. Richiede tvOS 17 o successivo. La beta resta disponibile su TestFlight; gli sviluppatori possono anche compilare il codice da GitHub."
   },
   "pt-BR": {
     "00": "00",
@@ -1317,7 +1338,10 @@ const websiteTranslations = {
     "Guided breathing for 5, 10 or 20 minutes. Follow the circle, choose a sound and enable optional spoken rhythm cues. Pause, resume or continue listening with the picture off.": "Respiração guiada de 5, 10 ou 20 minutos. Siga o círculo, escolha um som e ative orientações de voz opcionais. Pause, retome ou continue ouvindo sem imagem.",
     "Optional breathing cues use the device’s system voice. The app never records your voice or requests microphone access.": "As orientações opcionais usam a voz do sistema do dispositivo. O app não grava sua voz nem solicita acesso ao microfone.",
     "Guided breathing": "Respiração guiada",
-    "Optional system voice says when to breathe in and out, even with the picture off.": "A voz opcional do sistema orienta quando inspirar e expirar, mesmo sem imagem."
+    "Optional system voice says when to breathe in and out, even with the picture off.": "A voz opcional do sistema orienta quando inspirar e expirar, mesmo sem imagem.",
+    "Download on the App Store ↗": "Baixar na App Store ↗",
+    "For Apple TV · Free & open source · Now on the App Store": "Para Apple TV · Grátis e de código aberto · Já na App Store",
+    "Download Nightfall from the App Store on Apple TV. Open the link below or search for Nightfall: Sleep & Sounds on your TV. Requires tvOS 17 or later. TestFlight remains available for beta testing; developers can also build from GitHub.": "Baixe Nightfall na App Store da Apple TV. Abra o link abaixo ou procure Nightfall: Sleep & Sounds na sua TV. Requer tvOS 17 ou posterior. A versão beta continua no TestFlight; desenvolvedores também podem compilar o código do GitHub."
   },
   "ru": {
     "00": "00",
@@ -1482,7 +1506,10 @@ const websiteTranslations = {
     "Guided breathing for 5, 10 or 20 minutes. Follow the circle, choose a sound and enable optional spoken rhythm cues. Pause, resume or continue listening with the picture off.": "Дыхательная практика на 5, 10 или 20 минут. Следуйте кругу, выберите звук и при желании включите голосовые подсказки. Можно сделать паузу, продолжить или слушать без изображения.",
     "Optional breathing cues use the device’s system voice. The app never records your voice or requests microphone access.": "Необязательные подсказки используют системный голос устройства. Приложение не записывает ваш голос и не запрашивает доступ к микрофону.",
     "Guided breathing": "Дыхательная практика",
-    "Optional system voice says when to breathe in and out, even with the picture off.": "Необязательный системный голос подсказывает вдох и выдох даже без изображения."
+    "Optional system voice says when to breathe in and out, even with the picture off.": "Необязательный системный голос подсказывает вдох и выдох даже без изображения.",
+    "Download on the App Store ↗": "Загрузить в App Store ↗",
+    "For Apple TV · Free & open source · Now on the App Store": "Для Apple TV · Бесплатно, с открытым кодом · Уже в App Store",
+    "Download Nightfall from the App Store on Apple TV. Open the link below or search for Nightfall: Sleep & Sounds on your TV. Requires tvOS 17 or later. TestFlight remains available for beta testing; developers can also build from GitHub.": "Загрузите Nightfall из App Store на Apple TV. Откройте ссылку ниже или найдите Nightfall: Sleep & Sounds на телевизоре. Требуется tvOS 17 или новее. Бета-версия по-прежнему доступна в TestFlight; разработчики могут собрать приложение из исходного кода на GitHub."
   },
   "ar": {
     "00": "00",
@@ -1647,7 +1674,10 @@ const websiteTranslations = {
     "Guided breathing for 5, 10 or 20 minutes. Follow the circle, choose a sound and enable optional spoken rhythm cues. Pause, resume or continue listening with the picture off.": "تنفّس موجّه لمدة ٥ أو ١٠ أو ٢٠ دقيقة. اتبع الدائرة واختر صوتًا وفعّل إرشادات الإيقاع الصوتية اختياريًا. يمكنك الإيقاف المؤقت والاستئناف أو الاستماع دون صورة.",
     "Optional breathing cues use the device’s system voice. The app never records your voice or requests microphone access.": "تستخدم إرشادات التنفّس الاختيارية صوت نظام الجهاز. لا يسجّل التطبيق صوتك ولا يطلب الوصول إلى الميكروفون.",
     "Guided breathing": "تنفّس موجّه",
-    "Optional system voice says when to breathe in and out, even with the picture off.": "يمكن لصوت النظام إرشاد الشهيق والزفير، حتى عند إطفاء الصورة."
+    "Optional system voice says when to breathe in and out, even with the picture off.": "يمكن لصوت النظام إرشاد الشهيق والزفير، حتى عند إطفاء الصورة.",
+    "Download on the App Store ↗": "تنزيل من App Store ↗",
+    "For Apple TV · Free & open source · Now on the App Store": "لـ Apple TV · مجاني ومفتوح المصدر · متاح الآن على App Store",
+    "Download Nightfall from the App Store on Apple TV. Open the link below or search for Nightfall: Sleep & Sounds on your TV. Requires tvOS 17 or later. TestFlight remains available for beta testing; developers can also build from GitHub.": "نزّل Nightfall من App Store على Apple TV. افتح الرابط أدناه أو ابحث عن Nightfall: Sleep & Sounds على التلفاز. يتطلب tvOS 17 أو أحدث. تظل النسخة التجريبية متاحة عبر TestFlight، ويمكن للمطورين البناء من المصدر على GitHub."
   },
   "hi": {
     "00": "00",
@@ -1812,7 +1842,10 @@ const websiteTranslations = {
     "Guided breathing for 5, 10 or 20 minutes. Follow the circle, choose a sound and enable optional spoken rhythm cues. Pause, resume or continue listening with the picture off.": "5, 10 या 20 मिनट का निर्देशित श्वास अभ्यास। वृत्त का अनुसरण करें, ध्वनि चुनें और वैकल्पिक बोले गए लय संकेत चालू करें। रोकें, जारी रखें या चित्र बंद करके सुनें।",
     "Optional breathing cues use the device’s system voice. The app never records your voice or requests microphone access.": "वैकल्पिक श्वास संकेत डिवाइस की सिस्टम आवाज़ का उपयोग करते हैं। ऐप आपकी आवाज़ रिकॉर्ड नहीं करता और माइक्रोफ़ोन की अनुमति नहीं माँगता।",
     "Guided breathing": "निर्देशित श्वास",
-    "Optional system voice says when to breathe in and out, even with the picture off.": "वैकल्पिक सिस्टम आवाज़ साँस अंदर लेने और बाहर छोड़ने का समय बताती है, चित्र बंद होने पर भी।"
+    "Optional system voice says when to breathe in and out, even with the picture off.": "वैकल्पिक सिस्टम आवाज़ साँस अंदर लेने और बाहर छोड़ने का समय बताती है, चित्र बंद होने पर भी।",
+    "Download on the App Store ↗": "App Store से डाउनलोड करें ↗",
+    "For Apple TV · Free & open source · Now on the App Store": "Apple TV के लिए · मुफ़्त और ओपन सोर्स · अब App Store पर",
+    "Download Nightfall from the App Store on Apple TV. Open the link below or search for Nightfall: Sleep & Sounds on your TV. Requires tvOS 17 or later. TestFlight remains available for beta testing; developers can also build from GitHub.": "Apple TV के App Store से Nightfall डाउनलोड करें। नीचे दिया लिंक खोलें या अपने टीवी पर Nightfall: Sleep & Sounds खोजें। tvOS 17 या बाद का संस्करण आवश्यक है। बीटा परीक्षण के लिए TestFlight उपलब्ध है; डेवलपर GitHub के स्रोत से भी ऐप बना सकते हैं।"
   },
   "zh-Hant": {
     "Privacy policy · Nightfall TV": "隱私政策 · Nightfall Sleep",
@@ -1977,6 +2010,9 @@ const websiteTranslations = {
     "Guided breathing for 5, 10 or 20 minutes. Follow the circle, choose a sound and enable optional spoken rhythm cues. Pause, resume or continue listening with the picture off.": "5、10 或 20 分鐘呼吸引導。跟隨圓環、選擇聲景，可開啟語音節奏提示。支援暫停、繼續，以及關閉畫面聆聽。",
     "Optional breathing cues use the device’s system voice. The app never records your voice or requests microphone access.": "可選呼吸提示使用裝置的系統語音。App 不錄製你的聲音，也不要求麥克風權限。",
     "Guided breathing": "呼吸引導",
-    "Optional system voice says when to breathe in and out, even with the picture off.": "可選系統語音提示吸氣與呼氣，關閉畫面後也能跟隨。"
+    "Optional system voice says when to breathe in and out, even with the picture off.": "可選系統語音提示吸氣與呼氣，關閉畫面後也能跟隨。",
+    "Download on the App Store ↗": "在 App Store 下載 ↗",
+    "For Apple TV · Free & open source · Now on the App Store": "為 Apple TV 而作 · 免費開源 · 已在 App Store 上架",
+    "Download Nightfall from the App Store on Apple TV. Open the link below or search for Nightfall: Sleep & Sounds on your TV. Requires tvOS 17 or later. TestFlight remains available for beta testing; developers can also build from GitHub.": "在 Apple TV 的 App Store 下載 Nightfall。開啟下方連結，或在電視搜尋 Nightfall：白噪音與助眠。需要 tvOS 17 或以上。TestFlight 繼續提供測試版，開發者也可從 GitHub 取得原始碼自行建置。"
   }
 };
